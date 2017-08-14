@@ -1,0 +1,42 @@
+#======================================================================#
+#----------------Configuration File for Spectral Analysis--------------#
+#----------------------------------------------------------------------#
+#
+#
+# This file incorporates all configuration parameters for the following scripts:
+# map_eval.py
+# 
+# Please keep in mind, that all Kommas in Map-Data have to be converted to dots.
+# Example: 12,234235 -> 12.234235
+
+# -- Experimental Parameters
+# these include all quantities and qualities, universal and equal in all datasets
+# All manipulations and evaluations use the target_path while the data is fetched
+# from the source_path but not altered there. 
+ 
+general:
+        source_path: "V:\\temp\\Foerste\\SpectralAnalysis\\Core\\Spectral_Eval\\Python\\" #path of the data-folder
+        target_path: "V:\\temp\\Foerste\\SpectralAnalysis\\Core\\Spectral_Eval\\Python\\test\\" #path of the evaluation
+        temperature: 4           #temperature in K
+        laser: "WLS"
+        objective: "unknown"
+        setup: "confocal"
+        excitation: 530
+        bandwidth: 10
+        background: 98
+#Map-Evaluation
+
+map_paras:
+        file: "DCmap_hBN-WS2-hBN_4K_100uW_532nm_50x50x10s-50x50V.txt"
+        dimensions: 50
+        background: 98
+
+auto_paras:
+        use_auto: 'TRUE'
+
+spec_paras: #Boolean paramenters checked from top -> bottom. Checked for 'TRUE'
+        seperator: ' '
+        convert_to_energy: 'TRUE'
+        normalize: 'TRUE'
+        convert_to_rate: 'TRUE'
+        exposure: 300 #seconds
