@@ -79,8 +79,8 @@ def plot_all_spectra():
         plot_data.yaxis.set_major_locator(yloc)
         count = 0
         for i, j in parameters.items():
-            plot_data.text(data.index[10],data.max()*(0.95-0.04*count), i)
-            plot_data.text(data.index[300],data.max()*(0.95-0.04*count), j)
+            plot_data.text(data.index[10],data.max()*(0.95-0.05*count), i)
+            plot_data.text(data.index[300],data.max()*(0.95-0.05*count), j)
             count = count + 1
             print(count)
         fig = plot_data.get_figure()

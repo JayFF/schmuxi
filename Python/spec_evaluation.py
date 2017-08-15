@@ -9,7 +9,7 @@ from autofind_paras import find_parameters
 
 config_source =  "spec_config.yml"
 
-
+# check the config-file for variables. Most are later replaced by automatically found parameters. (Can be adjusted for performance)
 with open(config_source, 'r') as configfile:
     cfg = yaml.load(configfile)
     source = cfg["general"]["target_path"]
@@ -23,20 +23,23 @@ with open(config_source, 'r') as configfile:
     cosmic_factor = cfg["auto_paras"]["cosmic_factor"]
     cosmic_distance = cfg["auto_paras"]["cosmic_distance"]
 
+#loads a txt-file and parses a pandas-Dataframe
 def load_file(filename):
     data = pd.read_csv(filename,seperator,header = None)
-    print(data.head(5))
     return(data)
 
+#identifies spectra by checking if the word "DCmap" is not in the file-name, which would identify a map.
 def list_of_spectra(source):
     chdir(source)
     files_list = glob('*.txt')
     spec_list = [entry for entry in files_list if "DCmap" not in entry]
     print(files_list)
-    print(spec_list)
+    print("List of identified spectra:\n" + spec_list)
     return(spec_list)
 
 def plot_all_spectra():
+
+    #iterate over all txt-files, that  are identified as spectra.
     for spec in list_of_spectra(source):
         parameters = find_parameters(spec, cfg)
         data = load_file(source + spec)
