@@ -5,6 +5,7 @@
 #---It also updates the automatic parameter-section in spec_config.yml (Not Yet):w
 
 import os
+from os import chdir
 import yaml
 from glob import glob
 import re
@@ -18,7 +19,7 @@ with open(config_source, 'r') as configfile:
     target = cfg["general"]["target_path"]
 
 def replace_garbage():
-
+    chdir(source)
     files_list = glob('*.txt')
     print (files_list)
     for a_file in sorted(files_list):

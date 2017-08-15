@@ -15,28 +15,34 @@
 # from the source_path but not altered there. 
  
 general:
-        source_path: "V:\\temp\\Foerste\\SpectralAnalysis\\Core\\Spectral_Eval\\Python\\" #path of the data-folder
-        target_path: "V:\\temp\\Foerste\\SpectralAnalysis\\Core\\Spectral_Eval\\Python\\test\\" #path of the evaluation
-        temperature: 4           #temperature in K
+        source_path: "V:\\temp\\Foerste\\SpectralAnalysis\\Core\\Spectral_Eval\\Python\\test\\" #path of the data-folder
+        target_path: "V:\\temp\\Foerste\\SpectralAnalysis\\Core\\Spectral_Eval\\Python\\test\\results\\" #path of the evaluation
+        background: 98 #Counts
         laser: "WLS"
         objective: "unknown"
         setup: "confocal"
         excitation: 530
         bandwidth: 10
-        background: 98
+        repetition: 78 #MHz
+        temperature: 4 #K
+        power: 10 #mW
 #Map-Evaluation
 
 map_paras:
         file: "DCmap_hBN-WS2-hBN_4K_100uW_532nm_50x50x10s-50x50V.txt"
         dimensions: 50
-        background: 98
 
 auto_paras:
         use_auto: 'TRUE'
+        erase_cosmics: 'TRUE'
+        cosmic_factor: 5 #point has to be 10x its neighbours
+        cosmic_distance: 7 #distance of the neighbours
+        cosmic_repetition: 7 # number of checks
 
 spec_paras: #Boolean paramenters checked from top -> bottom. Checked for 'TRUE'
-        seperator: ' '
+        seperator: ' ' #seperator, that will be inserted by pretreatment.py
         convert_to_energy: 'TRUE'
         normalize: 'FALSE'
         convert_to_rate: 'TRUE'
-        exposure: 300 #seconds
+        exposure: 300 #seconds -- automatically checked
+        background: 98
