@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 import re
 from autofind_paras import find_parameters
 
+#configuration file, that is searched for in the same folder. Includes manually set parameters, including paths.
 config_source =  "spec_config.yml"
 
 # check the config-file for variables. Most are later replaced by automatically found parameters. (Can be adjusted for performance)
@@ -30,18 +31,36 @@ def load_file(filename):
 
 #identifies spectra by checking if the word "DCmap" is not in the file-name, which would identify a map.
 def list_of_spectra(source):
+
+    #change to directory of the source-files
     chdir(source)
+
+    #create a list of all txt-files in the folder
     files_list = glob('*.txt')
+
+    #check if files include the word "DC-map", indicating a map, not a single spectrum.
     spec_list = [entry for entry in files_list if "DCmap" not in entry]
-    print(files_list)
-    print("List of identified spectra:\n" + spec_list)
+    
+    #returns a list of files, that sould only include spectra. As of now it includes every txt.-file that does 
+    #not identify itself as a DC-Map.
     return(spec_list)
 
-def plot_all_spectra():
+#def background
+
+#This method goes through the target-folder, stated in the config-file (which should include only pretreated files)
+#and plots every spectrum to an image file. It adjusts according to specifications in the config file and uses
+#autofind_paras.py to find every experimental parameter from the name of the txt-file.
+def plot_all_spectra(source):
+    
 
     #iterate over all txt-files, that  are identified as spectra.
     for spec in list_of_spectra(source):
+
+        #use auto_parameters.py to find parameters in the file name
         parameters = find_parameters(spec, cfg)
+
+        #load data
+        #data = pd.read_csv(source + spec)
         data = load_file(source + spec)
 
         data.columns = ["Wavelength [nm]","Intensity [arb.]"]
@@ -90,4 +109,4 @@ def plot_all_spectra():
         fig.savefig(spec[:-4] + '.png')
 
 if __name__ == '__main__':
-    plot_all_spectra()
+    plot_all_spectra(source)
