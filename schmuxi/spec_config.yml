@@ -15,17 +15,17 @@
 # from the source_path but not altered there. 
  
 general:
-        source_path: "V:\\temp\\Foerste\\SpectralAnalysis\\Core\\Spectral_Eval\\Python\\test\\" #path of the data-folder
-        target_path: "V:\\temp\\Foerste\\SpectralAnalysis\\Core\\Spectral_Eval\\Python\\test\\results\\" #path of the evaluation
+        source_path: "V:\\temp\\Foerste\\SpectralAnalysis\\Core\\test\\" #path of the data-folder
+        target_path: "V:\\temp\\Foerste\\SpectralAnalysis\\Core\\test\\results\\" #path of the evaluation
         background: 98 #Counts
         laser: "WLS"
         objective: "unknown"
         setup: "confocal"
-        excitation: 530
-        bandwidth: 10
-        repetition: 78 #MHz
+        excitation: #530
+        bandwidth: #10
+        repetition: #78 #MHz
         temperature: 4 #K
-        power: 10 #mW
+        power: #10 #mW
 #Map-Evaluation
 
 map_paras:
@@ -42,7 +42,14 @@ auto_paras:
 spec_paras: #Boolean paramenters checked from top -> bottom. Checked for 'TRUE'
         seperator: ' ' #seperator, that will be inserted by pretreatment.py
         convert_to_energy: 'TRUE'
-        normalize: 'FALSE'
-        convert_to_rate: 'TRUE'
-        exposure: 300 #seconds -- automatically checked
+        normalize: 'TRUE'
+        convert_to_rate: 'FALSE'
+        exposure: #300 #seconds -- automatically checked
         background: 98
+
+reference:
+        offset: 0.017
+        use: "TRUE"
+        ref_name: "Toulouse"
+        plot_name: "homemade"
+        name: "Reference-WS2.txt"        
