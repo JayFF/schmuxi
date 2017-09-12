@@ -1,3 +1,6 @@
+'''Turns your raw txt-spectrum of spectra into graphics for your labbook or
+publication
+'''
 # import numpy as np
 import pandas as pd
 import yaml
@@ -13,9 +16,10 @@ default_config = "spec_config.yml"
 
 
 class Experiment:
-
+    '''Represents an experimental session and contains parameters and methods
+    to process and publish its results'''
     def auto_config(self, config_source):
-    """creates a dictionary of configuration parameters out of given path"""
+        """creates a dictionary of configuration parameters out of given path"""
         config = None
 
         # fallback to default config if no file can be found
@@ -32,7 +36,7 @@ class Experiment:
 
 
     def load_config(self, config_source):
-    """loads yml-file and turns it into a dict"""
+        """loads yml-file and turns it into a dict"""
         with open(config_source, 'r') as configfile:
             config = yaml.load(configfile)
 
@@ -54,7 +58,8 @@ class Experiment:
         cosmic_factor = 10,
         cosmic_distance = 5,
         reference = None):
-
+        '''initializies experimental parameters and
+        processing-configuration.'''
 
         if auto_config is True:
 
@@ -92,86 +97,91 @@ class Experiment:
                 self.cosmic_factor = cosmic_factor
                 self.cosmic_distance = cosmic_distance
 
-                self.reference = reference]
+                self.reference = reference
+        self.spectra = list_of_spectra(source)
 
-    def load_file(self, seperator=self.seperator, filename):
+    def load_file(self, filename, seperator):
+        '''reads a csv-file into a pandas.Dataframe'''
+        spectrum = pd.read_csv(filename, seperator, header=None)
 
-        data = pd.read_csv(filename, seperator, header=None)
-
-        return(data)
+        return(spectrum)
 
 
-def list_of_spectra(source):
-
+    def list_of_spectra(self, source):
+        '''Checks the filenames of txt-files to find Data corresponding to single
+        spectra.'''
         chdir(source)
         files_list = glob('*.txt')
 
         # does not include spectral maps.
-        spec_list = [entry for entry in files_list if "DCmap" not in entry]
+        spectra = [entry for entry in files_list if "DCmap" not in entry]
 
-        return(spec_list)
+        return(spectra)
 
 # def background
 
 
 
-def cosmic_erase(
-    data,
-    cosmic_cycles,
-    cosmic_distance,
-    cosmic_factor):
-
-    for i in range(cosmic_cycles):
-        if data.iat[data.idxmax()[1], 1] > cosmic_factor * data.iat[data.idxmax()[1]+cosmic_distance, 1]:
-            data.set_value(data.idxmax()[1], list(data)[1], (data.iat[data.idxmax()[1]-cosmic_distance,1] + data.iat[data.idxmax()[1]+cosmic_distance, 1]))
-
-    return(data)
-
-
-
-def plot_spectrum(spec, cfg, source):
-
-    #use auto_parameters.py to find parameters in the file name
-    parameters = find_parameters(spec, cfg)
-
-    #data = pd.read_csv(source + spec)
-    data = load_file(source + spec)
-
-    data.columns = ["Wavelength [nm]","Intensity [arb.]"]
-    #data = data.set_index("Wavelength [nm]")
-    print(data.head(5))
-
-    data['Intensity [arb.]'] = data['Intensity [arb.]'] - background
-
-    data = cosmic_erase(
-        data,
+    def cosmic_erase(
+        spectrum,
         cosmic_cycles,
         cosmic_distance,
-        cosmic_factor)
+        cosmic_factor):
+        '''Routine for erasing "cosmics", random high intensity peaks'''
+        for i in range(cosmic_cycles):
+            if spectrum.iat[spectrum.idxmax()[1], 1] > cosmic_factor * spectrum.iat[spectrum.idxmax()[1]+cosmic_distance, 1]:
+                spectrum.set_value(spectrum.idxmax()[1], list(spectrum)[1], (spectrum.iat[spectrum.idxmax()[1]-cosmic_distance,1] + spectrum.iat[spectrum.idxmax()[1]+cosmic_distance, 1]))
+
+        return(spectrum)
+
+
+
+    def plot_spectrum(spec, cfg, source):
+        '''plots a single spectrum into png-file of the same name, according to the experimental configuration.
+    
+        Can read the experimental parameters from the filename or use global
+        parameters'''
+        #use auto_parameters.py to find parameters in the file name
+        parameters = find_parameters(spec, cfg)
+
+        #spectrum = pd.read_csv(source + spec)
+        spectrum = load_file(source + spec)
+
+        spectrum.columns = ["Wavelength [nm]","Intensity [arb.]"]
+        #spectrum = spectrum.set_index("Wavelength [nm]")
+        print(spectrum.head(5))
+
+        spectrum['Intensity [arb.]'] = spectrum['Intensity [arb.]'] - background
+
+        spectrum = cosmic_erase(
+            spectrum,
+            cosmic_cycles,
+            cosmic_distance,
+            cosmic_factor)
 
 
     if convert_to_energy == ('TRUE' or 'true'):
-        print(list(data))
-        data.rename(columns={"Wavelength [nm]": 'Energy [eV]'}, inplace=True)
-        print(data.head(5))
-        data['Energy [eV]'] = 1239.82/data['Energy [eV]']
-        data = data.sort_values("Energy [eV]", axis=0)
-        data.set_index("Energy [eV]", inplace=True)
+        print(list(spectrum))
+        spectrum.rename(columns={"Wavelength [nm]": 'Energy [eV]'}, inplace=True)
+        print(spectrum.head(5))
+        spectrum['Energy [eV]'] = 1239.82/spectrum['Energy [eV]']
+        spectrum = spectrum.sort_values("Energy [eV]", axis=0)
+        spectrum.set_index("Energy [eV]", inplace=True)
     else:
-        data.set_index("Wavelength [nm]", inplace=True)
+        spectrum.set_index("Wavelength [nm]", inplace=True)
     if normalize == ('TRUE' or 'true'):
-        data.rename(columns={list(data)[0]: "Intensity [norm.]"}, inplace=True)
-        data = data/data.max()
+        spectrum.rename(columns={list(spectrum)[0]: "Intensity [norm.]"}, inplace=True)
+        spectrum = spectrum/spectrum.max()
     elif convert_to_rate == ('TRUE' or 'true'):
         if re.match(".*[0-9]*s.*", spec):
             exposure = float(re.search("[0-9]*s", spec).group()[:-1])
             print(exposure)
-        data.rename(columns={"Intensity [arb.]": "Counts p.s."}, inplace=True)
-        data = data/exposure
+        spectrum.rename(columns={"Intensity [arb.]": "Counts p.s."}, inplace=True)
+        spectrum = spectrum/exposure
 
     plt.style.use('classic')
-    #plot_data = data.plot.line(legend=False)
-    plot_data = data.plot.line()
+    #plot_spectrum = spectrum.plot.line(legend=False)
+    plot_spectrum = spectrum.plot.line()
 
     if cfg["reference"]["use"] == ('TRUE' or 'true' or 'True'):
 
@@ -179,34 +189,36 @@ def plot_spectrum(spec, cfg, source):
         reference_plot.columns = ["Energy","Intensity"]
         reference_plot["Energy"] = reference_plot["Energy"] + cfg["reference"]["offset"]
         reference_plot.set_index(list(reference_plot)[0], inplace=True)
-        reference_plot.plot(ax=plot_data)
+        reference_plot.plot(ax=plot_spectrum)
 
         mylabels = [cfg["reference"]["plot_name"], cfg["reference"]["ref_name"]]
-        plot_data.legend(labels=mylabels)
+        plot_spectrum.legend(labels=mylabels)
 
-    plot_data.set_xlabel(data.index.name)
-    plot_data.set_ylabel(list(data)[0])
+    plot_spectrum.set_xlabel(spectrum.index.name)
+    plot_spectrum.set_ylabel(list(spectrum)[0])
     yloc = plt.MaxNLocator(3)
-    plot_data.yaxis.set_major_locator(yloc)
-    print(data.index[0])
+    plot_spectrum.yaxis.set_major_locator(yloc)
+    print(spectrum.index[0])
 
-    plot_data.set_xlim(left=data.index[0], right=data.index[-1])
+    plot_spectrum.set_xlim(left=spectrum.index[0], right=spectrum.index[-1])
 
     count = 0
     for i, j in parameters.items():
-        plt.text(data.index[10],data.max()*(0.95-0.05*count), i)
-        plt.text(data.index[300],data.max()*(0.95-0.05*count), j)
+        plt.text(spectrum.index[10],spectrum.max()*(0.95-0.05*count), i)
+        plt.text(spectrum.index[300],spectrum.max()*(0.95-0.05*count), j)
         count = count + 1
         print(count)
-    fig = plot_data.get_figure()
+    fig = plot_spectrum.get_figure()
     fig.savefig(spec[:-4] + '.png')
 
 
 
 def plot_all_spectra(source):
-
+    '''"One-Click"-function to publish every spectrum in the
+    working-directory'''
     for spec in list_of_spectra(source):
         plot_spectrum(spec, cfg, source)
 
 if __name__ == '__main__':
+    Session = Experiment()
     plot_all_spectra(source)
