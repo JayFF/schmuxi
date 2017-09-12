@@ -37,7 +37,7 @@ auto_paras:
         erase_cosmics: 'TRUE'
         cosmic_factor: 5 #point has to be 10x its neighbours
         cosmic_distance: 7 #distance of the neighbours
-        cosmic_repetition: 7 # number of checks
+        cosmic_cycles: 7 # number of checks
 
 spec_paras: #Boolean paramenters checked from top -> bottom. Checked for 'TRUE'
         seperator: ' ' #seperator, that will be inserted by pretreatment.py

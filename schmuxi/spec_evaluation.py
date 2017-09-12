@@ -1,70 +1,139 @@
-import numpy as np
+# import numpy as np
 import pandas as pd
 import yaml
 from glob import glob
 from os import chdir
+import os
 import matplotlib.pyplot as plt
 import re
 from autofind_paras import find_parameters
 
-#configuration file, that is searched for in the same folder. Includes manually set parameters, including paths.
-config_source =  "spec_config.yml"
 
-# check the config-file for variables. Most are later replaced by automatically found parameters. (Can be adjusted for performance)
-with open(config_source, 'r') as configfile:
-    cfg = yaml.load(configfile)
-    source = cfg["general"]["target_path"]
-    seperator = cfg["spec_paras"]["seperator"]
-    background = cfg["spec_paras"]["background"]
-    convert_to_energy = cfg["spec_paras"]["convert_to_energy"]
-    convert_to_rate = cfg["spec_paras"]["convert_to_rate"]
-    normalize = cfg["spec_paras"]["normalize"]
-    exposure = cfg["spec_paras"]["exposure"]
-    cosmic_repetition = cfg["auto_paras"]["cosmic_repetition"]
-    cosmic_factor = cfg["auto_paras"]["cosmic_factor"]
-    cosmic_distance = cfg["auto_paras"]["cosmic_distance"]
-    reference = cfg["reference"]["name"]
+default_config = "spec_config.yml"
 
-#loads a txt-file and parses a pandas-Dataframe
-def load_file(filename):
-    data = pd.read_csv(filename,seperator,header = None)
-    return(data)
 
-#identifies spectra by checking if the word "DCmap" is not in the file-name, which would identify a map.
+class Experiment:
+
+    def auto_config(self, config_source):
+    """creates a dictionary of configuration parameters out of given path"""
+        config = None
+
+        # fallback to default config if no file can be found
+        try:
+            config = self.load_config(config_source)
+        except IOError:
+            print("No configuration-file found. Using default-configuration.")
+            try:
+                config = self.load_config(os.path.dirname(os.abspath(__file__))+"/"+default_config)
+            except IOError:
+                print("Someone messed with the default-configuration file. It cannot be found.")
+            else: return(config)
+        else: return(config)
+
+
+    def load_config(self, config_source):
+    """loads yml-file and turns it into a dict"""
+        with open(config_source, 'r') as configfile:
+            config = yaml.load(configfile)
+
+        return(config)
+
+    def __init__(
+        self,
+        auto_config = True,
+        config_source = "spec_config.yml",
+        source = os.getcwd(),
+        working_dir = os.getcwd(),
+        seperator = " ",
+        background = 0,
+        convert_to_energy = "TRUE",
+        convert_to_rate = "TRUE",
+        normalize = "FALSE",
+        exposure = 0,
+        cosmic_cycles = 5,
+        cosmic_factor = 10,
+        cosmic_distance = 5,
+        reference = None):
+
+
+        if auto_config is True:
+
+            try:
+                config = self.auto_config(config_source)
+            except:
+                print("Auto-Configuration failed.")
+            else:
+                self.config = config
+                self.working_dir = config["general"]["working_dir"]
+                self.seperator = config["spec_paras"]["seperator"]
+                self.background = config["spec_paras"]["background"]
+                self.convert_to_energy = config["spec_paras"]["convert_to_energy"]
+                self.convert_to_rate = config["spec_paras"]["convert_to_rate"]
+                self.normalize = config["spec_paras"]["normalize"]
+                self.source = config["general"]["source_path"]
+                self.exposure = config["spec_paras"]["exposure"]
+
+                self.cosmic_cycles = config["auto_paras"]["cosmic_cycles"]
+                self.cosmic_factor = config["auto_paras"]["cosmic_factor"]
+                self.cosmic_distance = config["auto_paras"]["cosmic_distance"]
+
+                self.reference = config["reference"]["name"]
+        else:
+                self.working_dir = working_dir
+                self.seperator = seperator
+                self.background = background
+                self.convert_to_energy = convert_to_energy
+                self.convert_to_rate = convert_to_rate
+                self.normalize = normalize
+                self.source = source
+                self.exposure = exposure
+
+                self.cosmic_cycles = cosmic_cycles
+                self.cosmic_factor = cosmic_factor
+                self.cosmic_distance = cosmic_distance
+
+                self.reference = reference]
+
+    def load_file(self, seperator=self.seperator, filename):
+
+        data = pd.read_csv(filename, seperator, header=None)
+
+        return(data)
+
+
 def list_of_spectra(source):
 
-    #change to directory of the source-files
-    chdir(source)
+        chdir(source)
+        files_list = glob('*.txt')
 
-    #create a list of all txt-files in the folder
-    files_list = glob('*.txt')
+        # does not include spectral maps.
+        spec_list = [entry for entry in files_list if "DCmap" not in entry]
 
-    #check if files include the word "DC-map", indicating a map, not a single spectrum.
-    spec_list = [entry for entry in files_list if "DCmap" not in entry]
-    
-    #returns a list of files, that sould only include spectra. As of now it includes every txt.-file that does 
-    #not identify itself as a DC-Map.
-    return(spec_list)
+        return(spec_list)
 
-#def background
+# def background
 
-#Find cosmic peaks and replace with average of distant neigbours
-def cosmic_erase(data, cosmic_repetition, cosmic_distance, cosmic_factor):
 
-    for i in range(cosmic_repetition):
-        print(data.idxmax()[1])
-        print(data.iat[data.idxmax()[1]+cosmic_distance,1])
-        if data.iat[data.idxmax()[1],1] > cosmic_factor * data.iat[data.idxmax()[1]+cosmic_distance,1]:
-            data.set_value(data.idxmax()[1], list(data)[1], (data.iat[data.idxmax()[1]-cosmic_distance,1] + data.iat[data.idxmax()[1]+cosmic_distance,1]))
-    
+
+def cosmic_erase(
+    data,
+    cosmic_cycles,
+    cosmic_distance,
+    cosmic_factor):
+
+    for i in range(cosmic_cycles):
+        if data.iat[data.idxmax()[1], 1] > cosmic_factor * data.iat[data.idxmax()[1]+cosmic_distance, 1]:
+            data.set_value(data.idxmax()[1], list(data)[1], (data.iat[data.idxmax()[1]-cosmic_distance,1] + data.iat[data.idxmax()[1]+cosmic_distance, 1]))
+
     return(data)
+
+
 
 def plot_spectrum(spec, cfg, source):
 
     #use auto_parameters.py to find parameters in the file name
     parameters = find_parameters(spec, cfg)
 
-    #load data
     #data = pd.read_csv(source + spec)
     data = load_file(source + spec)
 
@@ -74,8 +143,11 @@ def plot_spectrum(spec, cfg, source):
 
     data['Intensity [arb.]'] = data['Intensity [arb.]'] - background
 
-    data = cosmic_erase(data, cosmic_repetition, cosmic_distance,
-            cosmic_factor)    
+    data = cosmic_erase(
+        data,
+        cosmic_cycles,
+        cosmic_distance,
+        cosmic_factor)
 
 
     if convert_to_energy == ('TRUE' or 'true'):
@@ -83,7 +155,7 @@ def plot_spectrum(spec, cfg, source):
         data.rename(columns={"Wavelength [nm]": 'Energy [eV]'}, inplace=True)
         print(data.head(5))
         data['Energy [eV]'] = 1239.82/data['Energy [eV]']
-        data = data.sort_values("Energy [eV]",axis=0)
+        data = data.sort_values("Energy [eV]", axis=0)
         data.set_index("Energy [eV]", inplace=True)
     else:
         data.set_index("Wavelength [nm]", inplace=True)
@@ -91,24 +163,18 @@ def plot_spectrum(spec, cfg, source):
         data.rename(columns={list(data)[0]: "Intensity [norm.]"}, inplace=True)
         data = data/data.max()
     elif convert_to_rate == ('TRUE' or 'true'):
-        if re.match(".*[0-9]*s.*",spec):
-            exposure = float(re.search("[0-9]*s",spec).group()[:-1])
+        if re.match(".*[0-9]*s.*", spec):
+            exposure = float(re.search("[0-9]*s", spec).group()[:-1])
             print(exposure)
         data.rename(columns={"Intensity [arb.]": "Counts p.s."}, inplace=True)
         data = data/exposure
-    print(data.head(5))
-    
-    #print(reference_plot.head(5))
-    #data = pd.concat([data,
-    #    reference_plot], axis=1)
-    #print(data.head(1000))
-    #data = data.fillna(0).astype(float)
+
     plt.style.use('classic')
     #plot_data = data.plot.line(legend=False)
     plot_data = data.plot.line()
-    
+
     if cfg["reference"]["use"] == ('TRUE' or 'true' or 'True'):
-        print(source + reference)
+
         reference_plot = load_file(source + reference)
         reference_plot.columns = ["Energy","Intensity"]
         reference_plot["Energy"] = reference_plot["Energy"] + cfg["reference"]["offset"]
@@ -123,9 +189,9 @@ def plot_spectrum(spec, cfg, source):
     yloc = plt.MaxNLocator(3)
     plot_data.yaxis.set_major_locator(yloc)
     print(data.index[0])
-    
+
     plot_data.set_xlim(left=data.index[0], right=data.index[-1])
-    
+
     count = 0
     for i, j in parameters.items():
         plt.text(data.index[10],data.max()*(0.95-0.05*count), i)
@@ -135,15 +201,11 @@ def plot_spectrum(spec, cfg, source):
     fig = plot_data.get_figure()
     fig.savefig(spec[:-4] + '.png')
 
-#This method goes through the target-folder, stated in the config-file (which should include only pretreated files)
-#and plots every spectrum to an image file. It adjusts according to specifications in the config file and uses
-#autofind_paras.py to find every experimental parameter from the name of the txt-file.
+
+
 def plot_all_spectra(source):
-    
 
-    #iterate over all txt-files, that  are identified as spectra.
     for spec in list_of_spectra(source):
-
         plot_spectrum(spec, cfg, source)
 
 if __name__ == '__main__':
