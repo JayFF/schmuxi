@@ -1,4 +1,4 @@
-'''Turns your raw txt-spectrum of spectra into graphics for your labbook or
+'''Turns your raw txt-data of spectra into graphics & reports for your labbook or
 publication
 '''
 # import numpy as np
@@ -136,13 +136,13 @@ class Experiment:
 
 
 
-    def plot_spectrum(spec, cfg, source):
+    def plot_spectrum(spec, config, source):
         '''plots a single spectrum into png-file of the same name, according to the experimental configuration.
     
         Can read the experimental parameters from the filename or use global
         parameters'''
         #use auto_parameters.py to find parameters in the file name
-        parameters = find_parameters(spec, cfg)
+        parameters = find_parameters(spec, config)
 
         #spectrum = pd.read_csv(source + spec)
         spectrum = load_file(source + spec)
@@ -160,65 +160,65 @@ class Experiment:
             cosmic_factor)
 
 
-    if convert_to_energy == ('TRUE' or 'true'):
-        print(list(spectrum))
-        spectrum.rename(columns={"Wavelength [nm]": 'Energy [eV]'}, inplace=True)
-        print(spectrum.head(5))
-        spectrum['Energy [eV]'] = 1239.82/spectrum['Energy [eV]']
-        spectrum = spectrum.sort_values("Energy [eV]", axis=0)
-        spectrum.set_index("Energy [eV]", inplace=True)
-    else:
-        spectrum.set_index("Wavelength [nm]", inplace=True)
-    if normalize == ('TRUE' or 'true'):
-        spectrum.rename(columns={list(spectrum)[0]: "Intensity [norm.]"}, inplace=True)
-        spectrum = spectrum/spectrum.max()
-    elif convert_to_rate == ('TRUE' or 'true'):
-        if re.match(".*[0-9]*s.*", spec):
-            exposure = float(re.search("[0-9]*s", spec).group()[:-1])
-            print(exposure)
-        spectrum.rename(columns={"Intensity [arb.]": "Counts p.s."}, inplace=True)
-        spectrum = spectrum/exposure
+        if convert_to_energy == ('TRUE' or 'true'):
+            print(list(spectrum))
+            spectrum.rename(columns={"Wavelength [nm]": 'Energy [eV]'}, inplace=True)
+            print(spectrum.head(5))
+            spectrum['Energy [eV]'] = 1239.82/spectrum['Energy [eV]']
+            spectrum = spectrum.sort_values("Energy [eV]", axis=0)
+            spectrum.set_index("Energy [eV]", inplace=True)
+        else:
+            spectrum.set_index("Wavelength [nm]", inplace=True)
+        if normalize == ('TRUE' or 'true'):
+            spectrum.rename(columns={list(spectrum)[0]: "Intensity [norm.]"}, inplace=True)
+            spectrum = spectrum/spectrum.max()
+        elif convert_to_rate == ('TRUE' or 'true'):
+            if re.match(".*[0-9]*s.*", spec):
+                exposure = float(re.search("[0-9]*s", spec).group()[:-1])
+                print(exposure)
+            spectrum.rename(columns={"Intensity [arb.]": "Counts p.s."}, inplace=True)
+            spectrum = spectrum/exposure
 
-    plt.style.use('classic')
-    #plot_spectrum = spectrum.plot.line(legend=False)
-    plot_spectrum = spectrum.plot.line()
+        plt.style.use('classic')
+        #plot_spectrum = spectrum.plot.line(legend=False)
+        plot_spectrum = spectrum.plot.line()
 
-    if cfg["reference"]["use"] == ('TRUE' or 'true' or 'True'):
+        if config["reference"]["use"] == ('TRUE' or 'true' or 'True'):
 
-        reference_plot = load_file(source + reference)
-        reference_plot.columns = ["Energy","Intensity"]
-        reference_plot["Energy"] = reference_plot["Energy"] + cfg["reference"]["offset"]
-        reference_plot.set_index(list(reference_plot)[0], inplace=True)
-        reference_plot.plot(ax=plot_spectrum)
+            reference_plot = load_file(source + reference)
+            reference_plot.columns = ["Energy","Intensity"]
+            reference_plot["Energy"] = reference_plot["Energy"] + config["reference"]["offset"]
+            reference_plot.set_index(list(reference_plot)[0], inplace=True)
+            reference_plot.plot(ax=plot_spectrum)
 
-        mylabels = [cfg["reference"]["plot_name"], cfg["reference"]["ref_name"]]
-        plot_spectrum.legend(labels=mylabels)
+            mylabels = [config["reference"]["plot_name"], config["reference"]["ref_name"]]
+            plot_spectrum.legend(labels=mylabels)
 
-    plot_spectrum.set_xlabel(spectrum.index.name)
-    plot_spectrum.set_ylabel(list(spectrum)[0])
-    yloc = plt.MaxNLocator(3)
-    plot_spectrum.yaxis.set_major_locator(yloc)
-    print(spectrum.index[0])
+        plot_spectrum.set_xlabel(spectrum.index.name)
+        plot_spectrum.set_ylabel(list(spectrum)[0])
+        yloc = plt.MaxNLocator(3)
+        plot_spectrum.yaxis.set_major_locator(yloc)
+        print(spectrum.index[0])
 
-    plot_spectrum.set_xlim(left=spectrum.index[0], right=spectrum.index[-1])
+        plot_spectrum.set_xlim(left=spectrum.index[0], right=spectrum.index[-1])
 
-    count = 0
-    for i, j in parameters.items():
-        plt.text(spectrum.index[10],spectrum.max()*(0.95-0.05*count), i)
-        plt.text(spectrum.index[300],spectrum.max()*(0.95-0.05*count), j)
-        count = count + 1
-        print(count)
-    fig = plot_spectrum.get_figure()
-    fig.savefig(spec[:-4] + '.png')
+        count = 0
+        for i, j in parameters.items():
+            plt.text(spectrum.index[10],spectrum.max()*(0.95-0.05*count), i)
+            plt.text(spectrum.index[300],spectrum.max()*(0.95-0.05*count), j)
+            count = count + 1
+            print(count)
+        fig = plot_spectrum.get_figure()
+        fig.savefig(spec[:-4] + '.png')
 
 
 
-def plot_all_spectra(source):
-    '''"One-Click"-function to publish every spectrum in the
-    working-directory'''
-    for spec in list_of_spectra(source):
-        plot_spectrum(spec, cfg, source)
+    def plot_all_spectra(list_of_spectra=list_of_spectra(source)):
+        '''"One-Click"-function to publish every spectrum in the
+        working-directory'''
+        for spec in list_of_spectra:
+            plot_spectrum(spec, config, source)
 
 if __name__ == '__main__':
     Session = Experiment()
-    plot_all_spectra(source)
+    Session.plot_all_spectra()
