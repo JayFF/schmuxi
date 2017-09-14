@@ -98,11 +98,11 @@ class Experiment:
                 self.cosmic_distance = cosmic_distance
 
                 self.reference = reference
-        self.spectra = list_of_spectra(source)
+        self.spectra = self.list_of_spectra(self.working_dir)
 
-    def load_file(self, filename, seperator):
+    def load_file(self, filename):
         '''reads a csv-file into a pandas.Dataframe'''
-        spectrum = pd.read_csv(filename, seperator, header=None)
+        spectrum = pd.read_csv(filename, self.seperator, header=None)
 
         return(spectrum)
 
@@ -123,6 +123,7 @@ class Experiment:
 
 
     def cosmic_erase(
+        self,
         spectrum,
         cosmic_cycles,
         cosmic_distance,
@@ -136,7 +137,7 @@ class Experiment:
 
 
 
-    def plot_spectrum(spec, config, source):
+    def plot_spectrum(self, spec, config, source):
         '''plots a single spectrum into png-file of the same name, according to the experimental configuration.
     
         Can read the experimental parameters from the filename or use global
@@ -145,22 +146,22 @@ class Experiment:
         parameters = find_parameters(spec, config)
 
         #spectrum = pd.read_csv(source + spec)
-        spectrum = load_file(source + spec)
+        spectrum = self.load_file(self.working_dir + spec)
 
         spectrum.columns = ["Wavelength [nm]","Intensity [arb.]"]
         #spectrum = spectrum.set_index("Wavelength [nm]")
         print(spectrum.head(5))
 
-        spectrum['Intensity [arb.]'] = spectrum['Intensity [arb.]'] - background
+        spectrum['Intensity [arb.]'] = spectrum['Intensity [arb.]'] - self.background
 
-        spectrum = cosmic_erase(
+        spectrum = self.cosmic_erase(
             spectrum,
-            cosmic_cycles,
-            cosmic_distance,
-            cosmic_factor)
+            self.cosmic_cycles,
+            self.cosmic_distance,
+            self.cosmic_factor)
 
 
-        if convert_to_energy == ('TRUE' or 'true'):
+        if self.convert_to_energy == ('TRUE' or 'true'):
             print(list(spectrum))
             spectrum.rename(columns={"Wavelength [nm]": 'Energy [eV]'}, inplace=True)
             print(spectrum.head(5))
@@ -169,10 +170,10 @@ class Experiment:
             spectrum.set_index("Energy [eV]", inplace=True)
         else:
             spectrum.set_index("Wavelength [nm]", inplace=True)
-        if normalize == ('TRUE' or 'true'):
+        if self.normalize == ('TRUE' or 'true'):
             spectrum.rename(columns={list(spectrum)[0]: "Intensity [norm.]"}, inplace=True)
             spectrum = spectrum/spectrum.max()
-        elif convert_to_rate == ('TRUE' or 'true'):
+        elif self.convert_to_rate == ('TRUE' or 'true'):
             if re.match(".*[0-9]*s.*", spec):
                 exposure = float(re.search("[0-9]*s", spec).group()[:-1])
                 print(exposure)
@@ -183,9 +184,9 @@ class Experiment:
         #plot_spectrum = spectrum.plot.line(legend=False)
         plot_spectrum = spectrum.plot.line()
 
-        if config["reference"]["use"] == ('TRUE' or 'true' or 'True'):
+        if self.config["reference"]["use"] == ('TRUE' or 'true' or 'True'):
 
-            reference_plot = load_file(source + reference)
+            reference_plot = self.load_file(self.working_dir + self.reference)
             reference_plot.columns = ["Energy","Intensity"]
             reference_plot["Energy"] = reference_plot["Energy"] + config["reference"]["offset"]
             reference_plot.set_index(list(reference_plot)[0], inplace=True)
@@ -210,14 +211,15 @@ class Experiment:
             print(count)
         fig = plot_spectrum.get_figure()
         fig.savefig(spec[:-4] + '.png')
+        spectrum.to_csv(spec + '.csv')
 
 
 
-    def plot_all_spectra(list_of_spectra=list_of_spectra(source)):
+    def plot_all_spectra(self):
         '''"One-Click"-function to publish every spectrum in the
         working-directory'''
-        for spec in list_of_spectra:
-            plot_spectrum(spec, config, source)
+        for spec in self.spectra:
+            self.plot_spectrum(spec, self.config, self.source)
 
 if __name__ == '__main__':
     Session = Experiment()
