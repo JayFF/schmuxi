@@ -2,8 +2,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 import yaml
 from bokeh.plotting import figure, show, output_file
-from bokeh.models import HoverTool
-from bokeh._legacy_charts import HeatMap
+from bokeh.io import curdoc
+from bokeh.models import ColumnDataSource
+from bokeh.models.widgets import Slider, TextInput
+from bokeh.layouts import row, widgetbox
+
 with open("spec_config.yml", 'r') as ymlfile:
     cfg = yaml.load(ymlfile)
 
@@ -20,10 +23,13 @@ data3d = np.stack(np.vsplit(np.transpose(data)[1:],dimensions))-background
 print(np.shape(np.transpose(data)[1:]))
 
 print(np.shape(data3d))
-
-z = np.sum(data3d,axis=2) 
+x = np.repeat(range(dimensions),dimensions)
+y = np.tile(range(dimensions),dimensions)
+z = np.sum(data3d,axis=2)
 z = z/np.max(z)
 print(np.shape(z))
+
+
 
 #fig = plt.figure()
 #ax = fig.add_subplot(111)
@@ -33,9 +39,15 @@ print(np.shape(z))
 #    ("(x,y)", "$x, $y"),
 #])
 
-#p = figure(x_range=(0,dimensions), y_range=(0,dimensions))#, tools=[hover])
+TOOLS="crosshair,pan,wheel_zoom,box_zoom,reset,tap,previewsave,box_select"
 
-p = HeatMap(z, x=0, y=0, dw=dimensions, dh=dimensions, palette="Inferno256")
+p = figure(x_range=(0,dimensions), y_range=(0,dimensions), tools=TOOLS)
+p2 = figure()
+z = np.reshape(z,dimensions**2)
+colors = ["#%02x%02x%02x" % (int(r), int(r), int(r/2)) for r in np.around(255*z)]
+
+p.scatter(x, y, marker="square", size=7.7, fill_color=colors, line_color=None)
+#p.image(image=[z], x=0, y=0, dw=dimensions, dh=dimensions, palette="Inferno256")
 
 output_file("spectralmap.html", title="Spectral Map")
 

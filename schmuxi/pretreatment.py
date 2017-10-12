@@ -16,7 +16,7 @@ with open(config_source, 'r') as configfile:
 
     source = cfg["general"]["source_path"]
 
-    target = cfg["general"]["target_path"]
+    target = cfg["general"]["working_dir"]
 
 def replace_garbage():
     chdir(source)
@@ -33,6 +33,7 @@ def replace_garbage():
                     next_line = line
                     next_line = next_line.replace(',','.')
                     next_line = re.sub(r"\t1\t1\t"," ", next_line)
+                    next_line = re.sub(r"\t1\t"," ", next_line)
                     new_file.write(next_line)
 
 if __name__ == '__main__':
