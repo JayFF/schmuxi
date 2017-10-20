@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import yaml
+import bullshit
 
 with open("spec_config.yml", 'r') as ymlfile:
     cfg = yaml.load(ymlfile)
