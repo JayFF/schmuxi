@@ -1,17 +1,20 @@
+'''Interactive tool to evaluate spectral maps.'''
 import numpy as np
 import matplotlib.pyplot as plt
 import yaml
 from bokeh.plotting import curdoc, gridplot, figure, show, output_file
 from bokeh.layouts import column
-from bokeh.models import Button, TapTool
+from bokeh.models import Button, TapTool, Slider
 from bokeh.events import Tap
+
 with open("spec_config.yml", 'r') as ymlfile:
     cfg = yaml.load(ymlfile)
 
 dimensions = cfg["map_paras"]["dimensions"]
 background = cfg["map_paras"]["background"]
 working_dir = cfg["general"]["working_dir"]
-raw = np.loadtxt(working_dir + cfg["map_paras"]["file"])
+working_file = cfg["map_paras"]["file"]
+raw = np.loadtxt(working_dir + working_file)
 
 data = raw[6:]
 
@@ -28,21 +31,15 @@ z = np.sum(data3d,axis=2)
 z = z/np.max(z)
 print(np.shape(z))
 
+# Default
 x_spec = 40
 y_spec = 40
 
-x2=calibration
+x2=1239.8/calibration
 y2=data3d[x_spec,y_spec,:]
 
-#fig = plt.figure()
-#ax = fig.add_subplot(111)
-#ax.set_title('Intensity Map')
-#hover = HoverTool(tooltips=[
-#    ("index", "$index"),
-#    ("(x,y)", "$x, $y"),
-#])
 
-TOOLS="crosshair,pan,wheel_zoom,box_zoom,reset,tap,previewsave"
+TOOLS="hover,crosshair,pan,wheel_zoom,box_zoom,reset,tap,previewsave"
 
 spec_map = figure(width=500, height=500, x_range=(0,dimensions), y_range=(0,dimensions), tools=TOOLS)
 spec = figure(width=500, height = 500, tools=TOOLS)
@@ -52,30 +49,50 @@ colors = ["#%02x%02x%02x" % (int(r), int(r), int(r/2)) for r in
         np.around(255*z)]
 
 spec_map.scatter(x, y, marker="square", size=7.5, fill_color=colors,
-        line_color=None, nonselection_fill_alpha=0.8,
+        line_color=None, selection_fill_color="red", nonselection_fill_alpha=0.8,
         nonselection_fill_color="fill_color")
 #p.image(image=[z], x=0, y=0, dw=dimensions, dh=dimensions, palette="Inferno256")
 
 r = spec.line(x=[],y=[], line_color="red")
-
+marker = spec.line(x=[0,0],y=[0,10], line_color="green")
 ds = r.data_source
+ds2 = marker.data_source
 
 
-def callback(event):
+def display_spectrum(event):
+    '''Display the spectrum for the clicked/tapped point on the map'''
     new_data = dict()
-    new_data["x"] = calibration
+    new_data["x"] = x2
     new_data["y"] = data3d[int(np.round(event.x)),int(np.round(event.y)),:]
     ds.data = new_data
+    
+def switch_calibration():
+    '''switch between energy [eV] and wavelength [nm]'''
+    global x2
+    x2 = 1239.8/x2
 
-button = Button(label="Fuck this up")
-#taptool = TapTool()
-spec_map.on_event(Tap, callback)
+marker_slider = Slider(start=0, end=1, value=0.5,
+        step=0.002,
+        title="Marker")
+
+def adjust_marker(attr, old, new):
+    '''adjust the position of the marker'''
+    new_data = dict()
+    new_data["x"] = [min(x2)+marker_slider.value*(max(x2)-min(x2)), min(x2)+marker_slider.value*(max(x2)-min(x2))]
+    new_data["y"] = [0,max(ds.data["y"])]
+    ds2.data = new_data
+
+
+energy_wavelength = Button(label="Fuck this up")
+energy_wavelength.on_click(switch_calibration)
+marker_slider.on_change('value',adjust_marker)
+spec_map.on_event(Tap, display_spectrum)
 
 
 # output_file("spectralmap.html", title="Spectral Map")
 
-p = gridplot([[spec_map, spec]])
-curdoc().add_root(column(button, p))
+panel = gridplot([[spec_map, spec]])
+curdoc().add_root(column(marker_slider, energy_wavelength, panel))
 
 # output_server("hover")
 

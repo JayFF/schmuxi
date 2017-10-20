@@ -10,7 +10,7 @@ import os
 import matplotlib.pyplot as plt
 import re
 from autofind_paras import find_parameters
-
+import logging
 
 default_config = "spec_config.yml"
 
@@ -18,6 +18,7 @@ default_config = "spec_config.yml"
 class Experiment:
     '''Represents an experimental session and contains parameters and methods
     to process and publish its results'''
+
     def auto_config(self, config_source):
         """creates a dictionary of configuration parameters out of given path"""
         config = None
@@ -36,11 +37,12 @@ class Experiment:
 
 
     def load_config(self, config_source):
-        """loads yml-file and turns it into a dict"""
+        """loads yml-file and returns it as configuration-dictionary"""
         with open(config_source, 'r') as configfile:
             config = yaml.load(configfile)
 
         return(config)
+
 
     def __init__(
         self,
@@ -100,6 +102,13 @@ class Experiment:
                 self.reference = reference
         self.spectra = self.list_of_spectra(self.working_dir)
 
+
+    def change_working_dir(self, place=os.getcwd()):
+        '''changes working directory for the expriment'''
+        self.working_dir = place
+        print(self.working_dir)
+
+
     def load_file(self, filename):
         '''reads a csv-file into a pandas.Dataframe'''
         spectrum = pd.read_csv(filename, self.seperator, header=None)
@@ -117,6 +126,16 @@ class Experiment:
         spectra = [entry for entry in files_list if "DC" not in entry]
 
         return(spectra)
+    
+
+    def list_of_maps(self, source):
+        '''Checks the filenames of txt-files to find Data corresponding to
+        spectral maps.'''
+        chdir(source)
+        files_list = glob('*.txt')
+        maps = [entry for entry in files_list if re.match('.*DC.*map.*', entry)]
+        return(maps)
+
 
     def adjust_background(self, spectrum):
         '''Subtracts background from signal, as specified in the
@@ -193,21 +212,29 @@ class Experiment:
         spectrum = self.adjust_scale(spectrum, spec, self.exposure)
         
         return(spectrum)
+    
 
-    def plot_spectrum(self, spec, config, source):
+    def prepare_spectrum(self, spec):
+        '''Uses load_file and adjust_spectrum to prepare a dataframe'''
+        spectrum = self.load_file(self.working_dir + spec)
+        spectrum = self.adjust_spectrum(spectrum, spec)
+        return(spectrum)
+
+
+    def plot_spectrum(self, config, source, spectrum, parameters):
         '''plots a single spectrum into png-file of the same name, according to the experimental configuration.
     
         Can read the experimental parameters from the filename or use global
         parameters'''
-        print(spec)
+        #print(spec)
         
         #use auto_parameters.py to find parameters in the file name
-        parameters = find_parameters(spec, config)
+        #parameters = find_parameters(spec, config)
 
         #spectrum = pd.read_csv(source + spec)
-        spectrum = self.load_file(self.working_dir + spec)
+        #spectrum = self.load_file(self.working_dir + spec)
 
-        spectrum = self.adjust_spectrum(spectrum, spec)
+        #spectrum = self.adjust_spectrum(spectrum, spec)
 
         plt.style.use('classic')
         plot_spectrum = spectrum.plot.line(legend=False)
@@ -241,22 +268,52 @@ class Experiment:
             plt.text(spectrum.index[300],spectrum.max()*(0.95-0.05*count), j)
             count = count + 1
             print(count)
+
+        return(plot_spectrum)
+
+
+    def plot_to_png(self, plot_spectrum, spec):
+        '''Saves matplotlib-plot into png-file, given a name'''
         fig = plot_spectrum.get_figure()
         fig.savefig(spec[:-4] + '.png')
+
+
+    def save_as_csv(self, spec, spectrum):
+        '''Writes spectrum-dataframe into csv-file, given a name'''
         spectrum.to_csv(spec[:-4] + '.csv')
 
 
-    def plot_at_once(self, spectra):
+    def plot_in_one(self, spectra):
         '''plots a list of spectra in a single figure.'''
-        
-        
+        list_of_spectra = [self.prepare_spectrum(spec) for spec in spectra]
+        joined_spectra = pd.concat(list_of_spectra, axis=1)
+        plot = joined_spectra.plot.line(legend=False)
+        return(plot)
+
+
+    def plot_at_once(self):
+        '''One-Click-function to publish every spectrum in the working
+        directory into a single graph (not recommended)'''
+        plot = self.plot_in_one(self.spectra)
+        self.plot_to_png(plot, "Summary")
+
+
     def plot_all_spectra(self):
         '''"One-Click"-function to publish every spectrum in the
         working-directory into single images.'''
         for spec in self.spectra:
-            self.plot_spectrum(spec, self.config, self.source)
+            parameters = find_parameters(spec, self.config)
+            spectrum = self.prepare_spectrum(spec)
+            plot = self.plot_spectrum(
+                    self.config,
+                    self.source,
+                    spectrum,
+                    parameters)
+            self.plot_to_png(plot, spec)
+
 
 
 if __name__ == '__main__':
     Session = Experiment()
-    Session.plot_all_spectra()
+    Session.plot_at_once()
+    #Session.plot_all_spectra()

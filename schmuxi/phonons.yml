@@ -1,0 +1,85 @@
+# Theoretical phonon energies and properties to automatically analyze spectra. Loads into nested
+# dictionary in python.
+# Source:  Z. Jin, X. Li, J. T. Mullen, and K. W. Kim, Phys. Rev. B 90 , 045422 (2014)
+# Unit: meV
+
+WSe2:
+        Monolayer:
+                G:
+                        TA: 0
+                        LA: 0
+                        TO: 30.5
+                        LO: 30.8
+                        A1: 30.8
+                K:
+                        TA: 15.6
+                        LA: 18.0
+                        TO: 26.7
+                        LO: 31.5
+                        A1: 31.0
+                M:
+                        TA: 15.3
+                        LA: 16.3
+                        TO: 28.4
+                        LO: 31.8
+                        A1: 29.8
+                Q:
+                        TA: 11.6
+                        LA: 14.3
+                        TO: 27.3
+                        LO: 32.5
+                        A1: 30.4
+WS2:
+        Monolayer:
+                G:
+                        TA: 0
+                        LA: 0
+                        TO: 44.4
+                        LO: 44.2
+                        A1: 51.8
+                K:
+                        TA: 17.4
+                        LA: 32.6
+                        TO: 43.8
+                        LO: 43.2
+                        A1: 48.0
+                M:
+                        TA: 16.5
+                        LA: 22.7
+                        TO: 45.3
+                        LO: 42.3
+                        A1: 49.8
+                Q:
+                        TA: 15.9
+                        LA: 19.5
+                        TO: 45.3
+                        LO: 42.3
+                        A1: 50.0
+MoSe2:
+        Monolayer:
+                G:
+                        TA: 0
+                        LA: 0
+                        TO: 36.1
+                        LO: 36.6
+                        A1: 30.3
+                K:
+                        TA: 16.6
+                        LA: 19.9
+                        TO: 35.5
+                        LO: 37.4
+                        A1: 25.6
+                M:
+                        TA: 16.4
+                        LA: 19.7
+                        TO: 35.8
+                        LO: 37.0
+                        A1: 27.3
+                Q:
+                        TA: 13.3
+                        LA: 16.9
+                        TO: 36.4
+                        LO: 37.5
+                        A1: 27.1
+        
+
