@@ -16,7 +16,7 @@
  
 general:
         source_path: "V:\\temp\\Foerste\\SpectralAnalysis\\Core\\test\\" #path of the data-folder
-        target_path: "V:\\temp\\Foerste\\SpectralAnalysis\\Core\\test\\results\\" #path of the evaluation
+        working_dir: "V:\\temp\\Foerste\\SpectralAnalysis\\Core\\test\\results\\" #path of the evaluation
         background: 98 #Counts
         laser: "WLS"
         objective: "unknown"
@@ -29,22 +29,22 @@ general:
 #Map-Evaluation
 
 map_paras:
-        file: "DCmap_hBN-WS2-hBN_4K_100uW_532nm_50x50x10s-50x50V.txt"
-        dimensions: 50
-
+        file: "01_DC-PLmap-bhn-WSe2-hbn-4K-630nm+-5nm-80x80-60Vx60V-100uW-6s_-20V.txt"
+        dimensions: 80
+        background: 98
 auto_paras:
         use_auto: 'TRUE'
         erase_cosmics: 'TRUE'
         cosmic_factor: 5 #point has to be 10x its neighbours
         cosmic_distance: 7 #distance of the neighbours
-        cosmic_repetition: 7 # number of checks
+        cosmic_cycles: 7 # number of checks
 
 spec_paras: #Boolean paramenters checked from top -> bottom. Checked for 'TRUE'
         seperator: ' ' #seperator, that will be inserted by pretreatment.py
         convert_to_energy: 'TRUE'
-        normalize: 'TRUE'
-        convert_to_rate: 'FALSE'
-        exposure: #300 #seconds -- automatically checked
+        normalize: 'FALSE'
+        convert_to_rate: 'TRUE'
+        exposure: -1 #300 #seconds -- automatically checked
         background: 98
 
 reference:

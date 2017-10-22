@@ -2,8 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import yaml
 from bokeh.plotting import figure, show, output_file
-from bokeh.models import HoverTool
-from bokeh._legacy_charts import HeatMap
+
 with open("spec_config.yml", 'r') as ymlfile:
     cfg = yaml.load(ymlfile)
 
@@ -16,12 +15,12 @@ data = raw[6:]
 
 data3d = np.stack(np.vsplit(np.transpose(data)[1:],dimensions))-background
 
-# this ist nothing but a shitty comment
 
 print(np.shape(np.transpose(data)[1:]))
 
 print(np.shape(data3d))
-
+x = np.repeat(range(dimensions),dimensions)
+y = np.tile(range(dimensions),dimensions)
 z = np.sum(data3d,axis=2)
 z = z/np.max(z)
 print(np.shape(z))
@@ -34,9 +33,13 @@ print(np.shape(z))
 #    ("(x,y)", "$x, $y"),
 #])
 
-#p = figure(x_range=(0,dimensions), y_range=(0,dimensions))#, tools=[hover])
+p = figure(x_range=(0,dimensions), y_range=(0,dimensions), tools=['tap'])
 
-p = HeatMap(z, x=0, y=0, dw=dimensions, dh=dimensions, palette="Inferno256")
+z = np.reshape(z,dimensions**2)
+colors = ["#%02x%02x%02x" % (int(r), 150, 150) for r in 255*z]
+
+p.scatter(x, y, marker="square", size=7, fill_color=colors, line_color=None)
+#p.image(image=[z], x=0, y=0, dw=dimensions, dh=dimensions, palette="Inferno256")
 
 output_file("spectralmap.html", title="Spectral Map")
 
