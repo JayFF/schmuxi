@@ -15,12 +15,13 @@ data = raw[6:]
 
 data3d = np.stack(np.vsplit(np.transpose(data)[1:],dimensions))-background
 
+# this ist nothing but a shitty comment
 
 print(np.shape(np.transpose(data)[1:]))
 
 print(np.shape(data3d))
 
-z = np.sum(data3d,axis=2) 
+z = np.sum(data3d,axis=2)
 z = z/np.max(z)
 print(np.shape(z))
 
