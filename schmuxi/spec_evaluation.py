@@ -61,7 +61,7 @@ class Experiment:
         cosmic_distance = 5,
         reference = None):
         '''initializies experimental parameters and
-        processing-configuration.'''
+        processes configuration.'''
 
         if auto_config is True:
 
@@ -160,18 +160,16 @@ class Experiment:
         '''Routine for erasing "cosmics", random high intensity peaks'''
         for i in range(cosmic_cycles):
             if spectrum.iat[spectrum.idxmax()[1], 1] > cosmic_factor * spectrum.iat[spectrum.idxmax()[1]+cosmic_distance, 1]:
-                spectrum.set_value(spectrum.idxmax()[1], list(spectrum)[1], (spectrum.iat[spectrum.idxmax()[1]-cosmic_distance,1] + spectrum.iat[spectrum.idxmax()[1]+cosmic_distance, 1]))
-
+                spectrum.set_value(spectrum.idxmax()[1],
+                                   list(spectrum)[1],
+                                   (spectrum.iat[spectrum.idxmax()[1]-cosmic_distance,1] + spectrum.iat[spectrum.idxmax()[1]+cosmic_distance, 1]))
         return(spectrum)
     
-
+ 
     def adjust_scale(self, spectrum, spec=None, exposure=None):
         '''Calculates and names the x and y scale according to the
         configuration'''
-        print('I am adjusting')
-        print(self.convert_to_energy is True)
         if self.convert_to_energy is True:
-            print('ENERGYYY')
             spectrum.rename(columns={list(spectrum)[0]: 'Energy [eV]'}, inplace=True)
             spectrum['Energy [eV]'] = 1239.82/spectrum['Energy [eV]']
             spectrum = spectrum.sort_values("Energy [eV]", axis=0)
@@ -221,21 +219,8 @@ class Experiment:
         return(spectrum)
 
 
-    def plot_spectrum(self, config, source, spectrum, parameters):
-        '''plots a single spectrum into png-file of the same name, according to the experimental configuration.
-    
-        Can read the experimental parameters from the filename or use global
-        parameters'''
-        #print(spec)
-        
-        #use auto_parameters.py to find parameters in the file name
-        #parameters = find_parameters(spec, config)
-
-        #spectrum = pd.read_csv(source + spec)
-        #spectrum = self.load_file(self.working_dir + spec)
-
-        #spectrum = self.adjust_spectrum(spectrum, spec)
-
+    def plot_spectrum(self, spectrum, parameters):
+        '''plots a single spectrum into png-file of the same name, according to the experimental configuration.'''
         plt.style.use('classic')
         plot_spectrum = spectrum.plot.line(legend=False)
         #plot_spectrum = spectrum.plot.line()
@@ -255,13 +240,14 @@ class Experiment:
         plot_spectrum.set_ylabel(list(spectrum)[0])
         yloc = plt.MaxNLocator(3)
         plot_spectrum.yaxis.set_major_locator(yloc)
-        print(spectrum.index[0])
 
         plot_spectrum.set_xlim(left=spectrum.index[0], right=spectrum.index[-1])
-        spread=spectrum.values.max()-spectrum.values.min()
-        plot_spectrum.set_ylim(spectrum.values.min()-0.02*spread,
-                spectrum.values.max()+0.02*spread)
+        spread = spectrum.values.max()-spectrum.values.min()
+        plot_spectrum.set_ylim(spectrum.values.min() - 0.02 * spread,
+                                spectrum.values.max() + 0.02 * spread)
+        
 
+        # PLEASE find a more beautiful way.
         count = 0
         for i, j in parameters.items():
             plt.text(spectrum.index[10],spectrum.max()*(0.95-0.05*count), i)
@@ -273,13 +259,15 @@ class Experiment:
 
 
     def plot_to_png(self, plot_spectrum, spec):
-        '''Saves matplotlib-plot into png-file, given a name'''
+        '''Saves matplotlib-plot into png-file, given a name. Cuts off the last
+        4 characters to eliminate file-endings.'''
         fig = plot_spectrum.get_figure()
         fig.savefig(spec[:-4] + '.png')
 
 
     def save_as_csv(self, spec, spectrum):
-        '''Writes spectrum-dataframe into csv-file, given a name'''
+        '''Writes spectrum-dataframe into csv-file, given a name minus the last
+        4 characters to eliminate file endings.'''
         spectrum.to_csv(spec[:-4] + '.csv')
 
 
@@ -292,7 +280,7 @@ class Experiment:
 
 
     def plot_at_once(self):
-        '''One-Click-function to publish every spectrum in the working
+        '''One-Click-function to publish e1very spectrum in the working
         directory into a single graph (not recommended)'''
         plot = self.plot_in_one(self.spectra)
         self.plot_to_png(plot, "Summary")
