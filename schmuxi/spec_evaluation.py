@@ -293,8 +293,6 @@ class Experiment:
             parameters = find_parameters(spec, self.config)
             spectrum = self.prepare_spectrum(spec)
             plot = self.plot_spectrum(
-                    self.config,
-                    self.source,
                     spectrum,
                     parameters)
             self.plot_to_png(plot, spec)
@@ -303,5 +301,5 @@ class Experiment:
 
 if __name__ == '__main__':
     Session = Experiment()
-    Session.plot_at_once()
+    Session.plot_all_spectra()
     #Session.plot_all_spectra()
