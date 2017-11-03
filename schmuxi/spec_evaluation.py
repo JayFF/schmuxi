@@ -219,7 +219,7 @@ class Experiment:
         return(spectrum)
 
 
-    def plot_spectrum(self, spectrum, parameters):
+    def plot_spectrum(self, spectrum, parameters=dict()):
         '''plots a single spectrum into png-file of the same name, according to the experimental configuration.'''
         plt.style.use('classic')
         plot_spectrum = spectrum.plot.line(legend=False)
@@ -265,7 +265,7 @@ class Experiment:
         fig.savefig(spec[:-4] + '.png')
 
 
-    def save_as_csv(self, spec, spectrum):
+    def save_as_csv(self, spectrum, spec):
         '''Writes spectrum-dataframe into csv-file, given a name minus the last
         4 characters to eliminate file endings.'''
         spectrum.to_csv(spec[:-4] + '.csv')
