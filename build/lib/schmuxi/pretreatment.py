@@ -13,19 +13,16 @@ config_source = "spec_config.yml"
 
 with open(config_source, 'r') as configfile:
     cfg = yaml.load(configfile)
-    
-    if __name__=='__main__':
-        source = cfg["general"]["source_path"]
-        target = cfg["general"]["working_dir"]
-        chdir(source)
-        files_list = glob('*txt')
 
+    source = cfg["general"]["source_path"]
 
-def replace_garbage(source, target, files):
-    """cleans up spectral files"""
-    old_directory = os.getcwd()
+    target = cfg["general"]["working_dir"]
+
+def replace_garbage():
     chdir(source)
-    for a_file in sorted(files):
+    files_list = glob('*.txt')
+    print (files_list)
+    for a_file in sorted(files_list):
         print('opening target ' + a_file)
         with open(target + a_file,'w') as new_file:
             print('opening source')
@@ -39,7 +36,5 @@ def replace_garbage(source, target, files):
                     next_line = re.sub(r"\t1\t"," ", next_line)
                     new_file.write(next_line)
 
-    chdir(old_directory)
-
 if __name__ == '__main__':
-    replace_garbage(source, target, files_list)
+    replace_garbage()

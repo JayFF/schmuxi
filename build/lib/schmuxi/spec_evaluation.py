@@ -9,9 +9,8 @@ from os import chdir
 import os
 import matplotlib.pyplot as plt
 import re
-from autofind_paras import find_parameters
+from schmuxi.autofind_paras import find_parameters
 import logging
-#from pretreatment import replace_garbage
 
 default_config = "spec_config.yml"
 
@@ -19,19 +18,11 @@ default_config = "spec_config.yml"
 class Experiment:
     '''Represents an experimental session and contains parameters and methods
     to process and publish its results'''
-    
-    def pretreatment(self):
-        """pretreatment-method to clean and preformat spectral data."""
-        replace_garbage(self.source, self.working_dir, self.raw_spectra)
-        replace_garbage(self.source, self.working_dir, self.raw_maps)
-        self.spectra = self.list_of_spectra(self.working_dir)
-        self.maps = self.list_of_maps(self.working_dir)
-
 
     def auto_config(self, config_source):
         """creates a dictionary of configuration parameters out of given path"""
         config = None
-        print(os.path.abspath(os.path.dirname(__file__))+"\\"+default_config)
+
         # fallback to default config if no file can be found
         try:
             config = self.load_config(config_source)
@@ -39,7 +30,7 @@ class Experiment:
             print("No configuration-file found. Using default-configuration.")
             try:
                 config = self.load_config(os.path.dirname(os.abspath(__file__))+"/"+default_config)
-            except:
+            except IOError:
                 print("Someone messed with the default-configuration file. It cannot be found.")
             else: return(config)
         else: return(config)
@@ -68,15 +59,13 @@ class Experiment:
         cosmic_cycles = 5,
         cosmic_factor = 10,
         cosmic_distance = 5,
-        reference = None,
-        pretreatment = False):
+        reference = None):
         '''initializies experimental parameters and
         processes configuration.'''
-        
+
         if auto_config is True:
 
             try:
-                print(config_source)
                 config = self.auto_config(config_source)
             except:
                 print("Auto-Configuration failed.")
@@ -111,20 +100,13 @@ class Experiment:
                 self.cosmic_distance = cosmic_distance
 
                 self.reference = reference
-        
-        self.raw_spectra = list_of_spectra(self.source)
-        self.raw_maps = list_of_maps(self.source)
         self.spectra = self.list_of_spectra(self.working_dir)
-        self.maps = self.list_of_maps(self.working_dir)
-        
-        if pretreatment == True:
-            self.pretreatment()
 
 
     def change_working_dir(self, place=os.getcwd()):
         '''changes working directory for the expriment'''
         self.working_dir = place
-        print("New working-directory is: "+self.working_dir)
+        print(self.working_dir)
 
 
     def load_file(self, filename):
@@ -137,8 +119,8 @@ class Experiment:
     def list_of_spectra(self, source):
         '''Checks the filenames of txt-files to find Data corresponding to single
         spectra.'''
-        #chdir(source)
-        files_list = glob(source+"\\"+'*.txt')
+        chdir(source)
+        files_list = glob('*.txt')
 
         # does not include spectral maps.
         spectra = [entry for entry in files_list if "DC" not in entry]
@@ -149,8 +131,8 @@ class Experiment:
     def list_of_maps(self, source):
         '''Checks the filenames of txt-files to find Data corresponding to
         spectral maps.'''
-        #chdir(source)
-        files_list = glob(source+"\\"+'*.txt')
+        chdir(source)
+        files_list = glob('*.txt')
         maps = [entry for entry in files_list if re.match('.*DC.*map.*', entry)]
         return(maps)
 
