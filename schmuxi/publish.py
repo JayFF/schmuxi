@@ -8,6 +8,7 @@ class Evaluation:
     
     def __init__(
             self,
+            author="God",
             metadata_file = "meta_data.yml",
             working_dir = os.getcwd(),
             target_dir = os.getcwd(),
@@ -80,6 +81,8 @@ class Evaluation:
     def data_header(self):
         '''creates header, related to the data.'''
         with open(self.working_dir+"\\"+self.metadata_file, 'wb') as texfile:
-            texfile.write("\\title="+self.title+"\n")
-            texfile.write("\\date="
+            texfile.write("\\title{"+self.title+"}\n")
+            # preliminary
+            texfile.write("\\date{\\today}")
+            texfile.write("\\author{"+self.author+"}\\n")
 
