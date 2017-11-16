@@ -6,7 +6,7 @@ general:
         date_end: 20171006
         setup_optical: "Jessicas Stick and Head"
         setup_cryo: "Liquid Helium - Can"
-
+        author: "By God Himself"
 experiment:
         type: "Confocal Spectroscopy"
         material: "WSe2"

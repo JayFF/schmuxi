@@ -3,6 +3,7 @@ import csv
 import yaml
 import datetime
 from os import chdir
+from glob import glob
 
 class Evaluation:
     
@@ -52,7 +53,7 @@ class Evaluation:
             self.laser = metadata["experiment"]["laser"]
             self.temperature = metadata["experiment"]["temperature"]
             self.notes = metadata["experiment"]["notes"]
-            self.author = author# should come from metadata
+            self.author = metadata["general"]["author"]
             self.gate = metadata["experiment"]["gate"] if gated == True else None
             
             self.content = ''
@@ -66,7 +67,7 @@ class Evaluation:
         latex_header += "\\usepackage{graphicx, float}\n"
         latex_header += "\\usepackage{datetime2}\n"
         latex_header += "\\setmainfont[Numbers=OldStyle]{Linux Libertine O}\n"
-        
+        latex_header += "\\setkomafont{sectioning}{\\rmfamily}\n"
         self.content += latex_header
 
 
@@ -114,6 +115,15 @@ class Evaluation:
 
         self.content += title_section
     
+
+    def include_plot(self, plot_file):
+        '''includes image-file of a plot into the tex-file content.'''
+        self.content += "\\begin{figure}[h]\n"
+        
+        self.content += ("\\includegraphics[width=0.4\\textwidth]{"
+                        + plot_file + "}\n")
+        self.content += "\\caption{This is a picture. Really!!!}\n"
+        self.content += "\\end{figure}\n"
     
     def begin_document(self):
         self.content += "\\begin{document}\n"
@@ -129,6 +139,9 @@ class Evaluation:
         self.data_header()
         self.begin_document()
         self.maketitle()
+        images = glob('*.png') + glob('*.jpg')
+        for image in images:
+            self.include_plot(image)
         self.end_document()
         return(self.content)
     
