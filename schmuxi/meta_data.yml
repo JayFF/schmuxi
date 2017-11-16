@@ -1,0 +1,22 @@
+# Metadata for a spectral experiment.
+#
+
+general:
+        date_start: 20170922
+        date_end: 20171006
+        setup_optical: "Jessicas Stick and Head"
+        setup_cryo: "Liquid Helium - Can"
+
+experiment:
+        type: "Confocal Spectroscopy"
+        material: "WSe2"
+        material_info: "Bilayer"
+        material_notes: "Bilayer, encapsulated and gated by dropping on gold."
+        laser: "WLS"
+        temperature: 4
+        notes: "3 defect regions with high intensity PL. Large dark homogenious region."
+        gated: True
+        gate: "Lithographicaly prewritten Au-to-gate. Si++/substrate backgate"
+
+
+
