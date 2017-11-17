@@ -1,257 +1,29 @@
-This is LuaTeX, Version beta-0.80.0 (TeX Live 2015/W32TeX) (rev 5238)  (format=lualatex 2016.1.13)  16 NOV 2017 20:06
- restricted \write18 enabled.
+This is LuaTeX, Version 1.0.4 (TeX Live 2017/W32TeX)  (format=lualatex 2017.11.16)  17 NOV 2017 15:15
+ restricted system commands enabled.
 **Evaluation.tex
 (./Evaluation.tex
-LaTeX2e <2015/10/01> patch level 2
-Babel <3.9n> and hyphenation patterns for 79 languages loaded.
-(c:/texlive/2015/texmf-dist/tex/latex/koma-script/scrartcl.cls
-Document Class: scrartcl 2015/10/03 v3.19a KOMA-Script document class (article)
-(c:/texlive/2015/texmf-dist/tex/latex/koma-script/scrkbase.sty
-Package: scrkbase 2015/10/03 v3.19a KOMA-Script package (KOMA-Script-dependent b
-asics and keyval usage)
-
-(c:/texlive/2015/texmf-dist/tex/latex/koma-script/scrbase.sty
-Package: scrbase 2015/10/03 v3.19a KOMA-Script package (KOMA-Script-independent 
-basics and keyval usage)
-
-(c:/texlive/2015/texmf-dist/tex/latex/graphics/keyval.sty
-Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
-\KV@toks@=\toks14
-)
-(c:/texlive/2015/texmf-dist/tex/latex/koma-script/scrlfile.sty
-Package: scrlfile 2015/10/03 v3.19a KOMA-Script package (loading files)
-
-Package scrlfile, 2015/10/03 v3.19a KOMA-Script package (loading files)
-                  Copyright (C) Markus Kohm
-
-))) (c:/texlive/2015/texmf-dist/tex/latex/koma-script/tocbasic.sty
-Package: tocbasic 2015/10/03 v3.19a KOMA-Script package (handling toc-files)
-)
-Package tocbasic Info: omitting babel extension for `toc'
-(tocbasic)             because of feature `nobabel' available
-(tocbasic)             for `toc' on input line 123.
-Package tocbasic Info: omitting babel extension for `lof'
-(tocbasic)             because of feature `nobabel' available
-(tocbasic)             for `lof' on input line 124.
-Package tocbasic Info: omitting babel extension for `lot'
-(tocbasic)             because of feature `nobabel' available
-(tocbasic)             for `lot' on input line 125.
-Class scrartcl Info: File `scrsize11pt.clo' used instead of
-(scrartcl)           file `scrsize11.clo' to setup font sizes on input line 2033
-.
-
-(c:/texlive/2015/texmf-dist/tex/latex/koma-script/scrsize11pt.clo
-File: scrsize11pt.clo 2015/10/03 v3.19a KOMA-Script font size class option (11pt
-)
-)
-(c:/texlive/2015/texmf-dist/tex/latex/koma-script/typearea.sty
-Package: typearea 2015/10/03 v3.19a KOMA-Script package (type area)
-
-Package typearea, 2015/10/03 v3.19a KOMA-Script package (type area)
-                  Copyright (C) Frank Neukam, 1992-1994
-                  Copyright (C) Markus Kohm, 1994-
-
-\ta@bcor=\skip41
-\ta@div=\count79
-\ta@hblk=\skip42
-\ta@vblk=\skip43
-\ta@temp=\skip44
-\footheight=\skip45
-Package typearea Info: These are the values describing the layout:
-(typearea)             DIV  = 10
-(typearea)             BCOR = 0.0pt
-(typearea)             \paperwidth      = 597.50793pt
-(typearea)              \textwidth      = 418.25555pt
-(typearea)              DIV departure   = -6%
-(typearea)              \evensidemargin = 17.3562pt
-(typearea)              \oddsidemargin  = 17.3562pt
-(typearea)             \paperheight     = 845.04694pt
-(typearea)              \textheight     = 595.80026pt
-(typearea)              \topmargin      = -25.16531pt
-(typearea)              \headheight     = 17.0pt
-(typearea)              \headsep        = 20.40001pt
-(typearea)              \topskip        = 11.0pt
-(typearea)              \footskip       = 47.6pt
-(typearea)              \baselineskip   = 13.6pt
-(typearea)              on input line 1509.
-)
-\c@part=\count80
-\c@section=\count81
-\c@subsection=\count82
-\c@subsubsection=\count83
-\c@paragraph=\count84
-\c@subparagraph=\count85
-LaTeX Info: Redefining \textsubscript on input line 3906.
-\abovecaptionskip=\skip46
-\belowcaptionskip=\skip47
-\c@pti@nb@sid@b@x=\box26
-\c@figure=\count86
-\c@table=\count87
-\bibindent=\dimen102
-) (c:/texlive/2015/texmf-dist/tex/generic/babel/babel.sty
-Package: babel 2016/01/08 3.9n The Babel package
-
-(c:/texlive/2015/texmf-dist/tex/generic/babel-english/english.ldf
-Language: english 2012/08/20 v3.3p English support from the babel system
-
-(c:/texlive/2015/texmf-dist/tex/generic/babel/babel.def
-File: babel.def 2016/01/08 3.9n Babel common definitions
-\babel@savecnt=\count88
-\U@D=\dimen103
-
-(c:/texlive/2015/texmf-dist/tex/generic/babel/luababel.def
-luatex-hyphen: using data file: c:/texlive/2015/texmf-var/tex/generic/config/lan
-guage.dat.lua))
-\l@canadian = a dialect from \language\l@american 
-\l@australian = a dialect from \language\l@british 
-\l@newzealand = a dialect from \language\l@british 
-))
-(c:/texlive/2015/texmf-dist/tex/latex/fontspec/fontspec.sty
-Package: fontspec 2015/09/24 v2.4e Font selection for XeLaTeX and LuaLaTeX
-
-(c:/texlive/2015/texmf-dist/tex/latex/l3kernel/expl3.sty
-Package: expl3 2016/01/03 v6358 L3 programming layer (loader) 
-
-(c:/texlive/2015/texmf-dist/tex/latex/l3kernel/expl3-code.tex
-Package: expl3 2016/01/03 v6358 L3 programming layer (code)
-L3 Module: l3bootstrap 2016/01/01 v6339 L3 Bootstrap code
-\ucharcat@table=\catcodetable5
-L3 Module: l3names 2015/12/21 v6328 L3 Namespace for primitives
-L3 Module: l3basics 2015/11/22 v6315 L3 Basic definitions
-L3 Module: l3expan 2015/09/10 v5983 L3 Argument expansion
-L3 Module: l3tl 2015/09/29 v6121 L3 Token lists
-L3 Module: l3str 2016/01/03 v6357 L3 Strings
-L3 Module: l3seq 2015/08/05 v5777 L3 Sequences and stacks
-L3 Module: l3int 2015/09/25 v6089 L3 Integers
-\c_max_int=\count89
-\l_tmpa_int=\count90
-\l_tmpb_int=\count91
-\g_tmpa_int=\count92
-\g_tmpb_int=\count93
-L3 Module: l3quark 2015/08/17 v5855 L3 Quarks
-L3 Module: l3prg 2015/11/01 v6216 L3 Control structures
-\g__prg_map_int=\count94
-L3 Module: l3clist 2015/09/02 v5901 L3 Comma separated lists
-L3 Module: l3token 2015/11/11 v6249 L3 Experimental token manipulation
-L3 Module: l3prop 2015/08/05 v5777 L3 Property lists
-L3 Module: l3msg 2015/09/28 v6113 L3 Messages
-L3 Module: l3file 2015/12/03 v6317 L3 File and I/O operations
-\l_iow_line_count_int=\count95
-\l__iow_target_count_int=\count96
-\l__iow_current_line_int=\count97
-\l__iow_current_word_int=\count98
-\l__iow_current_indentation_int=\count99
-L3 Module: l3skip 2015/09/25 v6089 L3 Dimensions and skips
-\c_zero_dim=\dimen104
-\c_max_dim=\dimen105
-\l_tmpa_dim=\dimen106
-\l_tmpb_dim=\dimen107
-\g_tmpa_dim=\dimen108
-\g_tmpb_dim=\dimen109
-\c_zero_skip=\skip48
-\c_max_skip=\skip49
-\l_tmpa_skip=\skip50
-\l_tmpb_skip=\skip51
-\g_tmpa_skip=\skip52
-\g_tmpb_skip=\skip53
-\c_zero_muskip=\muskip10
-\c_max_muskip=\muskip11
-\l_tmpa_muskip=\muskip12
-\l_tmpb_muskip=\muskip13
-\g_tmpa_muskip=\muskip14
-\g_tmpb_muskip=\muskip15
-L3 Module: l3keys 2015/11/17 v6284 L3 Key-value interfaces
-\g__keyval_level_int=\count100
-\l_keys_choice_int=\count101
-L3 Module: l3fp 2015/08/25 v5890 L3 Floating points
-\c__fp_leading_shift_int=\count102
-\c__fp_middle_shift_int=\count103
-\c__fp_trailing_shift_int=\count104
-\c__fp_big_leading_shift_int=\count105
-\c__fp_big_middle_shift_int=\count106
-\c__fp_big_trailing_shift_int=\count107
-\c__fp_Bigg_leading_shift_int=\count108
-\c__fp_Bigg_middle_shift_int=\count109
-\c__fp_Bigg_trailing_shift_int=\count110
-L3 Module: l3box 2015/08/09 v5822 L3 Experimental boxes
-\c_empty_box=\box27
-\l_tmpa_box=\box28
-\l_tmpb_box=\box29
-\g_tmpa_box=\box30
-\g_tmpb_box=\box31
-L3 Module: l3coffins 2015/08/06 v5789 L3 Coffin code layer
-\l__coffin_internal_box=\box32
-\l__coffin_internal_dim=\dimen110
-\l__coffin_offset_x_dim=\dimen111
-\l__coffin_offset_y_dim=\dimen112
-\l__coffin_x_dim=\dimen113
-\l__coffin_y_dim=\dimen114
-\l__coffin_x_prime_dim=\dimen115
-\l__coffin_y_prime_dim=\dimen116
-\c_empty_coffin=\box33
-\l__coffin_aligned_coffin=\box34
-\l__coffin_aligned_internal_coffin=\box35
-\l_tmpa_coffin=\box36
-\l_tmpb_coffin=\box37
-\l__coffin_display_coffin=\box38
-\l__coffin_display_coord_coffin=\box39
-\l__coffin_display_pole_coffin=\box40
-\l__coffin_display_offset_dim=\dimen117
-\l__coffin_display_x_dim=\dimen118
-\l__coffin_display_y_dim=\dimen119
-L3 Module: l3color 2014/08/23 v5354 L3 Experimental color support
-L3 Module: l3candidates 2015/12/20 v6325 L3 Experimental additions to l3kernel
-\l__box_top_dim=\dimen120
-\l__box_bottom_dim=\dimen121
-\l__box_left_dim=\dimen122
-\l__box_right_dim=\dimen123
-\l__box_top_new_dim=\dimen124
-\l__box_bottom_new_dim=\dimen125
-\l__box_left_new_dim=\dimen126
-\l__box_right_new_dim=\dimen127
-\l__box_internal_box=\box41
-\l__coffin_bounding_shift_dim=\dimen128
-\l__coffin_left_corner_dim=\dimen129
-\l__coffin_right_corner_dim=\dimen130
-\l__coffin_bottom_corner_dim=\dimen131
-\l__coffin_top_corner_dim=\dimen132
-\l__coffin_scaled_total_height_dim=\dimen133
-\l__coffin_scaled_width_dim=\dimen134
-L3 Module: l3sys 2015/09/25 v6087 L3 Experimental system/runtime functions
-L3 Module: l3luatex 2015/11/11 v6250 L3 Experimental LuaTeX-specific functions
-)
-(c:/texlive/2015/texmf-dist/tex/latex/l3kernel/l3pdfmode.def
-File: l3pdfmode.def 2015/11/11 v6250 L3 Experimental driver: PDF mode
-\l__driver_color_stack_int=\count111
-))
-(c:/texlive/2015/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
-Package: xparse 2015/12/20 v6326 L3 Experimental document command parser
-\l__xparse_current_arg_int=\count112
-\l__xparse_m_args_int=\count113
-\l__xparse_mandatory_args_int=\count114
-\l__xparse_processor_int=\count115
-\l__xparse_v_nesting_int=\count116
-)
-(c:/texlive/2015/texmf-dist/tex/luatex/luaotfload/luaotfload.sty
-Package: luaotfload 2015/12/09 v2.6 OpenType layout system
-Lua module: luaotfload-main 2015/12/09 2.60001 OpenType layout system.
-Lua module: lualibs 2015-12-02 2.3 ConTeXt Lua standard libraries.
-Lua module: lualibs-extended 2015-12-02 2.3 ConTeXt Lua libraries -- extended co
-llection.(using write cache: C:/texlive/2015/texmf-var/luatex-cache/generic)(usi
-ng read cache: C:/texlive/2015/texmf-var/luatex-cache/generic C:/Users/Jonathan/
-.texlive2015/texmf-var/luatex-cache/generic)
-luaotfload | conf : Root cache directory is C:/texlive/2015/texmf-var/luatex-cac
-he/generic/names.
+LaTeX2e <2017-04-15>
+Lua module: luaotfload-main 2017/01/29 2.80001 OpenType layout system.
+Lua module: lualibs 2017-02-01 2.5 ConTeXt Lua standard libraries.
+Lua module: lualibs-extended 2017-02-01 2.5 ConTeXt Lua libraries -- extended co
+llection.(using write cache: C:/Users/J.Foerste/.texlive2017/texmf-var/luatex-ca
+che/generic)(using read cache: C:/texlive/2017/texmf-var/luatex-cache/generic C:
+/Users/J.Foerste/.texlive2017/texmf-var/luatex-cache/generic)
+luaotfload | conf : Root cache directory is C:/Users/J.Foerste/.texlive2017/texm
+f-var/luatex-cache/generic/names.
+luaotfload | init : Loading fontloader “fontloader-2017-02-11.lua” from kpse
+-resolved path “c:/texlive/2017/texmf-dist/tex/luatex/luaotfload/fontloader-20
+17-02-11.lua”.
 Lua-only attribute luaotfload@state = 1
-Lua-only attribute luaotfload@cursbase = 2
-Lua-only attribute luaotfload@noligature = 3
-luaotfload | init : Context OpenType loader version “2.82”
+Lua-only attribute luaotfload@noligature = 2
+Lua-only attribute luaotfload@syllabe = 3
+luaotfload | init : Context OpenType loader version “3.027”
 Inserting `luaotfload.node_processor' at position 1 in `pre_linebreak_filter'.
 Inserting `luaotfload.node_processor' at position 1 in `hpack_filter'.
 Inserting `luaotfload.define_font' at position 1 in `define_font'.
 Lua-only attribute luaotfload_color_attribute = 4
-luaotfload | conf : Root cache directory is C:/texlive/2015/texmf-var/luatex-cac
-he/generic/names.
+luaotfload | conf : Root cache directory is C:/Users/J.Foerste/.texlive2017/texm
+f-var/luatex-cache/generic/names.
 Inserting `luaotfload.aux.set_sscale_dimens' at position 1 in `luaotfload.patch_
 font'.
 Inserting `luaotfload.aux.patch_cambria_domh' at position 2 in `luaotfload.patch
@@ -262,386 +34,741 @@ Inserting `luaotfload.aux.set_capheight' at position 3 in `luaotfload.patch_font
 '.
 Inserting `luaotfload.rewrite_fontname' at position 4 in `luaotfload.patch_font'
 .
-luaotfload | main : initialization completed in 0.060 seconds)
-Lua module: fontspec 2013/05/20 2.3c Advanced font selection for LuaLaTeX.
-\l_fontspec_script_int=\count117
-\l_fontspec_language_int=\count118
-\l_fontspec_strnum_int=\count119
+luaotfload | main : initialization completed in 0.524 seconds
+Babel <3.15> and hyphenation patterns for 1 language(s) loaded.
+(c:/texlive/2017/texmf-dist/tex/latex/koma-script/scrartcl.cls
+Document Class: scrartcl 2017/09/07 v3.24 KOMA-Script document class (article)
+(c:/texlive/2017/texmf-dist/tex/latex/koma-script/scrkbase.sty
+Package: scrkbase 2017/09/07 v3.24 KOMA-Script package (KOMA-Script-dependent ba
+sics and keyval usage)
+
+(c:/texlive/2017/texmf-dist/tex/latex/koma-script/scrbase.sty
+Package: scrbase 2017/09/07 v3.24 KOMA-Script package (KOMA-Script-independent b
+asics and keyval usage)
+
+(c:/texlive/2017/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks14
+)
+(c:/texlive/2017/texmf-dist/tex/latex/koma-script/scrlfile.sty
+Package: scrlfile 2017/09/07 v3.24 KOMA-Script package (loading files)
+)))
+(c:/texlive/2017/texmf-dist/tex/latex/koma-script/tocbasic.sty
+Package: tocbasic 2017/09/07 v3.24 KOMA-Script package (handling toc-files)
+\scr@dte@tocline@numberwidth=\skip41
+\scr@dte@tocline@numbox=\box26
+)
+Package tocbasic Info: omitting babel extension for `toc'
+(tocbasic)             because of feature `nobabel' available
+(tocbasic)             for `toc' on input line 133.
+Package tocbasic Info: omitting babel extension for `lof'
+(tocbasic)             because of feature `nobabel' available
+(tocbasic)             for `lof' on input line 135.
+Package tocbasic Info: omitting babel extension for `lot'
+(tocbasic)             because of feature `nobabel' available
+(tocbasic)             for `lot' on input line 136.
+Class scrartcl Info: File `scrsize11pt.clo' used instead of
+(scrartcl)           file `scrsize11.clo' to setup font sizes on input line 2080
+.
+
+(c:/texlive/2017/texmf-dist/tex/latex/koma-script/scrsize11pt.clo
+File: scrsize11pt.clo 2017/09/07 v3.24 KOMA-Script font size class option (11pt)
+
+luaotfload | db : Font names database loaded from C:/Users/J.Foerste/.texlive201
+7/texmf-var/luatex-cache/generic/names/luaotfload-names.luc(load luc: C:/Users/J
+.Foerste/.texlive2017/texmf-var/luatex-cache/generic/fonts/otl/lmroman10-regular
+.luc)) (c:/texlive/2017/texmf-dist/tex/latex/koma-script/typearea.sty
+Package: typearea 2017/09/07 v3.24 KOMA-Script package (type area)
+\ta@bcor=\skip42
+\ta@div=\count79
+\ta@hblk=\skip43
+\ta@vblk=\skip44
+\ta@temp=\skip45
+\footheight=\skip46
+
+
+Package typearea Warning: Maybe no optimal type area settings!
+(typearea)                The maximum limit of line width is about 40%
+(typearea)                larger than the heuristically detected line width.
+(typearea)                You may e.g. increase DIV, decrease fontsize
+(typearea)                or change the papersize.
+
+Package typearea Info: These are the values describing the layout:
+(typearea)             DIV  = 10
+(typearea)             BCOR = 0.0pt
+(typearea)             \paperwidth      = 597.50793pt
+(typearea)              \textwidth      = 418.25555pt
+(typearea)              DIV departure   = 40%
+(typearea)              \evensidemargin = 17.3562pt
+(typearea)              \oddsidemargin  = 17.3562pt
+(typearea)             \paperheight     = 845.04694pt
+(typearea)              \textheight     = 595.80026pt
+(typearea)              \topmargin      = -25.16531pt
+(typearea)              \headheight     = 17.0pt
+(typearea)              \headsep        = 20.40001pt
+(typearea)              \topskip        = 11.0pt
+(typearea)              \footskip       = 47.6pt
+(typearea)              \baselineskip   = 13.6pt
+(typearea)              on input line 1686.
+)
+\c@part=\count80
+\c@section=\count81
+\c@subsection=\count82
+\c@subsubsection=\count83
+\c@paragraph=\count84
+\c@subparagraph=\count85
+\scr@dte@part@maxnumwidth=\skip47
+\scr@dte@section@maxnumwidth=\skip48
+\scr@dte@subsection@maxnumwidth=\skip49
+\scr@dte@subsubsection@maxnumwidth=\skip50
+\scr@dte@paragraph@maxnumwidth=\skip51
+\scr@dte@subparagraph@maxnumwidth=\skip52
+LaTeX Info: Redefining \textsubscript on input line 4161.
+\abovecaptionskip=\skip53
+\belowcaptionskip=\skip54
+\c@pti@nb@sid@b@x=\box27
+\c@figure=\count86
+\c@table=\count87
+Class scrartcl Info: Redefining `\numberline' on input line 5319.
+\bibindent=\dimen102
+) (c:/texlive/2017/texmf-dist/tex/generic/babel/babel.sty
+Package: babel 2017/11/03 3.15 The Babel package
+
+(c:/texlive/2017/texmf-dist/tex/generic/babel/switch.def
+File: switch.def 2017/11/03 3.15 Babel switching mechanism
+)
+(c:/texlive/2017/texmf-dist/tex/generic/babel/luababel.def
+\l@dumylang=\language2
+Package babel Info: Non-standard hyphenation setup on input line 112.
+\l@nohyphenation=\language3
+\l@german-x-2017-03-31=\language4
+\l@ngerman-x-2017-03-31=\language5
+\l@afrikaans=\language6
+\l@ancientgreek=\language7
+\l@ibycus=\language8
+\l@arabic=\language9
+\l@armenian=\language10
+\l@basque=\language11
+\l@belarusian=\language12
+\l@bulgarian=\language13
+\l@catalan=\language14
+\l@pinyin=\language15
+\l@churchslavonic=\language16
+\l@coptic=\language17
+\l@croatian=\language18
+\l@czech=\language19
+\l@danish=\language20
+\l@dutch=\language21
+\l@ukenglish=\language22
+\l@usenglishmax=\language23
+\l@esperanto=\language24
+\l@estonian=\language25
+\l@ethiopic=\language26
+\l@farsi=\language27
+\l@finnish=\language28
+\l@french=\language29
+\l@friulan=\language30
+\l@galician=\language31
+\l@georgian=\language32
+\l@german=\language33
+\l@ngerman=\language34
+\l@swissgerman=\language35
+\l@monogreek=\language36
+\l@greek=\language37
+\l@hungarian=\language38
+\l@icelandic=\language39
+\l@assamese=\language40
+\l@bengali=\language41
+\l@gujarati=\language42
+\l@hindi=\language43
+\l@kannada=\language44
+\l@malayalam=\language45
+\l@marathi=\language46
+\l@oriya=\language47
+\l@panjabi=\language48
+\l@tamil=\language49
+\l@telugu=\language50
+\l@indonesian=\language51
+\l@interlingua=\language52
+\l@irish=\language53
+\l@italian=\language54
+\l@kurmanji=\language55
+\l@latin=\language56
+\l@classiclatin=\language57
+\l@liturgicallatin=\language58
+\l@latvian=\language59
+\l@lithuanian=\language60
+\l@mongolian=\language61
+\l@mongolianlmc=\language62
+\l@bokmal=\language63
+\l@nynorsk=\language64
+\l@occitan=\language65
+\l@piedmontese=\language66
+\l@polish=\language67
+\l@portuguese=\language68
+\l@romanian=\language69
+\l@romansh=\language70
+\l@russian=\language71
+\l@sanskrit=\language72
+\l@serbian=\language73
+\l@serbianc=\language74
+\l@slovak=\language75
+\l@slovenian=\language76
+\l@spanish=\language77
+\l@swedish=\language78
+\l@thai=\language79
+\l@turkish=\language80
+\l@turkmen=\language81
+\l@ukrainian=\language82
+\l@uppersorbian=\language83
+\l@welsh=\language84
+)
+(c:/texlive/2017/texmf-dist/tex/generic/babel-english/english.ldf
+Language: english 2017/06/06 v3.3r English support from the babel system
+
+(c:/texlive/2017/texmf-dist/tex/generic/babel/babel.def
+File: babel.def 2017/11/03 3.15 Babel common definitions
+
+(c:/texlive/2017/texmf-dist/tex/generic/babel/switch.def
+File: switch.def 2017/11/03 3.15 Babel switching mechanism
+)
+\babel@savecnt=\count88
+\U@D=\dimen103
+
+(c:/texlive/2017/texmf-dist/tex/generic/babel/luababel.def))
+\l@canadian = a dialect from \language\l@american 
+\l@australian = a dialect from \language\l@british 
+\l@newzealand = a dialect from \language\l@british 
+))
+(c:/texlive/2017/texmf-dist/tex/latex/fontspec/fontspec.sty
+(c:/texlive/2017/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
+(c:/texlive/2017/texmf-dist/tex/latex/l3kernel/expl3.sty
+Package: expl3 2017/11/14 L3 programming layer (loader) 
+
+(c:/texlive/2017/texmf-dist/tex/latex/l3kernel/expl3-code.tex
+Package: expl3 2017/11/14 L3 programming layer (code)
+\ucharcat@table=\catcodetable5
+\c_max_int=\count89
+\l_tmpa_int=\count90
+\l_tmpb_int=\count91
+\g_tmpa_int=\count92
+\g_tmpb_int=\count93
+\g__intarray_font_int=\count94
+\g__prg_map_int=\count95
+\c_log_iow=\count96
+\l_iow_line_count_int=\count97
+\l__iow_line_target_int=\count98
+\l__iow_one_indent_int=\count99
+\l__iow_indent_int=\count100
+\c_zero_dim=\dimen104
+\c_max_dim=\dimen105
+\l_tmpa_dim=\dimen106
+\l_tmpb_dim=\dimen107
+\g_tmpa_dim=\dimen108
+\g_tmpb_dim=\dimen109
+\c_zero_skip=\skip55
+\c_max_skip=\skip56
+\l_tmpa_skip=\skip57
+\l_tmpb_skip=\skip58
+\g_tmpa_skip=\skip59
+\g_tmpb_skip=\skip60
+\c_zero_muskip=\muskip10
+\c_max_muskip=\muskip11
+\l_tmpa_muskip=\muskip12
+\l_tmpb_muskip=\muskip13
+\g_tmpa_muskip=\muskip14
+\g_tmpb_muskip=\muskip15
+\l_keys_choice_int=\count101
+\c__fp_leading_shift_int=\count102
+\c__fp_middle_shift_int=\count103
+\c__fp_trailing_shift_int=\count104
+\c__fp_big_leading_shift_int=\count105
+\c__fp_big_middle_shift_int=\count106
+\c__fp_big_trailing_shift_int=\count107
+\c__fp_Bigg_leading_shift_int=\count108
+\c__fp_Bigg_middle_shift_int=\count109
+\c__fp_Bigg_trailing_shift_int=\count110
+\c__fp_rand_size_int=\count111
+\c__fp_rand_four_int=\count112
+\c__fp_rand_eight_int=\count113
+\l__sort_length_int=\count114
+\l__sort_min_int=\count115
+\l__sort_top_int=\count116
+\l__sort_max_int=\count117
+\l__sort_true_max_int=\count118
+\l__sort_block_int=\count119
+\l__sort_begin_int=\count120
+\l__sort_end_int=\count121
+\l__sort_A_int=\count122
+\l__sort_B_int=\count123
+\l__sort_C_int=\count124
+\l__tl_build_start_index_int=\count125
+\l__tl_build_index_int=\count126
+\l__tl_analysis_normal_int=\count127
+\l__tl_analysis_index_int=\count128
+\l__tl_analysis_nesting_int=\count129
+\l__tl_analysis_type_int=\count130
+\l__regex_internal_a_int=\count131
+\l__regex_internal_b_int=\count132
+\l__regex_internal_c_int=\count133
+\l__regex_balance_int=\count134
+\l__regex_group_level_int=\count135
+\l__regex_mode_int=\count136
+\c__regex_cs_in_class_mode_int=\count137
+\c__regex_cs_mode_int=\count138
+\l__regex_catcodes_int=\count139
+\l__regex_default_catcodes_int=\count140
+\c__regex_catcode_L_int=\count141
+\c__regex_catcode_O_int=\count142
+\c__regex_catcode_A_int=\count143
+\c__regex_all_catcodes_int=\count144
+\l__regex_show_lines_int=\count145
+\l__regex_min_state_int=\count146
+\l__regex_max_state_int=\count147
+\l__regex_left_state_int=\count148
+\l__regex_right_state_int=\count149
+\l__regex_capturing_group_int=\count150
+\l__regex_min_pos_int=\count151
+\l__regex_max_pos_int=\count152
+\l__regex_curr_pos_int=\count153
+\l__regex_start_pos_int=\count154
+\l__regex_success_pos_int=\count155
+\l__regex_curr_char_int=\count156
+\l__regex_curr_catcode_int=\count157
+\l__regex_last_char_int=\count158
+\l__regex_case_changed_char_int=\count159
+\l__regex_curr_state_int=\count160
+\l__regex_step_int=\count161
+\l__regex_min_active_int=\count162
+\l__regex_max_active_int=\count163
+\l__regex_replacement_csnames_int=\count164
+\l__regex_match_count_int=\count165
+\l__regex_min_submatch_int=\count166
+\l__regex_submatch_int=\count167
+\l__regex_zeroth_submatch_int=\count168
+\g__debug_trace_regex_int=\count169
+\c_empty_box=\box28
+\l_tmpa_box=\box29
+\l_tmpb_box=\box30
+\g_tmpa_box=\box31
+\g_tmpb_box=\box32
+\l__box_top_dim=\dimen110
+\l__box_bottom_dim=\dimen111
+\l__box_left_dim=\dimen112
+\l__box_right_dim=\dimen113
+\l__box_top_new_dim=\dimen114
+\l__box_bottom_new_dim=\dimen115
+\l__box_left_new_dim=\dimen116
+\l__box_right_new_dim=\dimen117
+\l__box_internal_box=\box33
+\l__coffin_internal_box=\box34
+\l__coffin_internal_dim=\dimen118
+\l__coffin_offset_x_dim=\dimen119
+\l__coffin_offset_y_dim=\dimen120
+\l__coffin_x_dim=\dimen121
+\l__coffin_y_dim=\dimen122
+\l__coffin_x_prime_dim=\dimen123
+\l__coffin_y_prime_dim=\dimen124
+\c_empty_coffin=\box35
+\l__coffin_aligned_coffin=\box36
+\l__coffin_aligned_internal_coffin=\box37
+\l_tmpa_coffin=\box38
+\l_tmpb_coffin=\box39
+\l__coffin_display_coffin=\box40
+\l__coffin_display_coord_coffin=\box41
+\l__coffin_display_pole_coffin=\box42
+\l__coffin_display_offset_dim=\dimen125
+\l__coffin_display_x_dim=\dimen126
+\l__coffin_display_y_dim=\dimen127
+\l__coffin_bounding_shift_dim=\dimen128
+\l__coffin_left_corner_dim=\dimen129
+\l__coffin_right_corner_dim=\dimen130
+\l__coffin_bottom_corner_dim=\dimen131
+\l__coffin_top_corner_dim=\dimen132
+\l__coffin_scaled_total_height_dim=\dimen133
+\l__coffin_scaled_width_dim=\dimen134
+)
+(c:/texlive/2017/texmf-dist/tex/latex/l3kernel/l3pdfmode.def
+File: l3pdfmode.def 2017/03/18 v L3 Experimental driver: PDF mode
+\l__driver_color_stack_int=\count170
+\l__driver_tmp_box=\box43
+))
+Package: xparse 2017/11/14 L3 Experimental document command parser
+\l__xparse_current_arg_int=\count171
+\g__xparse_grabber_int=\count172
+\l__xparse_m_args_int=\count173
+\l__xparse_mandatory_args_int=\count174
+\l__xparse_v_nesting_int=\count175
+)
+Package: fontspec 2017/11/09 v2.6g Font selection for XeLaTeX and LuaLaTeX
+Lua module: fontspec 2017/11/09 2.6g Font selection for XeLaTeX and LuaLaTeX
+(c:/texlive/2017/texmf-dist/tex/latex/fontspec/fontspec-luatex.sty
+Package: fontspec-luatex 2017/11/09 v2.6g Font selection for XeLaTeX and LuaLaTe
+X
+\l__fontspec_script_int=\count176
+\l__fontspec_language_int=\count177
+\l__fontspec_strnum_int=\count178
+\l__fontspec_tmp_int=\count179
+\l__fontspec_em_int=\count180
+\l__fontspec_emdef_int=\count181
+\l__fontspec_strong_int=\count182
+\l__fontspec_strongdef_int=\count183
 \l__fontspec_tmpa_dim=\dimen135
 \l__fontspec_tmpb_dim=\dimen136
 \l__fontspec_tmpc_dim=\dimen137
+\g__file_internal_ior=\read1
 
-(c:/texlive/2015/texmf-dist/tex/latex/fontspec/fontspec-patches.sty
-Package: fontspec-patches 2015/09/24 v2.4e Font selection for XeLaTeX and LuaLaT
-eX
-LaTeX Info: Redefining \em on input line 49.
-LaTeX Info: Redefining \emph on input line 57.
-LaTeX Info: Redefining \- on input line 60.
+(c:/texlive/2017/texmf-dist/tex/latex/base/fontenc.sty
+Package: fontenc 2017/04/05 v2.0i Standard LaTeX package
+
+(c:/texlive/2017/texmf-dist/tex/latex/base/tuenc.def
+File: tuenc.def 2017/04/05 v2.0i Standard LaTeX file
+LaTeX Font Info:    Redeclaring font encoding TU on input line 82.
+))
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \fontspec with sig. 'O{}mO{}' on line 545.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \setmainfont with sig. 'O{}mO{}' on line 549.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \setsansfont with sig. 'O{}mO{}' on line 553.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \setmonofont with sig. 'O{}mO{}' on line 557.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \setmathrm with sig. 'O{}mO{}' on line 561.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \setboldmathrm with sig. 'O{}mO{}' on line 565.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \setmathsf with sig. 'O{}mO{}' on line 569.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \setmathtt with sig. 'O{}mO{}' on line 573.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \setromanfont with sig. 'O{}mO{}' on line 577.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \newfontfamily with sig. 'mO{}mO{}' on line 581.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \newfontface with sig. 'mO{}mO{}' on line 585.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \defaultfontfeatures with sig. 't+om' on line 589.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \addfontfeatures with sig. 'm' on line 593.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \addfontfeature with sig. 'm' on line 597.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \newfontfeature with sig. 'mm' on line 601.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \newAATfeature with sig. 'mmmm' on line 605.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \newopentypefeature with sig. 'mmm' on line 609.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \newICUfeature with sig. 'mmm' on line 613.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \aliasfontfeature with sig. 'mm' on line 617.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \aliasfontfeatureoption with sig. 'mmm' on line 621.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \newfontscript with sig. 'mm' on line 625.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \newfontlanguage with sig. 'mm' on line 629.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \DeclareFontsExtensions with sig. 'm' on line 633.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \IfFontFeatureActiveTF with sig. 'mmm' on line 637.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \EncodingCommand with sig. 'mO{}m' on line 3366.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \EncodingAccent with sig. 'mm' on line 3372.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \EncodingSymbol with sig. 'mm' on line 3378.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \EncodingComposite with sig. 'mmm' on line 3384.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \EncodingCompositeCommand with sig. 'mmm' on line 3390.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \DeclareUnicodeEncoding with sig. 'mm' on line 3415.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \UndeclareSymbol with sig. 'm' on line 3421.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \UndeclareAccent with sig. 'm' on line 3427.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \UndeclareCommand with sig. 'm' on line 3433.
+.................................................
+.................................................
+. LaTeX info: "xparse/define-command"
+. 
+. Defining command \UndeclareComposite with sig. 'mm' on line 3440.
+.................................................
+
+(c:/texlive/2017/texmf-dist/tex/latex/fontspec/fontspec.cfg)
+LaTeX Info: Redefining \itshape on input line 3625.
+LaTeX Info: Redefining \slshape on input line 3630.
+LaTeX Info: Redefining \scshape on input line 3635.
+LaTeX Info: Redefining \upshape on input line 3640.
+LaTeX Info: Redefining \em on input line 3670.
+LaTeX Info: Redefining \emph on input line 3695.
+(load luc: C:/Users/J.Foerste/.texlive2017/texmf-var/luatex-cache/generic/fonts/
+otl/lmroman10-bold.luc)(load luc: C:/Users/J.Foerste/.texlive2017/texmf-var/luat
+ex-cache/generic/fonts/otl/lmroman10-italic.luc)
+LaTeX Info: Redefining \- on input line 3749.
 .................................................
 . LaTeX info: "xparse/redefine-command"
 . 
-. Redefining command \oldstylenums with sig. 'm' on line 155.
+. Redefining command \oldstylenums with sig. 'm' on line 3844.
 .................................................
 .................................................
 . LaTeX info: "xparse/define-command"
 . 
-. Defining command \liningnums with sig. 'm' on line 159.
+. Defining command \liningnums with sig. 'm' on line 3848.
 .................................................
-)
-(c:/texlive/2015/texmf-dist/tex/latex/fontspec/fontspec-luatex.sty
-Package: fontspec-luatex 2015/09/24 v2.4e Font selection for XeLaTeX and LuaLaTe
-X
-
-(c:/texlive/2015/texmf-dist/tex/latex/base/fontenc.sty
-Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
-
-(c:/texlive/2015/texmf-dist/tex/latex/euenc/eu2enc.def
-File: eu2enc.def 2010/05/27 v0.1h Experimental Unicode font encodings
-)
-LaTeX Font Info:    Try loading font information for EU2+lmr on input line 105.
-
-(c:/texlive/2015/texmf-dist/tex/latex/euenc/eu2lmr.fd
-File: eu2lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-luaotfload | db : Font names database loaded from C:/texlive/2015/texmf-var/luat
-ex-cache/generic/names/luaotfload-names.luc(load luc: C:/texlive/2015/texmf-var/
-luatex-cache/generic/fonts/otf/lmroman10-regular.luc))
-(c:/texlive/2015/texmf-dist/tex/xelatex/xunicode/xunicode.sty
-File: xunicode.sty 2011/09/09 v0.981 provides access to latin accents and many o
-ther characters in Unicode lower plane
-
-(c:/texlive/2015/texmf-dist/tex/latex/tipa/t3enc.def
-File: t3enc.def 2001/12/31 T3 encoding
-(load luc: C:/texlive/2015/texmf-var/luatex-cache/generic/fonts/otf/lmromanslant
-10-regular.luc)(load luc: C:/texlive/2015/texmf-var/luatex-cache/generic/fonts/o
-tf/lmroman10-italic.luc)(load luc: C:/texlive/2015/texmf-var/luatex-cache/generi
-c/fonts/otf/lmroman10-bold.luc)
-LaTeX Font Info:    Try loading font information for EU2+lmss on input line 357.
-
- (c:/texlive/2015/texmf-dist/tex/latex/euenc/eu2lmss.fd
-File: eu2lmss.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)(load luc: C:/texlive/2015/texmf-var/luatex-cache/generic/fonts/otf/lmsans10-re
-gular.luc))
-\tipaTiiicode=\count120
-\tipasavetokens=\toks15
-\tipachecktokens=\toks16
-
-(c:/texlive/2015/texmf-dist/tex/latex/graphics/graphicx.sty
-Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
-
-(c:/texlive/2015/texmf-dist/tex/latex/graphics/graphics.sty
-Package: graphics 2014/10/28 v1.0p Standard LaTeX Graphics (DPC,SPQR)
-
-(c:/texlive/2015/texmf-dist/tex/latex/graphics/trig.sty
-Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
-)
-(c:/texlive/2015/texmf-dist/tex/latex/latexconfig/graphics.cfg
-File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
-)
-Package graphics Info: Driver file: pdftex.def on input line 94.
-
-(c:/texlive/2015/texmf-dist/tex/latex/pdftex-def/pdftex.def
-File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
-
-(c:/texlive/2015/texmf-dist/tex/generic/oberdiek/infwarerr.sty
-Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
-)
-(c:/texlive/2015/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
-Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
-)
-\Gread@gobject=\count121
 ))
-\Gin@req@height=\dimen138
-\Gin@req@width=\dimen139
-))
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining command \__fontspec_post_arg:w with sig. 'mmO{}' on line 45.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining command \fontspec with sig. 'om' on line 47.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining command \setmainfont with sig. 'om' on line 57.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining command \setsansfont with sig. 'om' on line 67.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining command \setmonofont with sig. 'om' on line 77.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining command \setmathrm with sig. 'om' on line 91.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining command \setboldmathrm with sig. 'om' on line 99.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining command \setmathsf with sig. 'om' on line 107.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining command \setmathtt with sig. 'om' on line 115.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining command \newfontfamily with sig. 'mom' on line 129.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining command \newfontface with sig. 'mom' on line 144.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining command \defaultfontfeatures with sig. 't+om' on line 158.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining command \addfontfeatures with sig. 'm' on line 214.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining command \newfontfeature with sig. 'mm' on line 225.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining command \newAATfeature with sig. 'mmmm' on line 233.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining command \newopentypefeature with sig. 'mmm' on line 241.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining command \aliasfontfeature with sig. 'mm' on line 262.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining command \aliasfontfeatureoption with sig. 'mmm' on line 271.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining command \newfontscript with sig. 'mm' on line 276.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining command \newfontlanguage with sig. 'mm' on line 302.
-.................................................
-.................................................
-. LaTeX info: "xparse/define-command"
-. 
-. Defining command \DeclareFontsExtensions with sig. 'm' on line 322.
-.................................................
-\l__fontspec_tmp_int=\count122
-LaTeX Info: Redefining \itshape on input line 2151.
-LaTeX Info: Redefining \slshape on input line 2156.
-LaTeX Info: Redefining \scshape on input line 2161.
-LaTeX Info: Redefining \upshape on input line 2166.
-
-(c:/texlive/2015/texmf-dist/tex/latex/fontspec/fontspec.cfg)))
-(c:/texlive/2015/texmf-dist/tex/latex/amsmath/amsmath.sty
-Package: amsmath 2013/01/14 v2.14 AMS math features
-\@mathmargin=\skip54
+(c:/texlive/2017/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2017/09/02 v2.17a AMS math features
+\@mathmargin=\skip61
 
 For additional information on amsmath, use the `?' option.
-(c:/texlive/2015/texmf-dist/tex/latex/amsmath/amstext.sty
-Package: amstext 2000/06/29 v2.01
+(c:/texlive/2017/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2000/06/29 v2.01 AMS text
 
-(c:/texlive/2015/texmf-dist/tex/latex/amsmath/amsgen.sty
-File: amsgen.sty 1999/11/30 v2.0
-\@emptytoks=\toks17
-\ex@=\dimen140
+(c:/texlive/2017/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks15
+\ex@=\dimen138
 ))
-(c:/texlive/2015/texmf-dist/tex/latex/amsmath/amsbsy.sty
-Package: amsbsy 1999/11/29 v1.2d
-\pmbraise@=\dimen141
+(c:/texlive/2017/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen139
 )
-(c:/texlive/2015/texmf-dist/tex/latex/amsmath/amsopn.sty
-Package: amsopn 1999/12/14 v2.01 operator names
+(c:/texlive/2017/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 2016/03/08 v2.02 operator names
 )
-\inf@bad=\count123
-LaTeX Info: Redefining \frac on input line 210.
-\uproot@=\count124
-\leftroot@=\count125
-LaTeX Info: Redefining \overline on input line 306.
-\classnum@=\count126
-\DOTSCASE@=\count127
-LaTeX Info: Redefining \ldots on input line 378.
-LaTeX Info: Redefining \dots on input line 381.
-LaTeX Info: Redefining \cdots on input line 466.
-\Mathstrutbox@=\box42
-\strutbox@=\box43
-\big@size=\dimen142
-LaTeX Font Info:    Redeclaring font encoding OML on input line 566.
-LaTeX Font Info:    Redeclaring font encoding OMS on input line 567.
-\macc@depth=\count128
-\c@MaxMatrixCols=\count129
+\inf@bad=\count184
+LaTeX Info: Redefining \frac on input line 213.
+\uproot@=\count185
+\leftroot@=\count186
+LaTeX Info: Redefining \overline on input line 375.
+\classnum@=\count187
+\DOTSCASE@=\count188
+LaTeX Info: Redefining \ldots on input line 472.
+LaTeX Info: Redefining \dots on input line 475.
+LaTeX Info: Redefining \cdots on input line 596.
+\Mathstrutbox@=\box44
+\strutbox@=\box45
+\big@size=\dimen140
+LaTeX Font Info:    Redeclaring font encoding OML on input line 712.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 713.
+\macc@depth=\count189
+\c@MaxMatrixCols=\count190
 \dotsspace@=\muskip16
-\c@parentequation=\count130
-\dspbrk@lvl=\count131
-\tag@help=\toks18
-\row@=\count132
-\column@=\count133
-\maxfields@=\count134
-\andhelp@=\toks19
-\eqnshift@=\dimen143
-\alignsep@=\dimen144
-\tagshift@=\dimen145
-\tagwidth@=\dimen146
-\totwidth@=\dimen147
-\lineht@=\dimen148
-\@envbody=\toks20
-\multlinegap=\skip55
-\multlinetaggap=\skip56
-\mathdisplay@stack=\toks21
-LaTeX Info: Redefining \[ on input line 2665.
-LaTeX Info: Redefining \] on input line 2666.
+\c@parentequation=\count191
+\dspbrk@lvl=\count192
+\tag@help=\toks16
+\row@=\count193
+\column@=\count194
+\maxfields@=\count195
+\andhelp@=\toks17
+\eqnshift@=\dimen141
+\alignsep@=\dimen142
+\tagshift@=\dimen143
+\tagwidth@=\dimen144
+\totwidth@=\dimen145
+\lineht@=\dimen146
+\@envbody=\toks18
+\multlinegap=\skip62
+\multlinetaggap=\skip63
+\mathdisplay@stack=\toks19
+LaTeX Info: Redefining \[ on input line 2817.
+LaTeX Info: Redefining \] on input line 2818.
 )
-(c:/texlive/2015/texmf-dist/tex/latex/float/float.sty
+(c:/texlive/2017/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2017/06/01 v1.1a Enhanced LaTeX Graphics (DPC,SPQR)
+
+(c:/texlive/2017/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2017/06/25 v1.2c Standard LaTeX Graphics (DPC,SPQR)
+
+(c:/texlive/2017/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+)
+(c:/texlive/2017/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: luatex.def on input line 99.
+
+(c:/texlive/2017/texmf-dist/tex/latex/graphics-def/luatex.def
+File: luatex.def 2017/06/24 v1.0f Graphics/color driver for luatex
+))
+\Gin@req@height=\dimen147
+\Gin@req@width=\dimen148
+)
+(c:/texlive/2017/texmf-dist/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count135
-\float@exts=\toks22
-\float@box=\box44
-\@float@everytoks=\toks23
-\@floatcapt=\box45
+\c@float@type=\count196
+\float@exts=\toks20
+\float@box=\box46
+\@float@everytoks=\toks21
+\@floatcapt=\box47
 )
-(c:/texlive/2015/texmf-dist/tex/latex/datetime2/datetime2.sty
-Package: datetime2 2015/11/10 v1.2 (NLCT) date and time formats
+(c:/texlive/2017/texmf-dist/tex/latex/datetime2/datetime2.sty
+Package: datetime2 2016/07/12 v1.5.2 (NLCT) date and time formats
 
-(c:/texlive/2015/texmf-dist/tex/latex/tracklang/tracklang.sty
-Package: tracklang 2015/03/23 v1.2 (NLCT) Track Languages
+(c:/texlive/2017/texmf-dist/tex/latex/tracklang/tracklang.sty
+Package: tracklang 2017/03/25 v1.3.4 (NLCT) Track Languages
 
-(c:/texlive/2015/texmf-dist/tex/generic/tracklang/tracklang.tex))
-(c:/texlive/2015/texmf-dist/tex/latex/etoolbox/etoolbox.sty
-Package: etoolbox 2015/08/02 v2.2a e-TeX tools for LaTeX (JAW)
-\etb@tempcnta=\count136
+(c:/texlive/2017/texmf-dist/tex/generic/tracklang/tracklang.tex))
+(c:/texlive/2017/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+Package: etoolbox 2017/01/02 v2.4 e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count197
 )
-(c:/texlive/2015/texmf-dist/tex/latex/xkeyval/xkeyval.sty
+(c:/texlive/2017/texmf-dist/tex/latex/xkeyval/xkeyval.sty
 Package: xkeyval 2014/12/03 v2.7a package option processing (HA)
 
-(c:/texlive/2015/texmf-dist/tex/generic/xkeyval/xkeyval.tex
-(c:/texlive/2015/texmf-dist/tex/generic/xkeyval/xkvutils.tex
-\XKV@toks=\toks24
-\XKV@tempa@toks=\toks25
+(c:/texlive/2017/texmf-dist/tex/generic/xkeyval/xkeyval.tex
+(c:/texlive/2017/texmf-dist/tex/generic/xkeyval/xkvutils.tex
+\XKV@toks=\toks22
+\XKV@tempa@toks=\toks23
 )
-\XKV@depth=\count137
+\XKV@depth=\count198
 File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
 ))
-(c:/texlive/2015/texmf-dist/tex/latex/datetime2-english/datetime2-english.ldf
-File: datetime2-english.ldf 2015/04/09 v1.01 (NLCT)
+(c:/texlive/2017/texmf-dist/tex/latex/datetime2-english/datetime2-english.ldf
+File: datetime2-english.ldf 2016/03/09 v1.04 (NLCT)
 
-(c:/texlive/2015/texmf-dist/tex/latex/datetime2-english/datetime2-english-base.
+(c:/texlive/2017/texmf-dist/tex/latex/datetime2-english/datetime2-english-base.
 ldf
-File: datetime2-english-base.ldf 2015/04/09 v1.01 (NLCT)
+File: datetime2-english-base.ldf 2016/03/09 v1.04 (NLCT)
 )))
-\g__file_internal_ior=\read1
-luaotfload | cache : Lookup cache loaded from C:/texlive/2015/texmf-var/luatex-c
-ache/generic/names/luaotfload-lookup-cache.luc.
-luaotfload | load : Lookup/name: "Linux Libertine O" -> "linlibertine_r.otf"(loa
-d luc: C:/texlive/2015/texmf-var/luatex-cache/generic/fonts/otf/linlibertine-r.l
-uc)
-luaotfload | load : Lookup/name: "Linux Libertine O" -> "linlibertine_r.otf"
-\g__fontspec_family_LinuxLibertineO_int=\count138
-luaotfload | load : Lookup/name: "Linux Libertine O" -> "linlibertine_r.otf"
-luaotfload | load : Lookup/name: "Linux Libertine O" -> "linlibertine_rbi.otf"(l
-oad luc: C:/texlive/2015/texmf-var/luatex-cache/generic/fonts/otf/linlibertine-r
-bi.luc)
-luaotfload | load : Lookup/name: "Linux Libertine O" -> "linlibertine_r.otf"
-luaotfload | load : Lookup/name: "Linux Libertine O" -> "linlibertine_rb.otf"(lo
-ad luc: C:/texlive/2015/texmf-var/luatex-cache/generic/fonts/otf/linlibertine-rb
-.luc)
-luaotfload | load : Lookup/name: "Linux Libertine O" -> "linlibertine_r.otf"
-luaotfload | load : Lookup/name: "Linux Libertine O" -> "linlibertine_ri.otf"(lo
-ad luc: C:/texlive/2015/texmf-var/luatex-cache/generic/fonts/otf/linlibertine-ri
-.luc)
-luaotfload | load : Lookup/name: "LinuxLibertineO" -> "linlibertine_r.otf"
-luaotfload | load : Lookup/name: "LinuxLibertineO" -> "linlibertine_r.otf"
-luaotfload | load : Lookup/name: "LinuxLibertineO" -> "linlibertine_rb.otf"
-luaotfload | load : Lookup/name: "LinuxLibertineO" -> "linlibertine_rb.otf"
-luaotfload | load : Lookup/name: "LinuxLibertineO" -> "linlibertine_ri.otf"
-luaotfload | load : Lookup/name: "LinuxLibertineO" -> "linlibertine_ri.otf"
-luaotfload | load : Lookup/name: "LinuxLibertineO" -> "linlibertine_rbi.otf"
-luaotfload | load : Lookup/name: "LinuxLibertineO" -> "linlibertine_rbi.otf"
+luaotfload | cache : Lookup cache loaded from C:/Users/J.Foerste/.texlive2017/te
+xmf-var/luatex-cache/generic/names/luaotfload-lookup-cache.luc.(load luc: C:/Use
+rs/J.Foerste/.texlive2017/texmf-var/luatex-cache/generic/fonts/otl/linlibertine-
+r.luc)
+\g__fontspec_family_LinuxLibertineO_int=\count199
+(load luc: C:/Users/J.Foerste/.texlive2017/texmf-var/luatex-cache/generic/fonts/
+otl/linlibertine-rbi.luc)(load luc: C:/Users/J.Foerste/.texlive2017/texmf-var/lu
+atex-cache/generic/fonts/otl/linlibertine-rb.luc)(load luc: C:/Users/J.Foerste/.
+texlive2017/texmf-var/luatex-cache/generic/fonts/otl/linlibertine-ri.luc)
 .................................................
 . fontspec info: "defining-font"
 . 
 . Font family 'LinuxLibertineO(0)' created for font 'Linux Libertine O' with
 . options [Ligatures=TeX,Numbers=OldStyle].
-. 
-. This font family consists of the following shapes:
-. 
-. * 'normal' with NFSS spec.:
-. <->"LinuxLibertineO:mode=node;script=latn;language=DFLT;+tlig;+trep;+onum;"
-. 
-. * 'small caps' with NFSS spec.:
-. 
-. <->"LinuxLibertineO:mode=node;script=latn;language=DFLT;+tlig;+trep;+onum;+smc
-p;"
-. and font adjustment code:
-. 
-. 
-. * 'bold' with NFSS spec.:
-. 
-. <->"LinuxLibertineO/B:mode=node;script=latn;language=DFLT;+tlig;+trep;+onum;"
-. 
-. * 'bold small caps' with NFSS spec.:
-. 
-. <->"LinuxLibertineO/B:mode=node;script=latn;language=DFLT;+tlig;+trep;+onum;+s
-mcp;"
-. and font adjustment code:
-. 
-. 
-. * 'italic' with NFSS spec.:
-. 
-. <->"LinuxLibertineO/I:mode=node;script=latn;language=DFLT;+tlig;+trep;+onum;"
-. 
-. * 'small caps' with NFSS spec.:
-. 
-. <->"LinuxLibertineO/I:mode=node;script=latn;language=DFLT;+tlig;+trep;+onum;+s
-mcp;"
-. and font adjustment code:
-. 
-. 
-. * 'bold italic' with NFSS spec.:
-. 
-. <->"LinuxLibertineO/BI:mode=node;script=latn;language=DFLT;+tlig;+trep;+onum;"
+.  
+.  This font family consists of the following NFSS series/shapes:
+.  
+. - 'normal' (m/n) with NFSS spec.:
+. <->"LinuxLibertineO:mode=node;script=latn;language=DFLT;+tlig;+onum;"
+. - 'small caps'  (m/sc) with NFSS spec.:
+. <->"LinuxLibertineO:mode=node;script=latn;language=DFLT;+tlig;+onum;+smcp;"
+. - 'bold' (bx/n) with NFSS spec.:
+. <->"LinuxLibertineO/B:mode=node;script=latn;language=DFLT;+tlig;+onum;"
+. - 'bold small caps'  (bx/sc) with NFSS spec.:
+. <->"LinuxLibertineO/B:mode=node;script=latn;language=DFLT;+tlig;+onum;+smcp;"
+. - 'italic' (m/it) with NFSS spec.:
+. <->"LinuxLibertineO/I:mode=node;script=latn;language=DFLT;+tlig;+onum;"
+. - 'italic small caps'  (m/itsc) with NFSS spec.:
+. <->"LinuxLibertineO/I:mode=node;script=latn;language=DFLT;+tlig;+onum;+smcp;"
+. - 'bold italic' (bx/it) with NFSS spec.:
+. <->"LinuxLibertineO/BI:mode=node;script=latn;language=DFLT;+tlig;+onum;"
+. - 'bold italic small caps'  (bx/itsc) with NFSS spec.:
+. <->"LinuxLibertineO/BI:mode=node;script=latn;language=DFLT;+tlig;+onum;+smcp;"
 
-. 
-. * 'bold small caps' with NFSS spec.:
-. 
-. <->"LinuxLibertineO/BI:mode=node;script=latn;language=DFLT;+tlig;+trep;+onum;+
-smcp;"
-. and font adjustment code:
-. 
 .................................................
-luaotfload | load : Lookup/name: "LinuxLibertineO" -> "linlibertine_r.otf"
+LaTeX Info: Redefining \rmfamily on input line 5.
 Package scrkbase Info: You've told me to redefine the font selection of the
 (scrkbase)             element `sectioning' that is an alias of element
 (scrkbase)             `disposition' on input line 6.
@@ -656,81 +783,12 @@ LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 11.
 LaTeX Font Info:    ... okay on input line 11.
 LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 11.
 LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 11.
+LaTeX Font Info:    ... okay on input line 11.
 LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 11.
 LaTeX Font Info:    ... okay on input line 11.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 11.
 LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for EU2/lmr/m/n on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for T3/cmr/m/n on input line 11.
-LaTeX Font Info:    Try loading font information for T3+cmr on input line 11.
-
-(c:/texlive/2015/texmf-dist/tex/latex/tipa/t3cmr.fd
-File: t3cmr.fd 2001/12/31 TIPA font definitions
-)
-LaTeX Font Info:    ... okay on input line 11.
-luaotfload | load : Lookup/name: "LinuxLibertineO" -> "linlibertine_r.otf"
-(c:/texlive/2015/texmf-dist/tex/context/base/supp-pdf.mkii
-[Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count139
-\scratchdimen=\dimen149
-\scratchbox=\box46
-\nofMPsegments=\count140
-\nofMParguments=\count141
-\everyMPshowfont=\toks26
-\MPscratchCnt=\count142
-\MPscratchDim=\dimen150
-\MPnumerator=\count143
-\makeMPintoPDFobject=\count144
-\everyMPtoPDFconversion=\toks27
-) (c:/texlive/2015/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
-Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO)
-
-
-(c:/texlive/2015/texmf-dist/tex/generic/oberdiek/ifluatex.sty
-Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
-Package ifluatex Info: LuaTeX detected.
-)
-(c:/texlive/2015/texmf-dist/tex/generic/oberdiek/ifpdf.sty
-Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
-Package ifpdf Info: pdfTeX in PDF mode is detected.
-)
-Package pdftexcmds Info: \pdf@primitive is available.
-Package pdftexcmds Info: \pdf@ifprimitive is available.
-Package pdftexcmds Info: \pdfdraftmode found.
-
-(c:/texlive/2015/texmf-dist/tex/generic/oberdiek/luatex-loader.sty
-Package: luatex-loader 2010/03/09 v0.4 Lua module loader (HO)
-
-(c:/texlive/2015/texmf-dist/scripts/oberdiek/oberdiek.luatex.lua))
-\pdftexcmds@toks=\toks28
-)
-(c:/texlive/2015/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
-Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
-
-(c:/texlive/2015/texmf-dist/tex/latex/oberdiek/grfext.sty
-Package: grfext 2010/08/19 v1.1 Manage graphics extensions (HO)
-
-(c:/texlive/2015/texmf-dist/tex/generic/oberdiek/kvdefinekeys.sty
-Package: kvdefinekeys 2011/04/07 v1.3 Define keys (HO)
-))
-(c:/texlive/2015/texmf-dist/tex/latex/oberdiek/kvoptions.sty
-Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
-
-(c:/texlive/2015/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
-Package: kvsetkeys 2012/04/25 v1.16 Key value parser (HO)
-
-(c:/texlive/2015/texmf-dist/tex/generic/oberdiek/etexcmds.sty
-Package: etexcmds 2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
-)))
-Package grfext Info: Graphics extension search list:
-(grfext)             [.png,.pdf,.jpg,.mps,.tif,.jpeg,.PNG,.PDF,.JPG,.JPEG,.eps]
-(grfext)             \AppendGraphicsExtensions on input line 452.
-
-(c:/texlive/2015/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
-File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
-
-))
 .................................................
 . fontspec info: "setup-math"
 . 
@@ -762,84 +820,229 @@ LaTeX Font Info:    Redeclaring math symbol \Psi on input line 11.
 LaTeX Font Info:    Redeclaring math symbol \Omega on input line 11.
 LaTeX Font Info:    Redeclaring math symbol \mathdollar on input line 11.
 LaTeX Font Info:    Redeclaring symbol font `operators' on input line 11.
-LaTeX Font Info:    Encoding `OT1' has changed to `EU2' for symbol font
+LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
 (Font)              `operators' in the math version `normal' on input line 11.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/cmr/m/n --> EU2/LinuxLibertineO(0)/m/n on input line
- 11.
-LaTeX Font Info:    Encoding `OT1' has changed to `EU2' for symbol font
+(Font)                  OT1/cmr/m/n --> TU/LinuxLibertineO(0)/m/n on input line 
+11.
+LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
 (Font)              `operators' in the math version `bold' on input line 11.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/cmr/bx/n --> EU2/LinuxLibertineO(0)/m/n on input lin
-e 11.
+(Font)                  OT1/cmr/bx/n --> TU/LinuxLibertineO(0)/m/n on input line
+ 11.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  EU2/LinuxLibertineO(0)/m/n --> EU2/LinuxLibertineO(0)/m/
-n on input line 11.
+(Font)                  TU/LinuxLibertineO(0)/m/n --> TU/LinuxLibertineO(0)/m/n 
+on input line 11.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  OT1/cmr/m/it --> EU2/LinuxLibertineO(0)/m/it on input li
-ne 11.
+(Font)                  OT1/cmr/m/it --> TU/LinuxLibertineO(0)/m/it on input lin
+e 11.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
-(Font)                  OT1/cmr/bx/n --> EU2/LinuxLibertineO(0)/bx/n on input li
-ne 11.
+(Font)                  OT1/cmr/bx/n --> TU/LinuxLibertineO(0)/bx/n on input lin
+e 11.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/cmss/m/n --> EU2/lmss/m/n on input line 11.
+(Font)                  OT1/cmss/m/n --> TU/lmss/m/n on input line 11.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/cmtt/m/n --> EU2/lmtt/m/n on input line 11.
+(Font)                  OT1/cmtt/m/n --> TU/lmtt/m/n on input line 11.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  EU2/LinuxLibertineO(0)/m/n --> EU2/LinuxLibertineO(0)/bx
-/n on input line 11.
+(Font)                  TU/LinuxLibertineO(0)/m/n --> TU/LinuxLibertineO(0)/bx/n
+ on input line 11.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/cmr/bx/it --> EU2/LinuxLibertineO(0)/bx/it on input 
-line 11.
+(Font)                  OT1/cmr/bx/it --> TU/LinuxLibertineO(0)/bx/it on input l
+ine 11.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/cmss/bx/n --> EU2/lmss/bx/n on input line 11.
+(Font)                  OT1/cmss/bx/n --> TU/lmss/bx/n on input line 11.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/cmtt/m/n --> EU2/lmtt/bx/n on input line 11.
-luaotfload | load : Lookup/name: "LinuxLibertineO" -> "linlibertine_r.otf"
-luaotfload | load : Lookup/name: "LinuxLibertineO" -> "linlibertine_r.otf"
-luaotfload | load : Lookup/name: "LinuxLibertineO" -> "linlibertine_r.otf"
-<Ex.png, id=1, 578.16pt x 433.62pt>
+(Font)                  OT1/cmtt/m/n --> TU/lmtt/bx/n on input line 11.
+
+(c:/texlive/2017/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count266
+\scratchdimen=\dimen149
+\scratchbox=\box48
+\nofMPsegments=\count267
+\nofMParguments=\count268
+\everyMPshowfont=\toks24
+\MPscratchCnt=\count269
+\MPscratchDim=\dimen150
+\MPnumerator=\count270
+\makeMPintoPDFobject=\count271
+\everyMPtoPDFconversion=\toks25
+) (c:/texlive/2017/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
+
+(c:/texlive/2017/texmf-dist/tex/generic/oberdiek/infwarerr.sty
+Package: infwarerr 2016/05/16 v1.4 Providing info/warning/error messages (HO)
+)
+(c:/texlive/2017/texmf-dist/tex/latex/oberdiek/grfext.sty
+Package: grfext 2016/05/16 v1.2 Manage graphics extensions (HO)
+
+(c:/texlive/2017/texmf-dist/tex/generic/oberdiek/kvdefinekeys.sty
+Package: kvdefinekeys 2016/05/16 v1.4 Define keys (HO)
+
+(c:/texlive/2017/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
+Package: ltxcmds 2016/05/16 v1.23 LaTeX kernel commands for general use (HO)
+)))
+(c:/texlive/2017/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
+
+(c:/texlive/2017/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
+Package: kvsetkeys 2016/05/16 v1.17 Key value parser (HO)
+
+(c:/texlive/2017/texmf-dist/tex/generic/oberdiek/etexcmds.sty
+Package: etexcmds 2016/05/16 v1.6 Avoid name clashes with e-TeX commands (HO)
+
+(c:/texlive/2017/texmf-dist/tex/generic/oberdiek/ifluatex.sty
+Package: ifluatex 2016/05/16 v1.4 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX detected.
+))))
+(c:/texlive/2017/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
+Package: pdftexcmds 2017/03/19 v0.25 Utility functions of pdfTeX for LuaTeX (HO)
+
+
+(c:/texlive/2017/texmf-dist/tex/generic/oberdiek/ifpdf.sty
+Package: ifpdf 2017/03/15 v3.2 Provides the ifpdf switch
+)
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+\pdftexcmds@toks=\toks26
+)
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 43
+8.
+Package grfext Info: Graphics extension search list:
+(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPEG
+,.JBIG2,.JB2 ,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 456.
+
+(c:/texlive/2017/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
+
+))
+<WL-SCAN-01-hbn-WS2-hbn-SiO-40uW-510nm+-5nm-WLS-78MHz-120s-x41329y08629.png, id=
+1, pagebox=cropbox, 578.16pt x 433.62pt>
+File: WL-SCAN-01-hbn-WS2-hbn-SiO-40uW-510nm+-5nm-WLS-78MHz-120s-x41329y08629.png
+ Graphic file (type png)
+<use WL-SCAN-01-hbn-WS2-hbn-SiO-40uW-510nm+-5nm-WLS-78MHz-120s-x41329y08629.png>
+
+Package luatex.def Info: WL-SCAN-01-hbn-WS2-hbn-SiO-40uW-510nm+-5nm-WLS-78MHz-12
+0s-x41329y08629.png  used on input line 21. on input line 21.
+Package luatex.def Info: Requested size: 188.21371pt x 141.1564pt on input line 
+21.
+
+Underfull \hbox (badness 10000) in paragraph at lines 22--22
+[]\TU/LinuxLibertineO(0)/m/n/10.95 File-name:WL-SCAN--hbn-WS-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 22--22
+\TU/LinuxLibertineO(0)/m/n/10.95 hbn-SiO-uW-nm+-nm-WLS-
+ []
+
+<Ex.png, id=2, pagebox=cropbox, 578.16pt x 433.62pt>
 File: Ex.png Graphic file (type png)
- <use Ex.png>
-Package pdftex.def Info: Ex.png used on input line 16.
-(pdftex.def)             Requested size: 167.29967pt x 125.46869pt.
+<use Ex.png>
+Package luatex.def Info: Ex.png  used on input line 26. on input line 26.
+Package luatex.def Info: Requested size: 188.21371pt x 141.1564pt on input line 
+26.
+<GATE-08-hbn-WSe2-hbn-200uW-200s-630nm+-5nm-4K-nogate-78MHz-timetrace-0V-xm03081
+y22400_1.png, id=3, pagebox=cropbox, 578.16pt x 433.62pt>
+File: GATE-08-hbn-WSe2-hbn-200uW-200s-630nm+-5nm-4K-nogate-78MHz-timetrace-0V-xm
+03081y22400_1.png Graphic file (type png)
+<use GATE-08-hbn-WSe2-hbn-200uW-200s-630nm+-5nm-4K-nogate-78MHz-timetrace-0V-xm0
+3081y22400_1.png>
+Package luatex.def Info: GATE-08-hbn-WSe2-hbn-200uW-200s-630nm+-5nm-4K-nogate-78
+MHz-timetrace-0V-xm03081y22400_1.png  used on input line 31. on input line 31.
+Package luatex.def Info: Requested size: 188.21371pt x 141.1564pt on input line 
+31.
 
-<birdyboese.JPG, id=2, 860.61525pt x 570.02963pt>
-File: birdyboese.JPG Graphic file (type jpg)
- <use birdyboese.JPG>
-Package pdftex.def Info: birdyboese.JPG used on input line 20.
-(pdftex.def)             Requested size: 167.29967pt x 110.80305pt.
-
-<ducktales.JPG, id=3, 679.03688pt x 632.96475pt>
-File: ducktales.JPG Graphic file (type jpg)
- <use ducktales.JPG>
-Package pdftex.def Info: ducktales.JPG used on input line 24.
-(pdftex.def)             Requested size: 167.29967pt x 155.94212pt.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[1
+Underfull \hbox (badness 10000) in paragraph at lines 32--32
+[]\TU/LinuxLibertineO(0)/m/n/10.95 File-name:GATE--hbn-WSe-
+ []
 
 
-{c:/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}<./Ex.png><./birdy
-boese.JPG>] [2<./ducktales.JPG>] (./Evaluation.aux))
+Underfull \hbox (badness 10000) in paragraph at lines 32--32
+\TU/LinuxLibertineO(0)/m/n/10.95 hbn-uW-s-nm+-nm-
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 32--32
+\TU/LinuxLibertineO(0)/m/n/10.95 K-nogate-MHz-timetrace-V-
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+<WL-SCAN-02-hbn-WS2-hbn-SiO-40uW-515nm+-5nm-WLS-78MHz-120s-x41329y08629.png, id=
+4, pagebox=cropbox, 578.16pt x 433.62pt>
+File: WL-SCAN-02-hbn-WS2-hbn-SiO-40uW-515nm+-5nm-WLS-78MHz-120s-x41329y08629.png
+ Graphic file (type png)
+<use WL-SCAN-02-hbn-WS2-hbn-SiO-40uW-515nm+-5nm-WLS-78MHz-120s-x41329y08629.png>
+
+Package luatex.def Info: WL-SCAN-02-hbn-WS2-hbn-SiO-40uW-515nm+-5nm-WLS-78MHz-12
+0s-x41329y08629.png  used on input line 36. on input line 36.
+Package luatex.def Info: Requested size: 188.21371pt x 141.1564pt on input line 
+36.
+
+Underfull \hbox (badness 10000) in paragraph at lines 37--37
+[]\TU/LinuxLibertineO(0)/m/n/10.95 File-name:WL-SCAN--hbn-WS-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 37--37
+\TU/LinuxLibertineO(0)/m/n/10.95 hbn-SiO-uW-nm+-nm-WLS-
+ []
+
+<WL-SCAN-03-hbn-WS2-hbn-SiO-50uW-520nm+-5nm-WLS-78MHz-120s-x41329y08629.png, id=
+5, pagebox=cropbox, 578.16pt x 433.62pt>
+File: WL-SCAN-03-hbn-WS2-hbn-SiO-50uW-520nm+-5nm-WLS-78MHz-120s-x41329y08629.png
+ Graphic file (type png)
+<use WL-SCAN-03-hbn-WS2-hbn-SiO-50uW-520nm+-5nm-WLS-78MHz-120s-x41329y08629.png>
+
+Package luatex.def Info: WL-SCAN-03-hbn-WS2-hbn-SiO-50uW-520nm+-5nm-WLS-78MHz-12
+0s-x41329y08629.png  used on input line 41. on input line 41.
+Package luatex.def Info: Requested size: 188.21371pt x 141.1564pt on input line 
+41.
+
+Underfull \hbox (badness 10000) in paragraph at lines 42--42
+[]\TU/LinuxLibertineO(0)/m/n/10.95 File-name:WL-SCAN--hbn-WS-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 42--42
+\TU/LinuxLibertineO(0)/m/n/10.95 hbn-SiO-uW-nm+-nm-WLS-
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [1{c:/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
+
+
+
+
+<./WL-SCAN-01-hbn-WS2-hbn-SiO-40uW-510nm+-5nm-WLS-78MHz-120s-x41329y08629.png><.
+/Ex.png><./GATE-08-hbn-WSe2-hbn-200uW-200s-630nm+-5nm-4K-nogate-78MHz-timetrace-
+0V-xm03081y22400_1.png>] [2
+
+<./WL-SCAN-02-hbn-WS2-hbn-SiO-40uW-515nm+-5nm-WLS-78MHz-120s-x41329y08629.png><.
+/WL-SCAN-03-hbn-WS2-hbn-SiO-50uW-520nm+-5nm-WLS-78MHz-120s-x41329y08629.png>] (./Evaluation.aux))
 
 Here is how much of LuaTeX's memory you used:
- 19224 strings out of 494897
- 100000,552014 words of node,token memory allocated
- 380 words of node memory still in use:
-   6 hlist, 2 vlist, 2 rule, 2 glue, 1 kern, 6 attribute, 48 glue_spec, 6 attrib
+ 17483 strings out of 494483
+ 100000,662416 words of node,token memory allocated
+ 488 words of node memory still in use:
+   6 hlist, 2 vlist, 2 rule, 2 glue, 1 kern, 6 attribute, 58 glue_spec, 6 attrib
 ute_list, 1 write nodes
-   avail lists: 2:205,3:42,4:173,5:23,6:275,7:17,9:56,10:27
- 22457 multiletter control sequences out of 65536+600000
- 42 fonts using 3905779 bytes
- 61i,6n,62p,861b,295s stack positions out of 5000i,500n,10000p,200000b,100000s
-<c:/texlive/2015/texmf-dist/fonts/opentype/public/libertine/linlibertine_r.otf>
-Output written on Evaluation.pdf (2 pages, 3174499 bytes).
+   avail lists: 2:298,3:61,4:8,5:78,6:560,7:197,8:21,9:114,10:6,11:74
+ 21181 multiletter control sequences out of 65536+600000
+ 60 fonts using 9407275 bytes
+ 51i,7n,83p,8857b,281s stack positions out of 5000i,500n,10000p,200000b,100000s
+<c:/texlive/2017/texmf-dist/fonts/opentype/public/libertine/linlibertine_r.otf>
+Output written on Evaluation.pdf (2 pages, 185468 bytes).
 
-PDF statistics: 22 PDF objects out of 1000 (max. 8388607)
+PDF statistics: 28 PDF objects out of 1000 (max. 8388607)
  10 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 131072)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1 words of extra memory for PDF output out of 10000 (max. 100000000)
 

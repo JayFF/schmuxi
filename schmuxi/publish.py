@@ -4,6 +4,7 @@ import yaml
 import datetime
 from os import chdir
 from glob import glob
+import re
 
 class Evaluation:
     
@@ -62,7 +63,7 @@ class Evaluation:
     def latex_header(self):
         '''Creates header for the LaTeX-file. Fixes layout, font and so on.'''
         latex_header = ''
-        latex_header += "\\documentclass[english]{scrartcl}\n"
+        latex_header += "\\documentclass[twocolumn,english]{scrartcl}\n"
         latex_header += "\\usepackage{babel, fontspec, amsmath}\n"
         latex_header += "\\usepackage{graphicx, float}\n"
         latex_header += "\\usepackage{datetime2}\n"
@@ -73,7 +74,6 @@ class Evaluation:
 
     def load_metadata(self, metadata_file="meta_data.yml"):
         '''Loads meta-data yaml-file and reads it to dict.'''
-        print("I was here bitch!")
         try:
             with open(self.working_dir+"\\"+metadata_file, 'r') as metadata_file:
                 metadata = yaml.load(metadata_file)
@@ -116,15 +116,22 @@ class Evaluation:
         self.content += title_section
     
 
+    def include_parameters(self):
+        '''writes experimental parameters in the document.'''
+        self.content += "\\begin{tabular}{ll}\n"
+        self.content += "Parameter&Value\\\\\n\\hline\\\\\n"
+        self.content += "\\end{tabular}\n"
+
     def include_plot(self, plot_file):
         '''includes image-file of a plot into the tex-file content.'''
-        self.content += "\\begin{figure}[h]\n"
-        
-        self.content += ("\\includegraphics[width=0.4\\textwidth]{"
+        self.content += "\\begin{figure}[H]\n"
+        self.content += "\\centering\n"
+        self.content += ("\\includegraphics[width=0.45\\textwidth]{"
                         + plot_file + "}\n")
-        self.content += "\\caption{This is a picture. Really!!!}\n"
+        self.content += "\\caption{Filename:"+re.sub(r"_",r"\_",plot_file)+"}\n"
         self.content += "\\end{figure}\n"
-    
+   
+
     def begin_document(self):
         self.content += "\\begin{document}\n"
 
@@ -139,15 +146,18 @@ class Evaluation:
         self.data_header()
         self.begin_document()
         self.maketitle()
+        self.include_parameters()
         images = glob('*.png') + glob('*.jpg')
         for image in images:
             self.include_plot(image)
         self.end_document()
         return(self.content)
-    
+   
+
     def write_tex(self):
         with open("Evaluation.tex","w") as texfile:
             texfile.write(self.content)
+
 
 # test-routine
 if __name__ == '__main__':
