@@ -112,8 +112,8 @@ class Experiment:
 
                 self.reference = reference
         
-        self.raw_spectra = list_of_spectra(self.source)
-        self.raw_maps = list_of_maps(self.source)
+        self.raw_spectra = self.list_of_spectra(self.source)
+        self.raw_maps = self.list_of_maps(self.source)
         self.spectra = self.list_of_spectra(self.working_dir)
         self.maps = self.list_of_maps(self.working_dir)
         
@@ -137,11 +137,14 @@ class Experiment:
     def list_of_spectra(self, source):
         '''Checks the filenames of txt-files to find Data corresponding to single
         spectra.'''
-        #chdir(source)
-        files_list = glob(source+"\\"+'*.txt')
-
+        old_dir=os.getcwd()
+        chdir(source)
+        files_list = glob('*.txt')
+        
         # does not include spectral maps.
         spectra = [entry for entry in files_list if "DC" not in entry]
+        
+        chdir(old_dir)
 
         return(spectra)
     
@@ -149,9 +152,11 @@ class Experiment:
     def list_of_maps(self, source):
         '''Checks the filenames of txt-files to find Data corresponding to
         spectral maps.'''
-        #chdir(source)
+        old_dir=os.getcwd()
+        chdir(source)
         files_list = glob(source+"\\"+'*.txt')
         maps = [entry for entry in files_list if re.match('.*DC.*map.*', entry)]
+        chdir(old_dir)
         return(maps)
 
 
@@ -264,7 +269,6 @@ class Experiment:
         plot_spectrum.set_ylim(spectrum.values.min() - 0.02 * spread,
                                 spectrum.values.max() + 0.02 * spread)
         
-
         # PLEASE find a more beautiful way.
         count = 0
         for i, j in parameters.items():
@@ -272,21 +276,41 @@ class Experiment:
             plt.text(spectrum.index[300],spectrum.max()*(0.95-0.05*count), j)
             count = count + 1
             print(count)
+        #TEST
+        plot_spectrum.plot([2.0,2.0],[0,2.0])
+        plot_spectrum = self.plot_line(
+                                    plot_spectrum, 2.1,
+                                    plot_spectrum.get_ylim())
+        #TEST-Ende
+        return(plot_spectrum)
+    
 
+    def plot_line(self, plot_spectrum, x, y_lim, label=''):
+        '''Plot a vertical line in an existing spectrum'''
+        print("I'm here")
+        plot_spectrum.plot([x, x], y_lim)
+        plot_spectrum.text(x, 0.8*y_lim[1], "90 degree bullshit", rotation=90,
+                rotation_mode='anchor')
         return(plot_spectrum)
 
 
     def plot_to_png(self, plot_spectrum, spec):
         '''Saves matplotlib-plot into png-file, given a name. Cuts off the last
         4 characters to eliminate file-endings.'''
+        old_dir=os.getcwd()
+        chdir(self.working_dir)
         fig = plot_spectrum.get_figure()
         fig.savefig(spec[:-4] + '.png')
+        chdir(old_dir)
 
 
     def save_as_csv(self, spectrum, spec):
         '''Writes spectrum-dataframe into csv-file, given a name minus the last
         4 characters to eliminate file endings.'''
+        old_dir=os.getcwd()
+        chdir(self.working_dir)
         spectrum.to_csv(spec[:-4] + '.csv')
+        chdir(old_dir)
 
 
     def plot_in_one(self, spectra):

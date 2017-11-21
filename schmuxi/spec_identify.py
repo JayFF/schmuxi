@@ -76,6 +76,7 @@ k_slider = Slider(start=1.7, end=2.2, value=K_energy, step=0.0001,
 k_fine_slider = Slider(start=(-0.05), end=0.05, value=0, step=0.00001,
 title='finetune magic')
 
+
 def adjust_replica(attr, old, new):
     '''display of phonon replica adjusted through position of valleys'''
     global K_energy
@@ -85,6 +86,7 @@ def adjust_replica(attr, old, new):
     new_data["ys"] = adjust_k_phonons(K_energy,phonons)[2]
     ds2.data = new_data
 
+
 def publish():
     '''Use spec_evaluation to export the current spectrum as png and txt'''
     plot = Session.plot_spectrum(current_spec) 
@@ -93,11 +95,16 @@ def publish():
     print("Exported")
     print(Session.working_dir)
 
+
 publish_button = Button(label="Fool Referees")
 publish_button.on_click(publish)
 spec_slider.on_change('value', display_spectrum)
 k_slider.on_change('value', adjust_replica)
 k_fine_slider.on_change('value', adjust_replica)
 panel = gridplot([[spec]])
-curdoc().add_root(column(panel,spec_slider,k_slider,k_fine_slider,
-    publish_button))
+curdoc().add_root(column(
+                        panel,
+                        spec_slider,
+                        k_slider,
+                        k_fine_slider,
+                        publish_button))
