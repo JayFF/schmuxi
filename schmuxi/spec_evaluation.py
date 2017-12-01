@@ -155,7 +155,7 @@ class Experiment:
         old_dir=os.getcwd()
         chdir(source)
         files_list = glob(source+"\\"+'*.txt')
-        maps = [entry for entry in files_list if re.match('.*DC.*map.*', entry)]
+        maps = [entry for entry in files_list if re.match('.*map.*', entry)]
         chdir(old_dir)
         return(maps)
 
@@ -185,17 +185,25 @@ class Experiment:
             if spectrum.iat[spectrum.idxmax()[1], 1] > cosmic_factor * spectrum.iat[spectrum.idxmax()[1]+cosmic_distance, 1]:
                 spectrum.set_value(spectrum.idxmax()[1],
                                    list(spectrum)[1],
-                                   (spectrum.iat[spectrum.idxmax()[1]-cosmic_distance,1] + spectrum.iat[spectrum.idxmax()[1]+cosmic_distance, 1]))
+                                   (spectrum.iat[spectrum.idxmax()[1]-cosmic_distance,1]
+                                  + spectrum.iat[spectrum.idxmax()[1]+cosmic_distance, 1]))
         return(spectrum)
     
  
-    def adjust_scale(self, spectrum, spec=None, exposure=None):
+    def adjust_scale(self, 
+                     spectrum, 
+                     spec=None, 
+                     exposure=None,
+                     overwrite_exposure=False,
+                     overwrite_rescaling=False):
         '''Calculates and names the x and y scale according to the
         configuration'''
+
         if self.convert_to_energy is True:
             spectrum.rename(columns={list(spectrum)[0]: 'Energy [eV]'}, inplace=True)
-            spectrum['Energy [eV]'] = 1239.82/spectrum['Energy [eV]']
-            spectrum = spectrum.sort_values("Energy [eV]", axis=0)
+            if overwrite_rescaling == False:
+                spectrum['Energy [eV]'] = 1239.82/spectrum['Energy [eV]']
+                spectrum = spectrum.sort_values("Energy [eV]", axis=0)
             spectrum.set_index("Energy [eV]", inplace=True)
         else:
             spectrum.rename(columns={list(spectrum)[0]: 'Wavelength [nm]'},
@@ -205,22 +213,29 @@ class Experiment:
         if self.normalize is True:
             spectrum.rename(columns={list(spectrum)[0]: "Intensity [norm.]"}, inplace=True)
             spectrum = spectrum/spectrum.max()
-        elif self.convert_to_rate is True and (spec is not None):
+        elif self.convert_to_rate is True and (spec is not None) and (overwrite_exposure == False): #+ is?
             if re.match(".*[0-9]+s.*", spec):
                 exposure = float(re.search("[0-9]+s", spec).group()[:-1])
                 print(exposure)
             spectrum.rename(columns={list(spectrum)[0]: "Counts p.s."}, inplace=True)
             spectrum = spectrum/exposure
-
+        else:
+            spectrum.rename(columns={list(spectrum)[0]: "Intensity [abs. counts]"}, inplace=True)
         return(spectrum)
 
 
-    def adjust_spectrum(self, spectrum, spec=None):
+    def adjust_spectrum(self,
+                        spectrum, 
+                        spec=None, 
+                        background=True,
+                        overwrite_exposure=False,
+                        overwrite_rescaling=False):
         '''cleans prepares the given spectral dataframe for plotting in
         accordance with the configuration-file'''
         
         # Erase Background
-        spectrum = self.adjust_background(spectrum)
+        if background == True:
+            spectrum = self.adjust_background(spectrum)
         
         # Erase Cosmics (work in progress)
         spectrum = self.cosmic_erase(
@@ -230,7 +245,10 @@ class Experiment:
             self.cosmic_factor)
 
         # Convert to Energy
-        spectrum = self.adjust_scale(spectrum, spec, self.exposure)
+        spectrum = self.adjust_scale(spectrum,
+                                     spec, 
+                                     self.exposure,
+                                     overwrite_exposure=overwrite_exposure)
         
         return(spectrum)
     
@@ -242,7 +260,7 @@ class Experiment:
         return(spectrum)
 
 
-    def plot_spectrum(self, spectrum, parameters=dict()):
+    def plot_spectrum(self, spectrum, parameters=dict(), lines=dict()):
         '''plots a single spectrum into png-file of the same name, according to the experimental configuration.'''
         plt.style.use('classic')
         plot_spectrum = spectrum.plot.line(legend=False)
@@ -277,20 +295,27 @@ class Experiment:
             count = count + 1
             print(count)
         #TEST
-        plot_spectrum.plot([2.0,2.0],[0,2.0])
-        plot_spectrum = self.plot_line(
-                                    plot_spectrum, 2.1,
-                                    plot_spectrum.get_ylim())
+        for key, value in lines.items():
+            plot_spectrum = self.plot_line(
+                                    plot_spectrum, value,
+                                    plot_spectrum.get_ylim(),
+                                    label=key)
         #TEST-Ende
         return(plot_spectrum)
     
 
-    def plot_line(self, plot_spectrum, x, y_lim, label=''):
+    def plot_line(self, plot_spectrum, x, y_lim, label='', color='red'):
         '''Plot a vertical line in an existing spectrum'''
         print("I'm here")
         plot_spectrum.plot([x, x], y_lim)
-        plot_spectrum.text(x, 0.8*y_lim[1], "90 degree bullshit", rotation=90,
-                rotation_mode='anchor')
+        plot_spectrum.text(
+                            x,
+                            0.8*y_lim[1],
+                            label,
+                            rotation=90,
+                            color=color,
+                            rotation_mode='anchor')
+
         return(plot_spectrum)
 
 
