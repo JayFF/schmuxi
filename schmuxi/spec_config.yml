@@ -29,7 +29,8 @@ general:
 #Map-Evaluation
 
 map_paras:
-        file: "01_DC-PLmap-bhn-WSe2-hbn-4K-630nm+-5nm-80x80-60Vx60V-100uW-6s_-20V.txt"
+        file: "Enc-WSe2-gate-630nm+-4nm-25uW-15x15um-30x30px-+15V.tsv.mat"
+        calibration_file: "Homogenious_1s.wlen_to_px.tsv.gz"
         dimensions: 80
         background: 98
 auto_paras:

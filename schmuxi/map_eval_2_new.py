@@ -14,37 +14,55 @@ with open("spec_config.yml", 'r') as ymlfile:
     cfg = yaml.load(ymlfile)
 
 dimensions = cfg["map_paras"]["dimensions"]
+dim_x = -1
+dim_y = -1
 background = cfg["map_paras"]["background"]
 working_dir = cfg["general"]["working_dir"]
 working_file = cfg["map_paras"]["file"]
+calibration_file = cfg["map_paras"]["calibration_file"]
+
 
 def labview_map(working_file):
     raw = np.loadtxt(working_dir + working_file)
     data = raw[6:]
     data3d = np.stack(np.vsplit(np.transpose(data)[1:],dimensions))-background
-
     calibration = data[:,0]
+    dim_x = dimensions
+    dim_y = dimensions
+    return(data3d, calibration, dim_x, dim_y)
 
-    return(data3d, calibration)
 
-
-def mat_map(working_file):
+def mat_map(working_file, reset_background=True):
     data = sio.loadmat(working_dir + working_file)
     data3d = data['spectra']
-    
-
+    print(np.shape(data3d))
+    print("^- up here")
+    dim_x = np.shape(data3d)[0]
+    print(dim_x)
+    dim_y = np.shape(data3d)[1]
+    if reset_background == True:
+        background = 0
+    data3d -= background
+    try:
+        calibration = data['wlen_to_px']
+    except:
+        calibration_data = pd.read_csv(working_dir + calibration_file, '\t', header=None)
+        calibration = np.array(list(calibration_data[0]))
+    print("calibrated with mat")
+    return(data3d, calibration, dim_x, dim_y)
+print("-v down here")
 if working_file[-4:] == ".txt":
-    data3d, calibration = labview_map(working_file)
+    data3d, calibration, dim_x, dim_y = labview_map(working_file)
 elif working_file[-4:] == ".mat":
-    data3d, calibration = mat_map(working_file)
+    data3d, calibration, dim_x, dim_y = mat_map(working_file)
 else:
     print("Nope. Your file is some serious bullshit. You will hear from me later.")
-
+print("here " + str(dim_x))
 #print(np.shape(np.transpose(data)[1:]))
 
 print(np.shape(data3d))
-x = np.repeat(range(dimensions),dimensions)
-y = np.tile(range(dimensions),dimensions)
+x = np.repeat(range(dim_x),dim_x)
+y = np.tile(range(dim_y),dim_y)
 z = np.sum(data3d,axis=2)
 z = z/np.max(z)
 print(np.shape(z))
@@ -52,20 +70,21 @@ print(np.shape(z))
 Session = Experiment()
 
 # Default
-x_spec = 40
-y_spec = 40
+x_spec = dim_x-1
+y_spec = dim_y-1
 
 x2=1239.8/calibration
 y2=data3d[x_spec,y_spec,:]
 
-Session.convert_to_energy = True
+Session.convert_to_energy = False
 
 TOOLS="hover,crosshair,pan,wheel_zoom,box_zoom,reset,tap,previewsave"
 
 spec_map = figure(width=500, height=500, x_range=(0,dimensions), y_range=(0,dimensions), tools=TOOLS)
 spec = figure(width=500, height = 500, tools=TOOLS)
-
-z = np.reshape(z,dimensions**2)
+print(np.shape(z))
+print(dim_x + dim_y)
+z = np.reshape(z,dim_x*dim_y)
 colors = ["#%02x%02x%02x" % (int(r), int(r), int(r/2)) for r in
         np.around(255*z)]
 
@@ -86,13 +105,13 @@ def display_spectrum(event):
     new_data["x"] = x2
     new_data["y"] = data3d[int(np.round(event.x)),int(np.round(event.y)),:]
     ds.data = new_data
-    
+
+
 def switch_calibration():
     '''switch between energy [eV] and wavelength [nm]'''
     global x2
     x2 = 1239.8/x2
     Session.convert_to_energy = not Session.convert_to_energy
-    print(Session.convert_to_energy)
 
 
 marker_slider = Slider(start=0, end=1, value=0.5,
@@ -108,9 +127,9 @@ def adjust_marker(attr, old, new):
     ds2.data = new_data
 
 
-
 def publish():
     '''publishes the currently displayed spectrum, using spec_evaluation.py'''
+    # Bad things happen here. Fix!
     publish_x = ds.data["x"]
     publish_y = ds.data["y"]
     publish_data = pd.DataFrame({'index': publish_x, 'values': publish_y})
