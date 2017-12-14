@@ -48,9 +48,8 @@ def mat_map(working_file, reset_background=True):
     except:
         calibration_data = pd.read_csv(working_dir + calibration_file, '\t', header=None)
         calibration = np.array(list(calibration_data[0]))
-    print("calibrated with mat")
     return(data3d, calibration, dim_x, dim_y)
-print("-v down here")
+
 if working_file[-4:] == ".txt":
     data3d, calibration, dim_x, dim_y = labview_map(working_file)
 elif working_file[-4:] == ".mat":
@@ -82,8 +81,6 @@ TOOLS="hover,crosshair,pan,wheel_zoom,box_zoom,reset,tap,previewsave"
 
 spec_map = figure(width=500, height=500, x_range=(0,dimensions), y_range=(0,dimensions), tools=TOOLS)
 spec = figure(width=500, height = 500, tools=TOOLS)
-print(np.shape(z))
-print(dim_x + dim_y)
 z = np.reshape(z,dim_x*dim_y)
 colors = ["#%02x%02x%02x" % (int(r), int(r), int(r/2)) for r in
         np.around(255*z)]
