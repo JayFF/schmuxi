@@ -15,46 +15,31 @@ import scipy.io as sio
 import pandas as pd
 from spec_evaluation import Experiment
 
+
 # --- Configration ---
 
 with open("spec_config.yml", 'r') as ymlfile:
     cfg = yaml.load(ymlfile)
 
-dimensions = cfg["map_paras"]["dimensions"]
-dim_x = -1
-dim_y = -1
-background = cfg["map_paras"]["background"]
 working_dir = cfg["general"]["working_dir"]
-working_file = cfg["map_paras"]["file"]
-calibration_file = cfg["map_paras"]["calibration_file"]
+working_file = cfg["sweep_paras"]["file"]
+calibration_wavelength = cfg["sweep_paras"]["calibration_wavelength"]
+calibration_parameters = cfg["sweep_paras"]["calibration_parameters"]
+
 
 # --- Function Declarations ---
 
-def labview_map(working_file):
-    raw = np.loadtxt(working_dir + working_file)
-    data = raw[6:]
-    data3d = np.stack(np.vsplit(np.transpose(data)[1:],dimensions))-background
-    calibration = data[:,0]
-    dim_x = dimensions
-    dim_y = dimensions
-    return(data3d, calibration, dim_x, dim_y)
-
-
-def mat_map(working_file, reset_background=True):
-    '''Loads a .mat file that describes a spectral mal'''
-    data = sio.loadmat(working_dir + working_file)
-    data3d = data['spectra']
-    dim_x = np.shape(data3d)[0]
-    dim_y = np.shape(data3d)[1]
-    if reset_background == True:
-        background = 0
-    data3d -= background
-    try:
-        calibration = data['wlen_to_px']
-    except:
-        calibration_data = pd.read_csv(working_dir + calibration_file, '\t', header=None)
-        calibration = np.array(list(calibration_data[0]))
-    return(data3d, calibration, dim_x, dim_y)
+def load_file(working_file, seperator="\t"):
+    '''loads a .tsv-file and initializes the sweep-data'''
+    data = pd.read_csv(working_dir + working_file, seperator)
+    data_matrix = data.as_matrix()
+    calibration_wave = pd.read_csv(working_dir + calibration_wavelength, '\t', header=None)
+    calibration_wave_list = np.array(list(calibration_wave[0]))
+    calibration_param = pd.read_csv(working_dir + calibration_parameters, '\t', header=None)
+    calibration_param_list = np.array(list(calibration_param[0]))
+    return(data_matrix,
+           calibration_wave_list,
+           calibration_pram_list)
 
 
 def display_spectrum(event):
@@ -96,32 +81,27 @@ def publish():
 
 # --- Skript starts ---
 
-if working_file[-4:] == ".txt":
-    data3d, calibration, dim_x, dim_y = labview_map(working_file)
-elif working_file[-4:] == ".mat":
-    data3d, calibration, dim_x, dim_y = mat_map(working_file)
-else:
-    print("Nope. Your file is some serious bullshit. You will hear from me later.")
 
-x = np.repeat(range(dim_x),dim_x)
-y = np.tile(range(dim_y),dim_y)
-z = np.sum(data3d,axis=2)
+sweep, calibration_wave, calibration_param = load_file(working_file)
+x = calibration_wave
+y = calibration_param
+z = sweep
 z = z/np.max(z)
 
 Session = Experiment()
 Session.convert_to_energy = False
 
-x2=1239.8/calibration
+x2=1239.8/calibration_wave
 
 
 # --- Data Visualization ---
 
 TOOLS="hover,crosshair,pan,wheel_zoom,box_zoom,reset,tap,previewsave"
 
-spec_map = figure(width=500, height=500, x_range=(-1,dim_x), y_range=(-1,dim_y), tools=TOOLS)
+sweep_figure = figure(width=500, height=500, x_range=(-1,len(x)), y_range=(-1,len(y)), tools=TOOLS)
 spec = figure(width=500, height = 500, tools=TOOLS)
 
-z = np.reshape(z,dim_x*dim_y)
+z_lines = [spec for spec in z]
 
 colors = ["#%02x%02x%02x" % (int(r), int(r), int(r/2)) for r in np.around(255*z)]
 
