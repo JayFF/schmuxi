@@ -1,4 +1,9 @@
-'''Interactive tool to evaluate spectral maps.'''
+'''Interactive tool to evaluate spectral maps.
+To use it use the following command:
+    
+bokeh serve --show evaluate_map.py
+
+Make sure, you have a config_file with the right name in the same folder.'''
 import numpy as np
 import matplotlib.pyplot as plt
 import yaml

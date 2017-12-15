@@ -33,6 +33,12 @@ map_paras:
         calibration_file: "Homogenious_1s.wlen_to_px.tsv.gz"
         dimensions: 80
         background: 98
+
+sweep_paras:
+        file: "lower_middle_061217_20s.Voltage_Sweep.tsv.gz"
+        calibration_wavelength: "lower_middle_061217_20s.wlen_to_px.tsv.gz"
+        calibration_parameter: "lower_middle_061217_20s.voltages.tsv.gz"
+
 auto_paras:
         use_auto: 'TRUE'
         erase_cosmics: 'TRUE'
