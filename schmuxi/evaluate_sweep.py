@@ -14,6 +14,7 @@ from bokeh.events import Tap
 import scipy.io as sio
 import pandas as pd
 from spec_evaluation import Experiment
+from math import e
 
 
 # --- Configration ---
@@ -24,7 +25,7 @@ with open("spec_config.yml", 'r') as ymlfile:
 working_dir = cfg["general"]["working_dir"]
 working_file = cfg["sweep_paras"]["file"]
 calibration_wavelength = cfg["sweep_paras"]["calibration_wavelength"]
-calibration_parameters = cfg["sweep_paras"]["calibration_parameters"]
+calibration_parameters = cfg["sweep_paras"]["calibration_parameter"]
 
 
 # --- Function Declarations ---
@@ -39,14 +40,14 @@ def load_file(working_file, seperator="\t"):
     calibration_param_list = np.array(list(calibration_param[0]))
     return(data_matrix,
            calibration_wave_list,
-           calibration_pram_list)
+           calibration_param_list)
 
 
 def display_spectrum(event):
     '''Display the spectrum for the clicked/tapped point on the map'''
     new_data = dict()
     new_data["x"] = x2
-    new_data["y"] = data3d[int(np.round(event.x)),int(np.round(event.y)),:]
+    new_data["y"] = sweep[int(np.round(event.y)),:]
     ds.data = new_data
 
 
@@ -56,6 +57,19 @@ def switch_calibration():
     x2 = 1239.8/x2
     Session.convert_to_energy = not Session.convert_to_energy
 
+
+def adjust_contrast():
+    '''adjust the contrast of the sweep'''
+    z = sweep
+    z = np.clip(z, 0, np.median(z)*contrast_slider.value)
+    z = z/np.max(z)
+    
+    stripe_image = sweep_figure.image(image=[z], 
+                                      x=0, y=0,
+                                      dw=np.shape(z)[1],
+                                      dh=np.shape(z)[0],
+                                      palette="Inferno256")
+    #contrast_slider
 
 def adjust_marker(attr, old, new):
     '''adjust the position of the marker'''
@@ -86,6 +100,7 @@ sweep, calibration_wave, calibration_param = load_file(working_file)
 x = calibration_wave
 y = calibration_param
 z = sweep
+z = np.clip(z, 0, np.median(z)*1)
 z = z/np.max(z)
 
 Session = Experiment()
@@ -101,16 +116,16 @@ TOOLS="hover,crosshair,pan,wheel_zoom,box_zoom,reset,tap,previewsave"
 sweep_figure = figure(width=500, height=500, x_range=(-1,len(x)), y_range=(-1,len(y)), tools=TOOLS)
 spec = figure(width=500, height = 500, tools=TOOLS)
 
-z_lines = [spec for spec in z]
+stripe_image = sweep_figure.image(image=[z], 
+                                  x=0, y=0,
+                                  dw=np.shape(z)[1],
+                                  dh=np.shape(z)[0],
+                                  palette="Inferno256")
+z_datasource = stripe_image.data_source
 
-colors = ["#%02x%02x%02x" % (int(r), int(r), int(r/2)) for r in np.around(255*z)]
+sweep_figure.on_event(Tap, display_spectrum)
 
-square_size = 7.7 *50/max(dim_x, dim_y)
-spec_map.scatter(x, y, marker="square", size=square_size, fill_color=colors,
-        line_color=None, selection_fill_color="red", nonselection_fill_alpha=0.8,
-        nonselection_fill_color="fill_color")
-spec_map.on_event(Tap, display_spectrum)
-
+print(z_datasource)
 
 # --- Interfaces ---
 
@@ -133,11 +148,20 @@ energy_wavelength.on_click(switch_calibration)
 publish_button = Button(label="Fool Referees")
 publish_button.on_click(publish)
 
+contrast_slider = Slider(start=0,
+                         end=10,
+                         value=3,
+                         step=0.02,
+                         title="Contrast")
+#contrast_slider.on_change('value', adjust_contrast)
+
+threshold_button = Button(label="Fuck up Contrast")
+threshold_button.on_click(adjust_contrast)
 
 # --- Display ---
 
-panel = gridplot([[spec_map, spec]])
+panel = gridplot([[sweep_figure, spec]])
 
 curdoc().add_root(column(marker_slider, energy_wavelength, panel,
-    publish_button))
+    publish_button, contrast_slider, threshold_button))
 
