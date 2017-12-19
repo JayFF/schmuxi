@@ -59,17 +59,20 @@ def switch_calibration():
 
 
 def adjust_contrast():
-    '''adjust the contrast of the sweep'''
+    '''adjusts contrast by mapping the values on a power-law and clipping high
+    values'''
     z = sweep
-    z = np.clip(z, 0, np.median(z)*contrast_slider.value)
+    z = np.clip(z, 0, np.median(z)*threshold_slider.value)
     z = z/np.max(z)
+    z = np.power(z, contrast_slider.value)
     
+    del stripe_image
     stripe_image = sweep_figure.image(image=[z], 
                                       x=0, y=0,
                                       dw=np.shape(z)[1],
                                       dh=np.shape(z)[0],
                                       palette="Inferno256")
-    #contrast_slider
+
 
 def adjust_marker(attr, old, new):
     '''adjust the position of the marker'''
@@ -148,6 +151,12 @@ energy_wavelength.on_click(switch_calibration)
 publish_button = Button(label="Fool Referees")
 publish_button.on_click(publish)
 
+threshold_slider = Slider(start=0,
+                          end=10,
+                          value=3,
+                          step=0.02,
+                          title="Upper Threshold / times median")
+
 contrast_slider = Slider(start=0,
                          end=10,
                          value=3,
@@ -155,13 +164,12 @@ contrast_slider = Slider(start=0,
                          title="Contrast")
 #contrast_slider.on_change('value', adjust_contrast)
 
-threshold_button = Button(label="Fuck up Contrast")
-threshold_button.on_click(adjust_contrast)
-
+contrast_button = Button(label="Fuck up Contrast")
+contrast_button.on_click(adjust_contrast)
 # --- Display ---
 
 panel = gridplot([[sweep_figure, spec]])
 
 curdoc().add_root(column(marker_slider, energy_wavelength, panel,
-    publish_button, contrast_slider, threshold_button))
+    publish_button, contrast_slider, contrast_button, threshold_slider))
 

@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import yaml
 from bokeh.plotting import curdoc, gridplot, figure, show, output_file
 from bokeh.layouts import column
-from bokeh.models import Button, TapTool, Slider
+from bokeh.models import Button, TapTool, Slider, RangeSlider
 from bokeh.events import Tap
 import scipy.io as sio
 import pandas as pd
@@ -24,6 +24,7 @@ dimensions = cfg["map_paras"]["dimensions"]
 dim_x = -1
 dim_y = -1
 background = cfg["map_paras"]["background"]
+source_dir = cfg["general"]["source_path"]
 working_dir = cfg["general"]["working_dir"]
 working_file = cfg["map_paras"]["file"]
 calibration_file = cfg["map_paras"]["calibration_file"]
@@ -42,7 +43,7 @@ def labview_map(working_file):
 
 def mat_map(working_file, reset_background=True):
     '''Loads a .mat file that describes a spectral mal'''
-    data = sio.loadmat(working_dir + working_file)
+    data = sio.loadmat(source_dir + working_file)
     data3d = data['spectra']
     dim_x = np.shape(data3d)[0]
     dim_y = np.shape(data3d)[1]
@@ -52,7 +53,7 @@ def mat_map(working_file, reset_background=True):
     try:
         calibration = data['wlen_to_px']
     except:
-        calibration_data = pd.read_csv(working_dir + calibration_file, '\t', header=None)
+        calibration_data = pd.read_csv(source_dir + calibration_file, '\t', header=None)
         calibration = np.array(list(calibration_data[0]))
     return(data3d, calibration, dim_x, dim_y)
 
@@ -62,6 +63,11 @@ def display_spectrum(event):
     new_data = dict()
     new_data["x"] = x2
     new_data["y"] = data3d[int(np.round(event.x)),int(np.round(event.y)),:]
+    print(use_background == True)
+    if use_background == True:
+        print("background is true")
+        new_data["y"] = (new_data["y"]-background_spec)/(background_spec+new_data["y"])
+
     ds.data = new_data
 
 
@@ -80,6 +86,21 @@ def adjust_marker(attr, old, new):
     ds2.data = new_data
 
 
+def select_background():
+    '''select current spectrum for differential display'''
+    global background_spec
+    global use_background
+    use_background = True
+    background_spec = ds.data["y"]
+    print(background_spec)
+    print(use_background == True)
+
+
+def use_background():
+    global use_background 
+    use_background = not use_background
+
+
 def publish():
     '''publishes the currently displayed spectrum, using spec_evaluation.py'''
     # Bad things can happen here. Find out and fix!
@@ -92,6 +113,20 @@ def publish():
                                        overwrite_rescaling=True)
     plot = Session.plot_spectrum(spectrum)
     Session.plot_to_png(plot, 'Fake_News.png')
+
+
+def adjust_image():
+    '''adjust contrast and ranges'''
+    z = np.sum(data3d, axis=2)
+    z = z/np.max(z)
+    z = np.power(z, contrast_slider.value)
+    
+    map_image = spec_map.image(image=[z.transpose((1,0))],
+                               x=0, y=0,
+                               dw=np.shape(z)[0],
+                               dh=np.shape(z)[1],
+                               palette="Inferno256")
+    spec_map.on_event(Tap, display_spectrum)
 
 
 # --- Skript starts ---
@@ -112,7 +147,7 @@ Session = Experiment()
 Session.convert_to_energy = False
 
 x2=1239.8/calibration
-
+##use_background = False
 
 # --- Data Visualization ---
 
@@ -121,14 +156,11 @@ TOOLS="hover,crosshair,pan,wheel_zoom,box_zoom,reset,tap,previewsave"
 spec_map = figure(width=500, height=500, x_range=(-1,dim_x), y_range=(-1,dim_y), tools=TOOLS)
 spec = figure(width=500, height = 500, tools=TOOLS)
 
-z = np.reshape(z,dim_x*dim_y)
-
-colors = ["#%02x%02x%02x" % (int(r), int(r), int(r/2)) for r in np.around(255*z)]
-
-square_size = 7.7 *50/max(dim_x, dim_y)
-spec_map.scatter(x, y, marker="square", size=square_size, fill_color=colors,
-        line_color=None, selection_fill_color="red", nonselection_fill_alpha=0.8,
-        nonselection_fill_color="fill_color")
+map_image = spec_map.image(image=[z.transpose((1,0))],
+                            x=0, y=0,
+                            dw=np.shape(z)[0],
+                            dh=np.shape(z)[1],
+                            palette="Inferno256")
 spec_map.on_event(Tap, display_spectrum)
 
 
@@ -153,11 +185,31 @@ energy_wavelength.on_click(switch_calibration)
 publish_button = Button(label="Fool Referees")
 publish_button.on_click(publish)
 
+contrast_slider = Slider(start=0,
+                         end=3,
+                         value=1,
+                         step=0.01,
+                         title="Contrast")
 
+image_button = Button(label="Fuck up your image")
+image_button.on_click(adjust_image)
+
+wavelength_slider = RangeSlider(start=np.min(x2),
+                                end=np.max(x2),
+                                step=(np.max(x2)-np.min(x2))/500,
+                                value=(np.min(x2), np.max(x2)),
+                                title='Energy Range')
+
+background_selection = Button(label="Mess with your background")
+background_selection.on_click(select_background)
+
+background_switch = Button(label="Make background great again")
+background_switch.on_click(use_background)
 # --- Display ---
 
 panel = gridplot([[spec_map, spec]])
 
 curdoc().add_root(column(marker_slider, energy_wavelength, panel,
-    publish_button))
+    publish_button, contrast_slider, image_button, wavelength_slider,
+    background_selection, background_switch))
 

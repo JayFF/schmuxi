@@ -15,8 +15,8 @@
 # from the source_path but not altered there. 
  
 general:
-        source_path: "V:\\temp\\Foerste\\SpectralAnalysis\\Core\\test\\" #path of the data-folder
-        working_dir: "V:\\temp\\Foerste\\SpectralAnalysis\\Core\\test\\results\\" #path of the evaluation
+        source_path: "V:\\temp\\Foerste\\Auswertungen\\2017-11-24-WSe2-Bilayer-GateControl-Isildur\\Raw_Data\\"# "V:\\temp\\Foerste\\SpectralAnalysis\\Core\\test\\" #path of the data-folder
+        working_dir: "V:\\temp\\Foerste\\Auswertungen\\2017-11-24-WSe2-Bilayer-GateControl-Isildur\\Evaluation\\" #path of the evaluation
         background: 98 #Counts
         laser: "WLS"
         objective: "unknown"
@@ -29,8 +29,8 @@ general:
 #Map-Evaluation
 
 map_paras:
-        file: "Enc-WSe2-gate-630nm+-4nm-25uW-15x15um-30x30px-+15V.tsv.mat"
-        calibration_file: "Homogenious_1s.wlen_to_px.tsv.gz"
+        file: "Refl-Enc-WSe2-4K-gate-0V-1s-15x15um-60x60px.tsv.mat"
+        calibration_file: "Upper_left_061217_20s.wlen_to_px.tsv.gz"
         dimensions: 80
         background: 98
 
