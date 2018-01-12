@@ -181,6 +181,7 @@ class Experiment:
         cosmic_distance,
         cosmic_factor):
         '''Routine for erasing "cosmics", random high intensity peaks'''
+        print("Ich bin schuld")
         for i in range(cosmic_cycles):
             if spectrum.iat[spectrum.idxmax()[1], 1] > cosmic_factor * spectrum.iat[spectrum.idxmax()[1]+cosmic_distance, 1]:
                 spectrum.set_value(spectrum.idxmax()[1],
@@ -195,7 +196,8 @@ class Experiment:
                      spec=None, 
                      exposure=None,
                      overwrite_exposure=False,
-                     overwrite_rescaling=False):
+                     overwrite_rescaling=False,
+                     y_scale=None):
         '''Calculates and names the x and y scale according to the
         configuration'''
 
@@ -221,6 +223,10 @@ class Experiment:
             spectrum = spectrum/exposure
         else:
             spectrum.rename(columns={list(spectrum)[0]: "Intensity [abs. counts]"}, inplace=True)
+
+        if y_scale != None:
+            spectrum.rename(columns={list(spectrum)[0]: y_scale}, inplace=True)
+
         return(spectrum)
 
 
@@ -229,7 +235,9 @@ class Experiment:
                         spec=None, 
                         background=True,
                         overwrite_exposure=False,
-                        overwrite_rescaling=False):
+                        overwrite_rescaling=False,
+                        erase_cosmics=True,
+                        y_scale=None):
         '''cleans prepares the given spectral dataframe for plotting in
         accordance with the configuration-file'''
         
@@ -238,17 +246,19 @@ class Experiment:
             spectrum = self.adjust_background(spectrum)
         
         # Erase Cosmics (work in progress)
-        spectrum = self.cosmic_erase(
-            spectrum,
-            self.cosmic_cycles,
-            self.cosmic_distance,
-            self.cosmic_factor)
+        if erase_cosmics == True:
+            spectrum = self.cosmic_erase(spectrum,
+                                         self.cosmic_cycles,
+                                         self.cosmic_distance,
+                                         self.cosmic_factor)
 
         # Convert to Energy
         spectrum = self.adjust_scale(spectrum,
                                      spec, 
                                      self.exposure,
-                                     overwrite_exposure=overwrite_exposure)
+                                     overwrite_exposure=overwrite_exposure,
+                                     overwrite_rescaling=overwrite_rescaling,
+                                     y_scale=y_scale)
         
         return(spectrum)
     
@@ -283,9 +293,11 @@ class Experiment:
         plot_spectrum.yaxis.set_major_locator(yloc)
 
         plot_spectrum.set_xlim(left=spectrum.index[0], right=spectrum.index[-1])
-        spread = spectrum.values.max()-spectrum.values.min()
-        plot_spectrum.set_ylim(spectrum.values.min() - 0.02 * spread,
-                                spectrum.values.max() + 0.02 * spread)
+        # PRELIMINARY BANNED - causes some problems with strange datasets from
+        # reflection measurements
+        #spread = spectrum.values.max()-spectrum.values.min()
+        #plot_spectrum.set_ylim(spectrum.values.min() - 0.02 * spread,
+        #                        spectrum.values.max() + 0.02 * spread)
         
         # PLEASE find a more beautiful way.
         count = 0

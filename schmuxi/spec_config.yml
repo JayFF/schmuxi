@@ -30,14 +30,15 @@ general:
 
 map_paras:
         file: "Refl-Enc-WSe2-4K-gate-0V-1s-15x15um-60x60px.tsv.mat"
-        calibration_file: "Upper_left_061217_20s.wlen_to_px.tsv.gz"
+        calibration_file: "Homogenious_1s.wlen_to_px.tsv.gz"
         dimensions: 80
         background: 98
 
 sweep_paras:
-        file: "lower_middle_061217_20s.Voltage_Sweep.tsv.gz"
+        file: "homo-Refl-1s-+-32V.Voltage_Sweep.tsv.gz"
         calibration_wavelength: "lower_middle_061217_20s.wlen_to_px.tsv.gz"
         calibration_parameter: "lower_middle_061217_20s.voltages.tsv.gz"
+        background_file: "Background-4K.csv"
 
 auto_paras:
         use_auto: 'TRUE'

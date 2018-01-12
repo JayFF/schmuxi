@@ -8,11 +8,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 import yaml
 from bokeh.plotting import curdoc, gridplot, figure, show, output_file
-from bokeh.layouts import column
+from bokeh.layouts import column, widgetbox, layout
+from bokeh.models.widgets import CheckboxButtonGroup, Select, MultiSelect, TextInput
 from bokeh.models import Button, TapTool, Slider, RangeSlider
 from bokeh.events import Tap
 import scipy.io as sio
 import pandas as pd
+import random
 from spec_evaluation import Experiment
 
 # --- Configration ---
@@ -50,11 +52,12 @@ def mat_map(working_file, reset_background=True):
     if reset_background == True:
         background = 0
     data3d -= background
-    try:
-        calibration = data['wlen_to_px']
-    except:
-        calibration_data = pd.read_csv(source_dir + calibration_file, '\t', header=None)
-        calibration = np.array(list(calibration_data[0]))
+    #try:
+        #calibration = data['wlen_to_px']
+        #print("I tried")
+    #except:
+    calibration_data = pd.read_csv(source_dir + calibration_file, '\t', header=None)
+    calibration = np.array(list(calibration_data[0]))
     return(data3d, calibration, dim_x, dim_y)
 
 
@@ -66,7 +69,7 @@ def display_spectrum(event):
     print(use_background == True)
     if use_background == True:
         print("background is true")
-        new_data["y"] = (new_data["y"]-background_spec)/(background_spec+new_data["y"])
+        new_data["y"] = (-new_data["y"]+background_spec)/(background_spec)#'''+new_data["y"]''')
 
     ds.data = new_data
 
@@ -107,12 +110,22 @@ def publish():
     publish_x = ds.data["x"]
     publish_y = ds.data["y"]
     publish_data = pd.DataFrame({'index': publish_x, 'values': publish_y})
+    erase_cosmics = True
+    y_scale = None
+    if map_type.value == 'Reflection':
+        erase_cosmics = False
+        global use_background
+        if use_background == True:
+            y_scale = "DR/R"
     spectrum = Session.adjust_spectrum(publish_data, 
                                        background=False,
                                        overwrite_exposure=True,
-                                       overwrite_rescaling=True)
+                                       overwrite_rescaling=True,
+                                       erase_cosmics = erase_cosmics,
+                                       y_scale = y_scale)
     plot = Session.plot_spectrum(spectrum)
-    Session.plot_to_png(plot, 'Fake_News.png')
+    Session.plot_to_png(plot, export_name.value + '.png')
+    Session.save_as_csv(publish_data, export_name.value + '.csv')
 
 
 def adjust_image():
@@ -143,9 +156,11 @@ y = np.tile(range(dim_y),dim_y)
 z = np.sum(data3d,axis=2)
 z = z/np.max(z)
 
+print(z)
 Session = Experiment()
-Session.convert_to_energy = False
+Session.convert_to_energy = True
 
+print(calibration)
 x2=1239.8/calibration
 ##use_background = False
 
@@ -179,10 +194,10 @@ marker_slider = Slider(start=0,
                        title="Marker")
 marker_slider.on_change('value', adjust_marker)
 
-energy_wavelength = Button(label="Fuck this up")
+energy_wavelength = Button(label="Switch Energy Scale")
 energy_wavelength.on_click(switch_calibration)
 
-publish_button = Button(label="Fool Referees")
+publish_button = Button(label="Export Spectrum")
 publish_button.on_click(publish)
 
 contrast_slider = Slider(start=0,
@@ -191,7 +206,7 @@ contrast_slider = Slider(start=0,
                          step=0.01,
                          title="Contrast")
 
-image_button = Button(label="Fuck up your image")
+image_button = Button(label="Confirm Image Settings")
 image_button.on_click(adjust_image)
 
 wavelength_slider = RangeSlider(start=np.min(x2),
@@ -200,16 +215,40 @@ wavelength_slider = RangeSlider(start=np.min(x2),
                                 value=(np.min(x2), np.max(x2)),
                                 title='Energy Range')
 
-background_selection = Button(label="Mess with your background")
+background_selection = Button(label="Select Background Spectrum")
 background_selection.on_click(select_background)
 
-background_switch = Button(label="Make background great again")
+background_switch = Button(label="Reset Background")
 background_switch.on_click(use_background)
+
+map_type = Select(title="Map Type", 
+                  value="Photoluminescence",
+                  options=["Photoluminescence",
+                           "Reflection"])
+
+default_list = ["FakeNews",
+                "BullshitNobodyWillBelieve",
+                "NothingofValue",
+                "PrankData",
+                "OverinterpretedNoise",
+                "PMMACoating",
+                "Whatever",
+                "DonttrustSomeoneWhoUsesDefaultFileNames"]
+random_default = random.choice(default_list)
+export_name = TextInput(value=random_default, title="File Name")
 # --- Display ---
 
 panel = gridplot([[spec_map, spec]])
 
-curdoc().add_root(column(marker_slider, energy_wavelength, panel,
-    publish_button, contrast_slider, image_button, wavelength_slider,
-    background_selection, background_switch))
+curdoc().add_root(layout([[panel,
+                           column(marker_slider,
+                                  wavelength_slider,
+                                  energy_wavelength,
+                                  contrast_slider,
+                                  image_button,
+                                  background_selection,
+                                  background_switch)],
+                           [column(map_type,
+                                   export_name,
+                                   publish_button)]]))
 
