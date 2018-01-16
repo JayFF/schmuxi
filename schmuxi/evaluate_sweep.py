@@ -32,31 +32,6 @@ background_file = cfg["sweep_paras"]["background_file"]
 
 # --- Function Declarations ---
 
-def load_file(working_file, seperator="\t"):
-    '''loads a .tsv-file and initializes the sweep-data'''
-    data = pd.read_csv(source_dir + working_file, seperator)
-    data_matrix = data.as_matrix()
-    calibration_wave = pd.read_csv(source_dir + calibration_wavelength, '\t', header=None)
-    calibration_wave_list = np.array(list(calibration_wave[0]))
-    calibration_param = pd.read_csv(source_dir + calibration_parameters, '\t', header=None)
-    calibration_param_list = np.array(list(calibration_param[0]))
-    print(np.shape(data_matrix))
-    print(np.shape(calibration_wave_list))
-    return(data_matrix,
-           calibration_wave_list,
-           calibration_param_list)
-
-
-def load_background(number_of_lines):
-    '''loads the background spectrum. Be careful. It has to fit.'''
-    background_data = pd.read_csv(source_dir + background_file)
-    background_list = background_data.as_matrix()[:,1]
-    print(background_list)
-    print(background_list.shape)
-    print(number_of_lines)
-    background = np.tile(background_list, (number_of_lines, 1))
-    print("Kooowazy")
-    return (background_list, background)
 
 
 def display_spectrum(event):
@@ -70,40 +45,85 @@ def display_spectrum(event):
     ds.data = new_data
 
 
-def switch_calibration():
+def switch_calibration(scale, conversion_factor=1239.8):
     '''switch between energy [eV] and wavelength [nm]'''
     global x2
     x2 = 1239.8/x2
     Session.convert_to_energy = not Session.convert_to_energy
+    return conversion_factor/scale
 
-
-def adjust_contrast():
-    '''adjusts contrast by mapping the values on a power-law and clipping high
-    values'''
-    z = sweep
-
-    global background
-    if background_check.active[0] == 0:
-        print(z + background)
-        z = (z - background)/(z + background + 0.1)
-    
-    #Prototype --
-
-    min_egy = 1.501
-    max_egy = 1.800
+class SweepImage:
     
 
-    z = np.clip(z, 0, np.median(z)*threshold_slider.value)
-    z = z/(np.max(z) + 0.02)
-    z = np.power(z, contrast_slider.value)
+    def __init__(self, working_file, seperator="\t"):
+        
+        self.sweep, self.calibration, self.sweep_parameter = self.load_file(working_file, seperator)
+        self.background = load_background(np.shape(self.sweep)[0])
+
+
+    def load_file(self, working_file, seperator="\t"):
+        '''loads a .tsv-file and initializes the sweep-data'''
+        data = pd.read_csv(source_dir + working_file, seperator)
+        data_matrix = data.as_matrix()
+        calibration_wave = pd.read_csv(source_dir + calibration_wavelength, '\t', header=None)
+        calibration_wave_list = np.array(list(calibration_wave[0]))
+        calibration_param = pd.read_csv(source_dir + calibration_parameters, '\t', header=None)
+        calibration_param_list = np.array(list(calibration_param[0]))
+        print(np.shape(data_matrix))
+        print(np.shape(calibration_wave_list))
+        return(data_matrix,
+               calibration_wave_list,
+               calibration_param_list)
+
+
+    def load_background(self, number_of_lines):
+        '''loads the background spectrum. Be careful. It has to fit.'''
+        background_data = pd.read_csv(source_dir + background_file)
+        background_list = background_data.as_matrix()[:,1]
+        print(background_list)
+        print(background_list.shape)
+        print(number_of_lines)
+        background = np.tile(background_list, (number_of_lines, 1))
+        print("Kooowazy")
+        return (background_list, background)
+
+
+    def adjust_contrast(self):
+        '''adjusts contrast by mapping the values on a power-law and clipping high
+        values'''
+        z = self.sweep
+        
      
+        self.background
+        if background_check.active[0] == 0:
+            print(z + background)
+            z = (z - background)/(z + background + 0.1)
+        
+        #Prototype --
+        
+        min_egy = 1.501
+        max_egy = 1.800
+        
+        
+        z = np.clip(z, 0, np.median(z)*threshold_slider.value)
+        z = z/(np.max(z) + 0.02)
+        z = np.power(z, contrast_slider.value)
+         
+        
+        stripe_image = sweep_figure.image(image=[z], 
+                                          x=0, y=0,
+                                          dw=np.shape(z)[1],
+                                          dh=np.shape(z)[0],
+                                          palette="Inferno256")
 
-    stripe_image = sweep_figure.image(image=[z], 
-                                      x=0, y=0,
-                                      dw=np.shape(z)[1],
-                                      dh=np.shape(z)[0],
-                                      palette="Inferno256")
+    def make_image(self):
+        '''renders an image of the sweep.'''
 
+        x = self.calibration
+        y = self.sweep_parameter
+        z = self.sweep
+        z = np.clip(z, 0, np.median(z)*1)
+        z = z/np.max(z)
 
 def adjust_marker(attr, old, new):
     '''adjust the position of the marker'''
@@ -144,11 +164,6 @@ def fix_intervall():
 sweep, calibration_wave, calibration_param = load_file(working_file)
 
 
-x = calibration_wave
-y = calibration_param
-z = sweep
-z = np.clip(z, 0, np.median(z)*1)
-z = z/np.max(z)
 
 Session = Experiment()
 Session.convert_to_energy = False

@@ -128,18 +128,6 @@ def publish():
     Session.save_as_csv(publish_data, export_name.value + '.csv')
 
 
-def adjust_image():
-    '''adjust contrast and ranges'''
-    z = np.sum(data3d, axis=2)
-    z = z/np.max(z)
-    z = np.power(z, contrast_slider.value)
-    
-    map_image = spec_map.image(image=[z.transpose((1,0))],
-                               x=0, y=0,
-                               dw=np.shape(z)[0],
-                               dh=np.shape(z)[1],
-                               palette="Inferno256")
-    spec_map.on_event(Tap, display_spectrum)
 
 
 # --- Skript starts ---
