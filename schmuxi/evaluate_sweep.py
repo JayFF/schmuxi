@@ -1,5 +1,5 @@
 '''Interactive tool to evaluate spectral sweeps.
-To use it use the following command:
+To use it type the following command:
     
 bokeh serve --show evaluate_map.py
 
@@ -45,12 +45,6 @@ def display_spectrum(event):
     ds.data = new_data
 
 
-def switch_calibration(scale, conversion_factor=1239.8):
-    '''switch between energy [eV] and wavelength [nm]'''
-    global x2
-    x2 = 1239.8/x2
-    Session.convert_to_energy = not Session.convert_to_energy
-    return conversion_factor/scale
 
 class SweepImage:
     
@@ -58,7 +52,10 @@ class SweepImage:
     def __init__(self, working_file, seperator="\t"):
         
         self.sweep, self.calibration, self.sweep_parameter = self.load_file(working_file, seperator)
-        self.background = load_background(np.shape(self.sweep)[0])
+        self.background, self.background_tiled = load_background(np.shape(self.sweep)[0])
+        self.x = self.calibration
+        self.y = self.sweep_parameter
+        
 
 
     def load_file(self, working_file, seperator="\t"):
@@ -88,16 +85,21 @@ class SweepImage:
         return (background_list, background)
 
 
+    def switch_calibration(scale, conversion_factor=1239.8):
+        '''switch between energy [eV] and wavelength [nm]'''
+        self.x = 1239.8/self.x
+        Session.convert_to_energy = not Session.convert_to_energy
+        return conversion_factor/scale
+    
+    
     def adjust_contrast(self):
         '''adjusts contrast by mapping the values on a power-law and clipping high
         values'''
         z = self.sweep
         
-     
-        self.background
         if background_check.active[0] == 0:
-            print(z + background)
-            z = (z - background)/(z + background + 0.1)
+            print(z + self.background_tiled)
+            z = (z - self.background_tiled)/(z + self.background_tiled + 0.1)
         
         #Prototype --
         
@@ -109,55 +111,117 @@ class SweepImage:
         z = z/(np.max(z) + 0.02)
         z = np.power(z, contrast_slider.value)
          
-        
+        return z
+
+
+    def make_image(self):
+        '''renders an image of the sweep.'''
+        z = self.adjust_contrast()
+
         stripe_image = sweep_figure.image(image=[z], 
                                           x=0, y=0,
                                           dw=np.shape(z)[1],
                                           dh=np.shape(z)[0],
                                           palette="Inferno256")
 
-    def make_image(self):
-        '''renders an image of the sweep.'''
 
-        x = self.calibration
-        y = self.sweep_parameter
-        z = self.sweep
-        z = np.clip(z, 0, np.median(z)*1)
-        z = z/np.max(z)
-
-def adjust_marker(attr, old, new):
-    '''adjust the position of the marker'''
-    new_data = dict()
-    new_data["x"] = [min(x2)+marker_slider.value*(max(x2)-min(x2)), min(x2)+marker_slider.value*(max(x2)-min(x2))]
-    new_data["y"] = [0,max(ds.data["y"])]
-    ds2.data = new_data
+    def adjust_marker(attr, old, new):
+        '''adjust the position of the marker'''
+        new_data = dict()
+        new_data["x"] = [min(x2)+marker_slider.value*(max(x2)-min(x2)), min(x2)+marker_slider.value*(max(x2)-min(x2))]
+        new_data["y"] = [0,max(ds.data["y"])]
+        ds2.data = new_data
 
 
-def publish():
-    '''publishes the currently displayed spectrum, using spec_evaluation.py'''
-    # Bad things can happen here. Find out and fix!
-    publish_x = ds.data["x"]
-    publish_y = ds.data["y"]
-    publish_data = pd.DataFrame({'index': publish_x, 'values': publish_y})
-    erase_cosmics = True
-    y_scale = None
-    if sweep_type.value == 'Reflection':
-        erase_cosmics = False
-        if background_check.active[0] == True:
-            y_scale = "DR/R"
-    spectrum = Session.adjust_spectrum(publish_data, 
-                                       background=False, 
-                                       overwrite_exposure=True,
-                                       overwrite_rescaling=True,
-                                       erase_cosmics = erase_cosmics)
-    plot = Session.plot_spectrum(spectrum)
-    Session.plot_to_png(plot, export_name.value + '.png')
-    Session.save_as_csv(publish_data, export_name.value + '.csv')
+    def publish():
+        '''publishes the currently displayed spectrum, using spec_evaluation.py'''
+        # Bad things can happen here. Find out and fix!
+        publish_x = ds.data["x"]
+        publish_y = ds.data["y"]
+        publish_data = pd.DataFrame({'index': publish_x, 'values': publish_y})
+        erase_cosmics = True
+        y_scale = None
+        if sweep_type.value == 'Reflection':
+            erase_cosmics = False
+            if background_check.active[0] == True:
+                y_scale = "DR/R"
+        spectrum = Session.adjust_spectrum(publish_data, 
+                                           background=False, 
+                                           overwrite_exposure=True,
+                                           overwrite_rescaling=True,
+                                           erase_cosmics = erase_cosmics)
+        plot = Session.plot_spectrum(spectrum)
+        Session.plot_to_png(plot, export_name.value + '.png')
+        Session.save_as_csv(publish_data, export_name.value + '.csv')
 
 
-def fix_intervall():
-    '''changes the intervall in Energy that contributes to the sweep image.'''
+    def fix_intervall():
+        '''changes the intervall in Energy that contributes to the sweep image.'''
 
+    
+    def widgets(self):
+        
+        self.marker_slider = Slider(start=0,
+                                    end=1,
+                                    value=0.5,
+                                    step=0.002,
+                                    title="Marker")
+        self.marker_slider.on_change('value', adjust_marker)
+
+        self.energy_wavelength = Button(label="Fuck this up")
+        self.energy_wavelength.on_click(self.switch_calibration)
+
+        self.publish_button = Button(label="Fool Referees")
+        self.publish_button.on_click(publish)
+
+        self.threshold_slider = Slider(start=0,
+                                       end=10,
+                                       value=3,
+                                       step=0.02,
+                                       title="Upper Threshold / times median")
+                
+        self.contrast_slider = Slider(start=0,
+                                      end=10,
+                                      value=3,
+                                      step=0.02,
+                                      title="Contrast")
+        #contrast_slider.on_change('value', adjust_contrast)
+
+        self.contrast_button = Button(label="Fuck up Contrast")
+        self.contrast_button.on_click(adjust_contrast)
+
+        self.background_check = CheckboxButtonGroup(labels=["Use Background"], active=[1])
+
+        self.export_name = TextInput(value="FAAAKE", title="File Name")
+
+        self.sweep_type = Select(title="Sweep Type",
+                                 value="Photoluminescence",
+                                 options=["Photoluminescence",
+                                          "Reflection"]) 
+
+        self.sweep_figure = figure(width=500,
+                                   height=500,
+                                   x_range=(-1,len(x)),
+                                   y_range=(-1,len(y)),
+                                   tools=TOOLS)
+
+        self.spec = figure(width=500, height = 500, tools=TOOLS)
+
+        stripe_image = sweep_figure.image(image=[z], 
+                                          x=0, y=0,
+                                          dw=np.shape(z)[1],
+                                          dh=np.shape(z)[0],
+                                          palette="Inferno256")
+        z_datasource = stripe_image.data_source
+
+        self.sweep_figure.on_event(Tap, display_spectrum)
+# --- Display ---
+
+panel = gridplot([[sweep_figure, spec]])
+
+curdoc().add_root(column(marker_slider, energy_wavelength, panel,
+    publish_button, contrast_slider, contrast_button, threshold_slider,
+    background_check, export_name, sweep_type))
 # --- Skript starts ---
 
 
@@ -175,17 +239,6 @@ background_list, background = load_background(np.shape(z)[0])
 
 TOOLS="hover,crosshair,pan,wheel_zoom,box_zoom,reset,tap,previewsave"
 
-sweep_figure = figure(width=500, height=500, x_range=(-1,len(x)), y_range=(-1,len(y)), tools=TOOLS)
-spec = figure(width=500, height = 500, tools=TOOLS)
-
-stripe_image = sweep_figure.image(image=[z], 
-                                  x=0, y=0,
-                                  dw=np.shape(z)[1],
-                                  dh=np.shape(z)[0],
-                                  palette="Inferno256")
-z_datasource = stripe_image.data_source
-
-sweep_figure.on_event(Tap, display_spectrum)
 
 print(z_datasource)
 
@@ -197,48 +250,4 @@ marker = spec.line(x=[marker_start_x,marker_start_x],y=[0,10], line_color="green
 ds = r.data_source
 ds2 = marker.data_source
 
-marker_slider = Slider(start=0,
-                       end=1,
-                       value=0.5,
-                       step=0.002,
-                       title="Marker")
-marker_slider.on_change('value', adjust_marker)
-
-energy_wavelength = Button(label="Fuck this up")
-energy_wavelength.on_click(switch_calibration)
-
-publish_button = Button(label="Fool Referees")
-publish_button.on_click(publish)
-
-threshold_slider = Slider(start=0,
-                          end=10,
-                          value=3,
-                          step=0.02,
-                          title="Upper Threshold / times median")
-
-contrast_slider = Slider(start=0,
-                         end=10,
-                         value=3,
-                         step=0.02,
-                         title="Contrast")
-#contrast_slider.on_change('value', adjust_contrast)
-
-contrast_button = Button(label="Fuck up Contrast")
-contrast_button.on_click(adjust_contrast)
-
-background_check = CheckboxButtonGroup(labels=["Use Background"], active=[1])
-
-export_name = TextInput(value="FAAAKE", title="File Name")
-
-sweep_type = Select(title="Sweep Type",
-                    value="Photoluminescence",
-                    options=["Photoluminescence",
-                             "Reflection"]) 
-# --- Display ---
-
-panel = gridplot([[sweep_figure, spec]])
-
-curdoc().add_root(column(marker_slider, energy_wavelength, panel,
-    publish_button, contrast_slider, contrast_button, threshold_slider,
-    background_check, export_name, sweep_type))
 

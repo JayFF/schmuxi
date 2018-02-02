@@ -15,9 +15,9 @@
 # from the source_path but not altered there. 
  
 general:
-        source_path: "V:\\temp\\Foerste\\Auswertungen\\2017-11-24-WSe2-Bilayer-GateControl-Isildur\\Raw_Data\\"# "V:\\temp\\Foerste\\SpectralAnalysis\\Core\\test\\" #path of the data-folder
-        working_dir: "V:\\temp\\Foerste\\Auswertungen\\2017-11-24-WSe2-Bilayer-GateControl-Isildur\\Evaluation\\" #path of the evaluation
-        background: 98 #Counts
+        source_path: "V:\\temp\\Foerste\\Auswertungen\\2017-02-01-WSe2-Monolayer-GateControl-Saruman\\Raw_Data\\"# "V:\\temp\\Foerste\\SpectralAnalysis\\Core\\test\\" #path of the data-folder
+        working_dir: "V:\\temp\\Foerste\\Auswertungen\\2017-02-01-WSe2-Monolayer-GateControl-Saruman\\Evaluation\\" #path of the evaluation
+        background: 0 #Counts
         laser: "WLS"
         objective: "unknown"
         setup: "confocal"
@@ -29,10 +29,10 @@ general:
 #Map-Evaluation
 
 map_paras:
-        file: "Refl-Enc-WSe2-4K-gate-0V-1s-15x15um-60x60px.tsv.mat"
-        calibration_file: "Homogenious_1s.wlen_to_px.tsv.gz"
+        file: "DCPLMap-WSe2-enc-60uW-610+-5nm-4K-0V-18x18um.tsv.mat"
+        calibration_file: "test-spectrumtest.wlen_to_px.tsv.gz"
         dimensions: 80
-        background: 98
+        background: 0
 
 sweep_paras:
         file: "homo-Refl-1s-+-32V.Voltage_Sweep.tsv.gz"
