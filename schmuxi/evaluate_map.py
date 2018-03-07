@@ -44,20 +44,22 @@ def labview_map(working_file):
 
 
 def mat_map(working_file, reset_background=True):
-    '''Loads a .mat file that describes a spectral mal'''
+    '''Loads a .mat file that describes a spectral map'''
+    print(source_dir + working_file)
     data = sio.loadmat(source_dir + working_file)
+    print("nailed it")
     data3d = data['spectra']
     dim_x = np.shape(data3d)[0]
     dim_y = np.shape(data3d)[1]
     if reset_background == True:
         background = 0
     data3d -= background
-    #try:
-        #calibration = data['wlen_to_px']
-        #print("I tried")
-    #except:
-    calibration_data = pd.read_csv(source_dir + calibration_file, '\t', header=None)
-    calibration = np.array(list(calibration_data[0]))
+    try:
+        calibration = data['wlen_to_px'][0,0]
+        print("I tried")
+    except:
+        calibration_data = pd.read_csv(source_dir + calibration_file, '\t', header=None)
+        calibration = np.array(list(calibration_data[0]))
     return(data3d, calibration, dim_x, dim_y)
 
 

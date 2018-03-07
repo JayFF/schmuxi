@@ -1,7 +1,7 @@
 '''Turns your raw txt-data of spectra into graphics & reports for your labbook or
 publication
 '''
-# import numpy as np
+import numpy as np
 import pandas as pd
 import yaml
 from glob import glob
@@ -11,6 +11,7 @@ import matplotlib.pyplot as plt
 import re
 from autofind_paras import find_parameters
 import logging
+from scipy.optimize import curve_fit
 #from pretreatment import replace_garbage
 
 default_config = "spec_config.yml"
